@@ -13,5 +13,5 @@ export default defineNuxtConfig({
     REFRESH_TOKEN_KEY: process.env.REFRESH_TOKEN_KEY,
     DATABASE_URL: process.env.DATABASE_URL,
   },
-  modules: ["@nuxtjs/tailwindcss", "@prisma/nuxt"],
+  modules: ["@nuxtjs/tailwindcss"],
 });
