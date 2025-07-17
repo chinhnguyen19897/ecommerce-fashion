@@ -19,7 +19,7 @@ const rules = {
   },
 };
 
-const signupStore = useSignupStore();
+const signupStore = useSignUpStore();
 const { registerInput } = storeToRefs(signupStore);
 
 const loading = ref(false);
@@ -52,24 +52,24 @@ async function submitForm() {
       <div></div>
       <div class="w-[300px] mt-20">
         <h1 class="text-2xl mb-3">Sign Up</h1>
-        <FormError :error="v$.$email.$errors">
+        <FormError :error="v$.email.$errors">
           <BaseInput
-            v-model="signupInput.email"
+            v-model="registerInput.email"
             :type="'text'"
             :placeholder="'info@gmail.com'"
           />
         </FormError>
-        <FormError :error="v$.$password.$errors">
+        <FormError :error="v$.password.$errors">
           <BaseInput
-            v-model="signupInput.password"
+            v-model="registerInput.password"
             :type="'password'"
             :placeholder="'Password'"
           />
         </FormError>
 
-        <FormError :error="v$.$name.$errors">
+        <FormError :error="v$.name.$errors">
           <BaseInput
-            v-model="signupInput.name"
+            v-model="registerInput.name"
             :type="'text'"
             :placeholder="'Name'"
           />

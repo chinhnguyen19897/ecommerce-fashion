@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import VOtp from "vue3-otp-input";
+import VOtpInput from "vue3-otp-input";
 
-const otpInput = ref<InstanceType<typeof VOtpInput | null>>(null);
+const otpInput = ref<InstanceType<typeof VOtpInput> | null>(null);
 const bindModal = ref("");
 
-const signUpStore = useSignupStore();
+const signUpStore = useSignUpStore();
 const { registerInput } = storeToRefs(signUpStore);
 
 const handleOnComplete = (otp: string) => {

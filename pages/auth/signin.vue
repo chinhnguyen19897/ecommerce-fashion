@@ -64,7 +64,7 @@ async function submitForm() {
       <div class="w-[300px] mt-20">
         <h1 class="text-2xl mb-3">Sign In</h1>
 
-        <FormError :error="v$.$email.$errors">
+        <FormError :error="v$.email.$errors">
           <BaseInput
             v-model="loginInput.email"
             :type="'text'"
@@ -72,7 +72,7 @@ async function submitForm() {
           />
         </FormError>
 
-        <FormError :error="v$.$password.$errors">
+        <FormError :error="v$.password.$errors">
           <BaseInput
             v-model="loginInput.password"
             :type="'password'"
