@@ -1,5 +1,4 @@
-<script stepup>
-export default {};
+<script setup>
 </script>
 
 <template>

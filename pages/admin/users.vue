@@ -6,7 +6,7 @@ definePageMeta({
 const userStore = useUserStore();
 const { userData, userError } = storeToRefs(userStore);
 
-const { $isAuthenticated } = useNuxtApp();
+// const { $isAuthenticated } = useNuxtApp();
 
 await userStore.fetchUsers();
 </script>

@@ -44,12 +44,13 @@ async function submitForm() {
     const userRole = res?.data?.user?.role;
     if (userRole === "CUSTOMER") {
       userCookie.value = res;
-      router.push("/");
+      // router.push("/");
+      router.push("/admin/dashboard");
     } else {
       console.log(res);
+      router.push("/admin/dashboard");
       userCookie.value = res;
 
-      router.push("/admin/dashboard");
     }
   } catch (error) {
     console.error(error);

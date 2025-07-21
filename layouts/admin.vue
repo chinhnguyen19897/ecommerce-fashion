@@ -95,14 +95,14 @@ const { $logout } = useNuxtApp();
         </button>
       </div>
       <nav class="flex-1 mt-4 space-y-2">
-        <nuxtLink
+         <nuxtLink
           v-for="menu in links"
           :key="menu"
           :to="menu.link"
-          href="#"
           class="flex items-center gap-4 px-4 py-2 text-gray-700 hover:bg-gray-100"
         >
           <component :is="menu.icon" />
+
           <span v-if="drawerOpen">{{ menu.menu }}</span>
         </nuxtLink>
       </nav>

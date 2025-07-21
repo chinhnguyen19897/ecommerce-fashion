@@ -1,7 +1,21 @@
 <script setup>
+import CategoryModal from "~/components/categories/CategoryModal.vue";
+
 definePageMeta({
   layout: "admin",
 });
+const showModal = ref(false);
+
+function toggleCategoryModal() {
+  showModal.value = !showModal.value;
+}
+
+const categoryStore = useCategoryStore()
+const { edit } = storeToRefs(categoryStore)
+
+
+const {data,getCategories}= await categoryStore.fetchCategories()
+
 </script>
 
 <template>

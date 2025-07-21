@@ -7,7 +7,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
   try {
     const fromAdminLayout = from?.meta?.layout;
     const toAdminLayout = to?.meta?.layout;
-    if (fromAdminLayout === "admin" || toAdminLayout === "admin") {
+    /*if (fromAdminLayout === "admin" || toAdminLayout === "admin") {
       const { data, error: authenticatedError } = await useFetch(
         "/api/admin/isAuthenticated",
         {
@@ -17,7 +17,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
         },
       );
       $isAuthenticated(authenticatedError) as any;
-    }
+    }*/
   } catch (error: any) {
     console.log(error?.message);
   }
