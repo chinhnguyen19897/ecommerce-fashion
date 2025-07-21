@@ -46,7 +46,9 @@ async function submitForm() {
       userCookie.value = res;
       router.push("/");
     } else {
+      console.log(res);
       userCookie.value = res;
+
       router.push("/admin/dashboard");
     }
   } catch (error) {
