@@ -18,7 +18,4 @@ export const productSchema = z.object({
 export const deleteProductSchema = z.object({
 
   id: z.number().positive('id should be a number'),
-
-
-
 });

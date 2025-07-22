@@ -4,9 +4,9 @@ definePageMeta({
 });
 
 const userStore = useUserStore();
-const { userData, userError } = storeToRefs(userStore);
+const {userData, userError} = storeToRefs(userStore);
 
-// const { $isAuthenticated } = useNuxtApp();
+const {$isAuthenticated} = useNuxtApp();
 
 await userStore.fetchUsers();
 </script>
@@ -14,7 +14,8 @@ await userStore.fetchUsers();
 <template>
   <div class="h-screen">
     <div class="flex justify-end mb-4 pt-4">
-      <UserTable :userData="userData" />
     </div>
+    {{ $isAuthenticated(userError) }}
+    <UserTable :userData="userData"/>
   </div>
 </template>

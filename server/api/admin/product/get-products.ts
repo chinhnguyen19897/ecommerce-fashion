@@ -7,7 +7,7 @@ export default withAuth(async (event) => {
   const page = parseInt(query?.page as string) || 1
   const limit = parseInt(query?.limit as string) || 10
 
-  const [product, total] = await Promise.all([
+  const [products, total] = await Promise.all([
     prisma.product.findMany({
       where: search ? {
         name: {
@@ -27,21 +27,21 @@ export default withAuth(async (event) => {
     }),
 
     prisma.product.count({
-            where: search ? {
-                name: {
-                    contains: search,
-                    mode: 'insensitive'
-                }
-            } : {},
+      where: search ? {
+        name: {
+          contains: search,
+          mode: 'insensitive'
+        }
+      } : {},
 
-        }),
+    }),
   ])
   return {
-        product, metadata: {
-            total,
-            page,
-            limit,
-            totalPages: Math.ceil(total / limit),
-        }
-    };
+    products, metadata: {
+      total,
+      page,
+      limit,
+      totalPages: Math.ceil(total / limit),
+    }
+  };
 })

@@ -1,7 +1,7 @@
 import {defineStore} from "pinia";
 
 export const useProductStore = defineStore('product-store', () => {
-  const productInput = reactive({
+  const productInput = ref({
     id: null,
     name: "",
     color: "",
@@ -9,7 +9,7 @@ export const useProductStore = defineStore('product-store', () => {
     price: 0
   })
   const uploadProductImages = ref([])
-  const productColors = ref(['red','black','white','green','blue','yellow','orange','gray'])
+  const productColors = ref(['red', 'black', 'white', 'green', 'blue', 'yellow', 'orange', 'gray'])
 
   const edit = ref(false)
   const search = ref("")
@@ -37,5 +37,62 @@ export const useProductStore = defineStore('product-store', () => {
     limit.value = productData?.value?.metadata.limit
     page.value = productData?.value?.metadata.page
   }
-  return {fetchProducts, productColors, productId, productInput}
+
+  async function deleteProduct(id: number) {
+    const res = await $fetch<{ message: string }>("api/admin/product/delete-product", {
+      headers: {
+        ...headers
+      },
+      method: 'DELETE',
+      body: JSON.stringify({id: id})
+    });
+    successMsg(res?.message)
+  }
+
+  async function changePage(newPage: number) {
+    page.value = newPage
+    await fetchProducts()
+  }
+
+  function uploadImagePayload(productId: number, file: string) {
+    return new Promise((resolve, reject) => {
+      try {
+        const formData = new FormData();
+
+        // formData.append("Authorization", headers?.Authorization);
+        formData.append("file", file);
+        formData.append("productId", productId.toString());
+
+
+        const requestOptions = {
+          headers: {
+            ...headers
+          },
+          method: "POST",
+          body: formData,
+        };
+        resolve(requestOptions)
+
+
+      } catch (error) {
+        reject(error)
+      }
+    })
+  }
+
+  return {
+    productId,
+    uploadProductImages,
+    showUploadedImageModal,
+    showUploadImage,
+    uploadImagePayload,
+    productInput,
+    search,
+    productData,
+    edit,
+    fetchProducts,
+    productColors,
+    changePage,
+    deleteProduct
+  }
 })

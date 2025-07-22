@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import BaseModal from "~/components/base/BaseModal.vue";
 
 const props = defineProps(["show"])
@@ -12,19 +12,20 @@ async function submitInput() {
   try {
     loading.value = true;
     const categoryEndpoint = edit?.value ?
-        "api/admin/category/update-category" :
-        "api/admin/category/create-category"
-    const res = await $fetch(categoryEndpoint, {
+        "/api/admin/category/update-category" :
+        "/api/admin/category/create-category"
+    const res = await $fetch<{ message: string }>(categoryEndpoint, {
       method: "POST",
       body: JSON.stringify(categoryInput.value),
       headers: {
         ...headers
-    }
+      }
     });
     loading.value = false;
     emit("getCategories")
+    emit("toggleCategoryModal");
     successMsg(res?.message)
-  }catch (err) {
+  } catch (err) {
     loading.value = false;
     showLoginOrSignUpError(err)
   }
@@ -32,27 +33,27 @@ async function submitInput() {
 </script>
 
 <template>
-<BaseModal v-show="show">
+  <BaseModal v-show="show">
     <template #title>
       <h1 class="text-2xl">Create category</h1>
     </template>
 
     <template #body>
       <BaseInput
-        v-model="categoryInput.name"
-        :type="'text'"
-        :placeholder="''"
+          v-model="categoryInput.name"
+          :placeholder="''"
+          :type="'text'"
       />
     </template>
 
     <template #footer>
 
       <BaseBtn class="bg-slate-400"
-      @click="emit('toggleCategoryModal')"
-      label="Close"></BaseBtn>
+               label="Close"
+               @click="emit('toggleCategoryModal')"></BaseBtn>
 
-      <BaseBtn :loading="loading" @click="submitInput"
-      :label="edit?'Update':'Create'"></BaseBtn>
+      <BaseBtn :label="edit?'Update':'Create'" :loading="loading"
+               @click="submitInput"></BaseBtn>
     </template>
   </BaseModal>
 </template>

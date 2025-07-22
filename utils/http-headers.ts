@@ -9,10 +9,8 @@ export function useHeaders() {
     };
   }> = useCookie("user", userCookieSettings);
   const accessToken = userCookie.value?.data?.token?.accessToken;
-  const headers = {
+  return {
     Accept: "application/json",
     Authorization: `Bearer ${accessToken}`,
   };
-
-  return headers;
 }
