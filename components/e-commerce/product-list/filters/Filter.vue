@@ -1,40 +1,85 @@
-<script lang="ts" setup>
+<script setup lang="ts">
+const attributesWithTerms = ref([{ slug: "pa_colour", name: "red" }]);
 
-import OrderByDropdown from "~/components/e-commerce/product-list/filters/OrderByDropdown.vue";
-import PriceFilter from "~/components/e-commerce/product-list/filters/PriceFilter.vue";
+const categoryStore = useCategoryStore();
+const { data } = await categoryStore.fetchCategories();
+const productStore = useProductStore();
+const { productColors } = storeToRefs(productStore);
 
-const attributesWithTerms = ref([{slug: "pa_colour", name: "red"}])
+const productEcomStore = useProductEcommerceStore();
+const { selectedCategories, selectedPrices, selectedColors, selectedStar } =
+  storeToRefs(productEcomStore);
 
-const categoryStore = useCategoryStore()
-const {data} = await categoryStore.fetchCategories()
-const productStore = useProductStore()
-const {productColors} = storeToRefs(productStore)
-
-const productEcomStore = useProductEcommerceStore()
-const {selectedCategories, selectedPrices, selectedColors, selectedStar} = storeToRefs(productEcomStore)
+async function fetchProductByCategories(categories: number[]) {
+  selectedCategories.value = categories;
+  await productEcomStore.fetchProducts(
+    selectedCategories.value,
+    selectedPrices.value,
+    selectedColors.value,
+  );
+}
+async function fetchProductByColors(colors: string[]) {
+  selectedColors.value = colors;
+  await productEcomStore.fetchProducts(
+    selectedCategories.value,
+    selectedPrices.value,
+    selectedColors.value,
+    selectedStar.value,
+  );
+}
 
 async function fetchProductByPrice(prices: number[]) {
-  selectedPrices.value = prices
-  await productEcomStore.fetchProducts(selectedCategories.value, selectedPrices.value,
-      selectedColors.value, selectedStar.value)
+  selectedPrices.value = prices;
+  await productEcomStore.fetchProducts(
+    selectedCategories.value,
+    selectedPrices.value,
+    selectedColors.value,
+    selectedStar.value,
+  );
+}
+
+async function fetchProductByStars(starRating: number) {
+  selectedStar.value = starRating;
+  await productEcomStore.fetchProducts(
+    selectedCategories.value,
+    selectedPrices.value,
+    selectedColors.value,
+    selectedStar.value,
+  );
 }
 </script>
 
 <template>
-  <aside id="filters-product">
-    <OrderByDropdown/>
+  <aside id="filters">
+    <OrderByDropdown class="block w-full md:hidden" />
     <div class="relative z-30 grid mb-12 space-y-8 divide-y">
-      <PriceFilter @fetch-products="fetchProductByPrice"/>
+      <PriceFilter @fetchProducts="fetchProductByPrice" />
+      <CategoryFilter
+        @fetchProducts="fetchProductByCategories"
+        :categories="data?.categories"
+      />
+
+      <div v-for="attribute in attributesWithTerms" :key="attribute.slug">
+        <ColorFilter
+          @fetchProducts="fetchProductByColors"
+          :colors="productColors"
+        />
+      </div>
+
+      <LazyStarRatingFilter @fetchProducts="fetchProductByStars" />
+      <LazyResetFiltersButton />
     </div>
   </aside>
-  <div class="fixed inset-0 z-50 hidden bg-black opacity-25 filter-overlay"></div>
+  <!-- @click="removeBodyClass('show-filters')" -->
+  <div
+    class="fixed inset-0 z-50 hidden bg-black opacity-25 filter-overlay"
+  ></div>
 </template>
 
 <style lang="postcss">
 .show-filters .filter-overlay {
   @apply block;
 }
-
 .show-filters {
   overflow: hidden;
 }
@@ -63,9 +108,10 @@ async function fetchProductByPrice(prices: number[]) {
   #filters {
     @apply bg-white h-full p-8 transform pl-2 transition-all ease-in-out bottom-0 left-4 -translate-x-[110vw] duration-300 overflow-auto fixed;
 
-    box-shadow: -100px 0 0 white,
-    -200px 0 0 white,
-    -300px 0 0 white;
+    box-shadow:
+      -100px 0 0 white,
+      -200px 0 0 white,
+      -300px 0 0 white;
     z-index: 60;
   }
 
@@ -74,3 +120,4 @@ async function fetchProductByPrice(prices: number[]) {
   }
 }
 </style>
+

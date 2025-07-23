@@ -8,11 +8,10 @@ const imgHeight = Math.round(imgWidth * 1.125);
 const config = useRuntimeConfig()
 
 const FALL_BACK_IMG_URL = config?.public?.FALL_BACK_IMG_URL
-
 </script>
 
 <template>
-  <div v-for="products in productData" :key="product?.id" class="relative group">
+  <div v-for="product in productData?.products" :key="product?.id" class="relative group">
     <NuxtLink :title="product?.name">
       <NuxtImg :alt="product?.name"
                :height="imgHeight"

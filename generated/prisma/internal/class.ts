@@ -22,7 +22,7 @@ const config: runtime.GetPrismaClientConfig = {
       "value": "prisma-client"
     },
     "output": {
-      "value": "E:\\app-ecommerce-fashion\\generated\\prisma",
+      "value": "/Users/chinh97/Projects/ecommerce-fashion/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -32,7 +32,7 @@ const config: runtime.GetPrismaClientConfig = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "windows",
+        "value": "darwin-arm64",
         "native": true
       },
       {
@@ -42,10 +42,14 @@ const config: runtime.GetPrismaClientConfig = {
       {
         "fromEnvVar": null,
         "value": "debian-openssl-3.0.x"
+      },
+      {
+        "fromEnvVar": null,
+        "value": "darwin-arm64"
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "E:\\app-ecommerce-fashion\\prisma\\schema.prisma",
+    "sourceFilePath": "/Users/chinh97/Projects/ecommerce-fashion/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativePath": "../../prisma",
@@ -55,6 +59,7 @@ const config: runtime.GetPrismaClientConfig = {
     "db"
   ],
   "activeProvider": "postgresql",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
@@ -63,8 +68,8 @@ const config: runtime.GetPrismaClientConfig = {
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider      = \"prisma-client\"\n  output        = \"../generated/prisma\"\n  moduleFormat  = \"esm\"\n  binaryTargets = [\"native\", \"windows\", \"debian-openssl-3.0.x\"]\n}\n\ndatasource db {\n  provider = \"postgres\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id           Int             @id @default(autoincrement())\n  email        String          @unique\n  isValidEmail Int\n  otpCode      String\n  name         String?\n  password     String\n  role         String?\n  reviews      ProductReview[]\n  payments     payment[]\n}\n\nmodel Category {\n  id       Int       @id @default(autoincrement())\n  name     String    @unique\n  products Product[]\n}\n\nmodel Product {\n  id           Int                  @id @default(autoincrement())\n  name         String\n  slug         String?\n  color        String\n  price        Decimal              @db.Decimal(10, 2)\n  categoryId   Int\n  category     Category             @relation(fields: [categoryId], references: [id])\n  images       Image[]\n  reviews      ProductReview[]\n  stars        productStar[]\n  starPercents productStarPercent[]\n  payments     payment[]\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n\nmodel payment {\n  id        Int     @id @default(autoincrement())\n  productId Int\n  userId    Int\n  amount    Decimal @db.Decimal(10, 2)\n  product   Product @relation(fields: [productId], references: [id])\n  user      User    @relation(fields: [userId], references: [id])\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n\nmodel productStarPercent {\n  id        Int      @id @default(autoincrement())\n  productId Int\n  times     Int\n  star      Int\n  product   Product  @relation(fields: [productId], references: [id])\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n\nmodel productStar {\n  id            Int      @id @default(autoincrement())\n  productId     Int\n  receivedStars Int\n  product       Product  @relation(fields: [productId], references: [id])\n  createdAt     DateTime @default(now())\n  updatedAt     DateTime @updatedAt\n}\n\nmodel ProductReview {\n  id         Int    @id @default(autoincrement())\n  userId     Int\n  starNumber Int\n  productId  Int\n  comment    String\n\n  user    User    @relation(fields: [userId], references: [id])\n  product Product @relation(fields: [productId], references: [id])\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n\nmodel Image {\n  id        Int     @id @default(autoincrement())\n  url       String\n  productId Int\n  product   Product @relation(fields: [productId], references: [id])\n}\n",
-  "inlineSchemaHash": "12487b38593aef641975f27169f02e29fb5cf258f2ec993a18bdac309e098513",
+  "inlineSchema": "generator client {\n  provider      = \"prisma-client\"\n  output        = \"../generated/prisma\"\n  moduleFormat  = \"esm\"\n  binaryTargets = [\"native\", \"windows\", \"debian-openssl-3.0.x\", \"darwin-arm64\"]\n}\n\ndatasource db {\n  provider = \"postgres\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id           Int             @id @default(autoincrement())\n  email        String          @unique\n  isValidEmail Int\n  otpCode      String\n  name         String?\n  password     String\n  role         String?\n  reviews      ProductReview[]\n  payments     payment[]\n}\n\nmodel Category {\n  id       Int       @id @default(autoincrement())\n  name     String    @unique\n  products Product[]\n}\n\nmodel Product {\n  id           Int                  @id @default(autoincrement())\n  name         String\n  slug         String?\n  color        String\n  price        Decimal              @db.Decimal(10, 2)\n  categoryId   Int\n  category     Category             @relation(fields: [categoryId], references: [id])\n  images       Image[]\n  reviews      ProductReview[]\n  stars        productStar[]\n  starPercents productStarPercent[]\n  payments     payment[]\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n\nmodel payment {\n  id        Int     @id @default(autoincrement())\n  productId Int\n  userId    Int\n  amount    Decimal @db.Decimal(10, 2)\n  product   Product @relation(fields: [productId], references: [id])\n  user      User    @relation(fields: [userId], references: [id])\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n\nmodel productStarPercent {\n  id        Int      @id @default(autoincrement())\n  productId Int\n  times     Int\n  star      Int\n  product   Product  @relation(fields: [productId], references: [id])\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n\nmodel productStar {\n  id            Int      @id @default(autoincrement())\n  productId     Int\n  receivedStars Int\n  product       Product  @relation(fields: [productId], references: [id])\n  createdAt     DateTime @default(now())\n  updatedAt     DateTime @updatedAt\n}\n\nmodel ProductReview {\n  id         Int    @id @default(autoincrement())\n  userId     Int\n  starNumber Int\n  productId  Int\n  comment    String\n\n  user    User    @relation(fields: [userId], references: [id])\n  product Product @relation(fields: [productId], references: [id])\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n\nmodel Image {\n  id        Int     @id @default(autoincrement())\n  url       String\n  productId Int\n  product   Product @relation(fields: [productId], references: [id])\n}\n",
+  "inlineSchemaHash": "29aba688c45f9a3299252f629a69197234a1e76867a63a7c1da33329526877c0",
   "copyEngine": true,
   "runtimeDataModel": {
     "models": {},
