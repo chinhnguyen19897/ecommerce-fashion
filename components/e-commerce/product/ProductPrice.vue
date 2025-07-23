@@ -4,12 +4,16 @@ interface ProductPriceProps {
   salePrice?: string | null;
 }
 
-const {regularPrice, salePrice} = defineProps<ProductPriceProps>();
+const { regularPrice, salePrice } = defineProps<ProductPriceProps>();
 </script>
 
 <template>
   <div class="flex font-semibold">
-    <span :class="{ 'text-gray-400 line-through font-normal': salePrice }" v-html="regularPrice"/>
-    <span v-if="salePrice" class="ml-2" v-html="salePrice"/>
+    <span
+      :class="{ 'text-gray-400 line-through font-normal': salePrice }"
+      v-html="regularPrice"
+    />
+    <span v-if="salePrice" class="ml-2" v-html="salePrice" />
   </div>
 </template>
+

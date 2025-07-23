@@ -1,17 +1,21 @@
 <template>
   <div
-    class="cursor-pointer flex font-semibold mt-8 leading-none justify-between items-center"
+    :class="[
+      'cursor-pointer flex font-semibold py-4 px-3 leading-none justify-between items-center hover:bg-[#E8E1D3]',
+      isOpened ? 'bg-[#E8E1D3]' : '',
+    ]"
+    @click="isOpened = !isOpened"
   >
     <span>{{ filterTitle }}</span>
     <Icon
       name="ion:chevron-down-outline"
-      class="transform"
-      :class="isOpened ? 'rotate-180' : ''"
+      class="transform transition-transform duration-300 ease-in-out"
+      :class="isOpened ? 'rotate-0' : '-rotate-90'"
     />
   </div>
   <div
     v-show="isOpened"
-    class="mt-3 mr-6 max-h-[240px] grid gap-1.5 swatches overflow-auto custom-scrollbar"
+    class="mt-3 mb-3 mr-6 max-h-[323px] grid gap-1.5 swatches overflow-auto custom-scrollbar"
   >
     <div
       v-for="color in colors"

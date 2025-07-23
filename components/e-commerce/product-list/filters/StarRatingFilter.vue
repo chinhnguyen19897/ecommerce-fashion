@@ -15,14 +15,20 @@ const radioClicked = (rating) => {
 <template>
   <div>
     <div
-      class="cursor-pointer flex font-semibold mt-8 leading-none justify-between items-center"
+      :class="[
+        'cursor-pointer flex font-semibold py-4 px-3 hover:bg-[#E8E1D3] transition duration-300 ease-in-out leading-none justify-between items-center',
+        isOpen ? 'bg-[#E8E1D3]' : '',
+      ]"
       @click="isOpen = !isOpen"
     >
       <span>Rating</span>
-      <Icon v-show="isOpen" name="ion:chevron-up-outline" />
-      <Icon v-show="!isOpen" name="ion:chevron-down-outline" />
+      <Icon
+        :class="isOpen ? 'rotate-0' : '-rotate-90'"
+        class="transform transition-transform duration-300 ease-in-out"
+        name="ion:chevron-down-outline"
+      />
     </div>
-    <div v-if="isOpen" class="mt-3 text-sm grid text-gray-500 gap-3">
+    <div v-if="isOpen" class="mt-3 mb-3 text-sm grid text-gray-500 gap-3">
       <div class="cursor-pointer flex gap-2 items-center">
         <input
           id="star-five"

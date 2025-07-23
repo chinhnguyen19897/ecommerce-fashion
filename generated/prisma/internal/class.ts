@@ -22,7 +22,7 @@ const config: runtime.GetPrismaClientConfig = {
       "value": "prisma-client"
     },
     "output": {
-      "value": "/Users/chinh97/Projects/ecommerce-fashion/generated/prisma",
+      "value": "E:\\app-ecommerce-fashion\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -32,7 +32,7 @@ const config: runtime.GetPrismaClientConfig = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "darwin-arm64",
+        "value": "windows",
         "native": true
       },
       {
@@ -49,7 +49,7 @@ const config: runtime.GetPrismaClientConfig = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/Users/chinh97/Projects/ecommerce-fashion/prisma/schema.prisma",
+    "sourceFilePath": "E:\\app-ecommerce-fashion\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativePath": "../../prisma",

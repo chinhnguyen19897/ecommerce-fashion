@@ -1,22 +1,25 @@
 <script setup>
-const productEcommerceStore = useProductEcommerceStore()
-const {productData} = storeToRefs(productEcommerceStore)
-await productEcommerceStore.fetchProducts()
+const productEcommerceStore = useProductEcommerceStore();
+const { productData } = storeToRefs(productEcommerceStore);
+await productEcommerceStore.fetchProducts();
 </script>
 
 <template>
   <Transition mode="out-in" name="fade">
     <section class="relative w-full">
-      <TransitionGroup class="grid grid-cols-3 gap-3" mode="in-out" name="shrink" tag="div">
-        <ProductCard :productData="productData"/>
+      <TransitionGroup
+        class="grid grid-cols-3 gap-9"
+        mode="in-out"
+        name="shrink"
+        tag="div"
+      >
+        <ProductCard :productData="productData" />
       </TransitionGroup>
     </section>
   </Transition>
 </template>
 
 <style lang="postcss" scoped>
-
-
 .product-grid:empty {
   display: none;
 }
@@ -38,8 +41,9 @@ await productEcommerceStore.fetchProducts()
 }
 
 .shrink-enter-active {
-  transition: opacity 400ms ease-out 200ms,
-  transform 400ms ease-out;
+  transition:
+    opacity 400ms ease-out 200ms,
+    transform 400ms ease-out;
   will-change: opacity, transform;
 }
 
@@ -50,3 +54,4 @@ await productEcommerceStore.fetchProducts()
   transform: scale(0.75) translateY(25%);
 }
 </style>
+

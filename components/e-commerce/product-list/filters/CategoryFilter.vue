@@ -10,7 +10,7 @@
     </div>
     <div
       v-show="isOpened"
-      class="mt-3 mr-1 max-h-[240px] grid gap-1.5 overflow-auto custom-srcollbar"
+      class="mt-3 mr-1 max-h-[323px] grid gap-1.5 overflow-auto custom-srcollbar"
     >
       <div v-for="category in categories" :key="category">
         <input

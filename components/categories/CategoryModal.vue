@@ -1,33 +1,33 @@
 <script lang="ts" setup>
 import BaseModal from "~/components/base/BaseModal.vue";
 
-const props = defineProps(["show"])
-const emit = defineEmits(['toggleCategoryModal', 'getCategories'])
-const headers = useHeaders()
-const categoryStore = useCategoryStore()
-const {categoryInput, edit} = storeToRefs(categoryStore)
-const loading = ref(false)
+const props = defineProps(["show"]);
+const emit = defineEmits(["toggleCategoryModal", "getCategories"]);
+const headers = useHeaders();
+const categoryStore = useCategoryStore();
+const { categoryInput, edit } = storeToRefs(categoryStore);
+const loading = ref(false);
 
 async function submitInput() {
   try {
     loading.value = true;
-    const categoryEndpoint = edit?.value ?
-        "/api/admin/category/update-category" :
-        "/api/admin/category/create-category"
-    const res = await $fetch<{ message: string }>(categoryEndpoint, {
+    const categoryEndpoint = edit?.value
+      ? "/api/admin/category/update-category"
+      : "/api/admin/category/create-category";
+    const res = await $fetch(categoryEndpoint, {
       method: "POST",
       body: JSON.stringify(categoryInput.value),
       headers: {
-        ...headers
-      }
+        ...headers,
+      },
     });
     loading.value = false;
-    emit("getCategories")
+    emit("getCategories");
     emit("toggleCategoryModal");
-    successMsg(res?.message)
+    successMsg(res?.message);
   } catch (err) {
     loading.value = false;
-    showLoginOrSignUpError(err)
+    showLoginOrSignUpError(err);
   }
 }
 </script>
@@ -40,24 +40,27 @@ async function submitInput() {
 
     <template #body>
       <BaseInput
-          v-model="categoryInput.name"
-          :placeholder="''"
-          :type="'text'"
+        v-model="categoryInput.name"
+        :placeholder="''"
+        :type="'text'"
       />
     </template>
 
     <template #footer>
+      <BaseBtn
+        class="bg-slate-400"
+        label="Close"
+        @click="emit('toggleCategoryModal')"
+      ></BaseBtn>
 
-      <BaseBtn class="bg-slate-400"
-               label="Close"
-               @click="emit('toggleCategoryModal')"></BaseBtn>
-
-      <BaseBtn :label="edit?'Update':'Create'" :loading="loading"
-               @click="submitInput"></BaseBtn>
+      <BaseBtn
+        :label="edit ? 'Update' : 'Create'"
+        :loading="loading"
+        @click="submitInput"
+      ></BaseBtn>
     </template>
   </BaseModal>
 </template>
 
-<style scoped>
+<style scoped></style>
 
-</style>

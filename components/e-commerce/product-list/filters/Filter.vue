@@ -52,7 +52,7 @@ async function fetchProductByStars(starRating: number) {
 <template>
   <aside id="filters">
     <OrderByDropdown class="block w-full md:hidden" />
-    <div class="relative z-30 grid mb-12 space-y-8 divide-y">
+    <div class="relative z-30 grid mb-12 divide-y">
       <PriceFilter @fetchProducts="fetchProductByPrice" />
       <CategoryFilter
         @fetchProducts="fetchProductByCategories"
@@ -85,7 +85,7 @@ async function fetchProductByStars(starRating: number) {
 }
 
 #filters {
-  @apply w-[280px];
+  @apply w-[323px];
 
   & .slider-connect {
     @apply bg-primary;
@@ -120,4 +120,3 @@ async function fetchProductByStars(starRating: number) {
   }
 }
 </style>
-
