@@ -1,5 +1,6 @@
 import type { Config } from "tailwindcss";
 import typography from "@tailwindcss/typography";
+import { _DEFAULT } from "#tailwind-config/theme/typography";
 
 export default <Partial<Config>>{
   content: [
@@ -12,7 +13,13 @@ export default <Partial<Config>>{
   theme: {
     container: {
       center: true,
-      padding: "1rem",
+      padding: {
+        DEFAULT: "1rem",
+        sm: "2rem",
+        lg: "4rem",
+        xl: "5rem",
+        "2xl": "6rem",
+      },
     },
     extend: {
       colors: {
