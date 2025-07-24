@@ -1,6 +1,12 @@
 <template>
   <div v-if="categories?.length">
-    <div class="cursor-pointer" @click="isOpened = !isOpened">
+    <div
+      :class="[
+        'cursor-pointer flex font-semibold py-4 px-3 leading-none justify-between items-center hover:bg-[#E8E1D3]',
+        isOpened ? 'bg-[#E8E1D3]' : '',
+      ]"
+      @click="isOpened = !isOpened"
+    >
       <span>Categories</span>
       <Icon
         name="ion:chevron-down-outline"
@@ -10,9 +16,13 @@
     </div>
     <div
       v-show="isOpened"
-      class="mt-3 mr-1 max-h-[323px] grid gap-1.5 overflow-auto custom-srcollbar"
+      class="my-3 mr-1 max-h-[323px] grid gap-1.5 overflow-auto custom-srcollbar"
     >
-      <div v-for="category in categories" :key="category">
+      <div
+        v-for="category in categories"
+        class="flex items-center gap-2"
+        :key="category"
+      >
         <input
           :id="category"
           type="checkbox"

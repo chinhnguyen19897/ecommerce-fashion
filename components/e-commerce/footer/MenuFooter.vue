@@ -1,7 +1,7 @@
 <template>
   <div class="col-span-3">
-    <h5>Menu</h5>
-    <ul class="text-xs">
+    <h5 class="text-[16px]">Menu</h5>
+    <ul class="text-sm">
       <li>Sale</li>
       <li>New Arrivals</li>
       <li>Formal Men</li>

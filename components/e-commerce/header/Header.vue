@@ -1,7 +1,7 @@
 <script stepup></script>
 
 <template>
-  <header class="relative top-0 bg-white my-4 container mx-auto px-[42px]">
+  <header class="relative top-0 bg-white py-4 container mx-auto px-[42px]">
     <div class="flex items-center justify-between">
       <div class="flex items-center justify-start">
         <Logo />

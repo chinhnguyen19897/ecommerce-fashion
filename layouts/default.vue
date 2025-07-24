@@ -1,10 +1,29 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+useHead({
+  link: [
+    {
+      rel: "stylesheet",
+      href: "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;@700&family=Inter:wght@400;500&display=swap",
+    },
+    {
+      rel: "stylesheet",
+      href: "https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap",
+    },
+  ],
+});
+</script>
 
 <template>
   <NuxtLoadingIndicator />
   <div class="flex flex-col min-h-screen">
     <Header />
-    <NuxtPage />
+    <main
+      role="main"
+      tabindex="-1"
+      class="mt-12 flex-1 container mx-auto px-[42px]"
+    >
+      <NuxtPage />
+    </main>
     <Footer />
   </div>
 </template>
@@ -14,6 +33,7 @@ html,
 body {
   @apply bg-white text-gray-900;
   scroll-behavior: smooth;
+  font-family: "Lato", sans-serif;
 }
 
 img {

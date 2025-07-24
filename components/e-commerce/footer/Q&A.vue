@@ -1,7 +1,7 @@
 <template>
   <div class="col-span-3">
     <h5>Get Help</h5>
-    <ul class="text-xs font-normal">
+    <ul class="text-sm font-normal">
       <li>Sale</li>
       <li>New Arrivals</li>
       <li>Formal Men</li>

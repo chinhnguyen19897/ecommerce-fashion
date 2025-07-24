@@ -15,7 +15,10 @@ const FALL_BACK_IMG_URL = config?.public?.FALL_BACK_IMG_URL;
     :key="product?.id"
     class="relative group"
   >
-    <NuxtLink :title="product?.name">
+    <NuxtLink
+      :title="product?.name"
+      :to="`/e-commerce/product/${product?.slug}`"
+    >
       <NuxtImg
         :alt="product?.name"
         :height="imgHeight"
@@ -56,4 +59,3 @@ const FALL_BACK_IMG_URL = config?.public?.FALL_BACK_IMG_URL;
 </template>
 
 <style scoped></style>
-

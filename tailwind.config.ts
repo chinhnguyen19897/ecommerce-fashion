@@ -22,6 +22,10 @@ export default <Partial<Config>>{
       },
     },
     extend: {
+      fontFamily: {
+        lato: ["Lato", "sans-serif"],
+        playfair: ["Playfair Display", "serif"],
+      },
       colors: {
         primary: {
           light: "#AE7DDD",
