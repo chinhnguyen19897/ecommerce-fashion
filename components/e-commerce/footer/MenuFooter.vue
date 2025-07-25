@@ -1,6 +1,6 @@
 <template>
   <div class="col-span-3">
-    <h5 class="text-[16px]">Menu</h5>
+    <h5 class="text-lg">Menu</h5>
     <ul class="text-sm">
       <li>Sale</li>
       <li>New Arrivals</li>

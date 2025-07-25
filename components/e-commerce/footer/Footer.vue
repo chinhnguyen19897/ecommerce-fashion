@@ -8,7 +8,7 @@
         <div class="col-span-8">
           <div class="grid grid-cols-12">
             <MenuFooter />
-            <Q&A />
+            <CustomerSupport />
             <AccountFooter />
           </div>
         </div>

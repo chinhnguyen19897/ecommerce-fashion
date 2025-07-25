@@ -1,6 +1,6 @@
 <template>
   <div class="col-span-3">
-    <h5>Account</h5>
+    <h5 class="text-lg">Account</h5>
     <ul class="text-sm">
       <li>Sale</li>
       <li>New Arrivals</li>

@@ -53,6 +53,7 @@
             v-for="size in sizes"
             :key="size"
             value="size"
+            @click="selectSize(value)"
             class="w-full cursor-pointer max-w-[64px] bg-[#C7B8B0] p-3 text-xl text-white text-center focus:bg-[#8B4513] cur"
           >
             {{ size }}
@@ -84,6 +85,7 @@
 const slug = useRoute().params.slug;
 const quantity = ref(1);
 const sizes = ref(["XXS", "S", "M", "L", "XL", "XXL"]);
+const sizeSelected = ref("");
 const productEcomStore = useProductEcommerceStore();
 const { singleProductData } = storeToRefs(productEcomStore);
 const productReviewStore = useProductReviewStore();
@@ -98,6 +100,11 @@ productEcomStore.fetchSingleProductData(slug).then(async () => {
 
   await productReviewStore.fetchProductReviews(productId);
 });
+
+const selectSize = (size) => {
+  console.log(size);
+  sizeSelected.value = size.value;
+};
 </script>
 
 <style scoped></style>
