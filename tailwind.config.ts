@@ -1,5 +1,4 @@
 import type { Config } from "tailwindcss";
-import typography from "@tailwindcss/typography";
 import { _DEFAULT } from "#tailwind-config/theme/typography";
 
 export default <Partial<Config>>{

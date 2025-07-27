@@ -20,6 +20,7 @@ model User {
   role         String?
   reviews      ProductReview[]
   payments     payment[]
+  carts        Cart[]
 }
 
 model Category {
@@ -41,10 +42,28 @@ model Product {
   stars        productStar[]
   starPercents productStarPercent[]
   payments     payment[]
-
+  CartItems    CartItem[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+model Cart {
+    id          Int     @id @default(autoincrement())
+    userId      Int
+    user        User    @relation(fields: [userId], references: [id]) 
+    items       CartItem[]
+    createdAt   DateTime @default(now()) 
+    updatedAt   DateTime @updatedAt 
+}
+
+model CartItem {
+    id          Int     @id @default(autoincrement())
+    cartId      Int
+    cart        Cart    @relation(fields: [cartId], references: [id])
+    productId   Int
+    product     Product @relation(fields: [productId], references: [id])
+    quantity    Int     @default(1)
+  }
 
 model payment {
   id        Int     @id @default(autoincrement())

@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
   compatibilityDate: "2025-05-15",
   ssr: true,
-  devtools: {enabled: true},
+  devtools: { enabled: true },
   nitro: {
     replace: {
       "import * as process": "import * as processUnsed",
@@ -32,13 +32,15 @@ export default defineNuxtConfig({
     REFRESH_TOKEN_KEY: process.env.REFRESH_TOKEN_KEY,
     DATABASE_URL: process.env.DATABASE_URL,
   },
-  tailwindcss: {exposeConfig: true},
-  modules: ["@nuxtjs/tailwindcss", "@pinia/nuxt", "nuxt-nodemailer",
+  tailwindcss: { exposeConfig: true },
+  modules: [
+    "@nuxtjs/tailwindcss",
+    "@pinia/nuxt",
+    "nuxt-nodemailer",
     "@nuxt/image",
-    '@nuxt/icon',
+    "@nuxt/icon",
   ],
   pinia: {
     storesDirs: ["./stores/**"],
   },
 });
-

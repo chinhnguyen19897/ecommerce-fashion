@@ -52,24 +52,28 @@
           <div
             v-for="size in sizes"
             :key="size"
-            value="size"
-            @click="selectSize(value)"
-            class="w-full cursor-pointer max-w-[64px] bg-[#C7B8B0] p-3 text-xl text-white text-center focus:bg-[#8B4513] cur"
+            @click="() => selectSize(size)"
+            :class="[
+              'w-full cursor-pointer max-w-[64px] p-3 text-xl text-white text-center',
+              sizeSelected === size ? 'bg-[#8B4513]' : 'bg-[#C7B8B0]',
+            ]"
           >
             {{ size }}
           </div>
         </div>
         <div class="my-8">
-          <p class="text-xl text-[#B4B4B4]">Quantity</p>
-          <div class="flex gap-6">
-            <input
+          <p class="text-xl mb-4 text-[#B4B4B4]">Quantity</p>
+          <div class="flex w-full">
+            <BaseInputNumber
+              :min="1"
+              :max="10"
               v-model="defaultQuantity"
-              type="number"
-              min="1"
               aria-label="Quantity"
+              class="mr-6"
             />
+
             <AddToCartButton
-              class="flex-1 w-full md:max-w-xs"
+              class="flex-1 w-full"
               @click="shoppingCartStore.addToCart(singleProductData?.products)"
               :disabled="false"
               :class="{ loading: true }"
@@ -85,7 +89,7 @@
 const slug = useRoute().params.slug;
 const quantity = ref(1);
 const sizes = ref(["XXS", "S", "M", "L", "XL", "XXL"]);
-const sizeSelected = ref("");
+const sizeSelected = ref("XXS");
 const productEcomStore = useProductEcommerceStore();
 const { singleProductData } = storeToRefs(productEcomStore);
 const productReviewStore = useProductReviewStore();
@@ -94,7 +98,6 @@ const shoppingCartStore = useCartStore();
 const { cartData, showCart, defaultQuantity } = storeToRefs(shoppingCartStore);
 
 productEcomStore.fetchSingleProductData(slug).then(async () => {
-  console.log(singleProductData.value);
   const categoryId = singleProductData?.value?.products?.categoryId;
   const productId = singleProductData?.value?.products?.id;
 
@@ -103,7 +106,7 @@ productEcomStore.fetchSingleProductData(slug).then(async () => {
 
 const selectSize = (size) => {
   console.log(size);
-  sizeSelected.value = size.value;
+  sizeSelected.value = size;
 };
 </script>
 

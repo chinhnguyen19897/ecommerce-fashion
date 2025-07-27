@@ -8,12 +8,13 @@ const isLoading = ref(false);
 <template>
   <button
     type="submit"
-    class="rounded-lg flex font-bold bg-gray-800 text-white text-center min-w-[150px] p-2.5 gap-4 items-center justify-center focus:outline-none"
+    class="flex bg-[#8B4513] text-white text-center text-lg font-lato uppercase font-normal tracking-[2px] p-2.5 gap-4 items-center justify-center focus:outline-none"
     :class="{ disabled: false }"
     :disabled="disabled"
   >
-    <span>Add to cart</span>
-    <LoadingIcon v-if="isLoading" stroke="4" size="12" color="#fff" />
+    <p class="w-full">Add to cart</p>
+    <CartIcon size="12" color="#fff" class="mr-3" />
+    <LoadingIcon v-if="isLoading" size="12" color="#fff" />
   </button>
 </template>
 

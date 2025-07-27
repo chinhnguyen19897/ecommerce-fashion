@@ -1,0 +1,42 @@
+
+# Node modules
+node_modules
+**/node_modules
+
+# Build output
+dist
+.nuxt
+.output
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Git
+.git
+.gitignore
+
+# Env files (chứa secret)
+.env
+.env.*  # includes .env.local, .env.dev, etc.
+
+# Editor/IDE settings
+.vscode
+.idea
+*.swp
+*.swo
+
+# Docker config files (nếu không muốn copy vào image)
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Prisma: giữ lại schema & migrations
+!prisma/
