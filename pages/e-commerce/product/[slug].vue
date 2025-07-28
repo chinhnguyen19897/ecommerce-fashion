@@ -2,8 +2,8 @@
   <div class="mb-11">
     <div class="flex flex-col gap-12 md:flex-row">
       <ProductImageGallery
-        class="xl:max-w-[656px] w-full"
-        :images="singleProductData?.products?.images"
+          :images="singleProductData?.products?.images"
+          class="xl:max-w-[656px] w-full"
       />
       <div class="lg:max-w-md xl:max-w-[670px] md:py-2 w-full">
         <div class="flex justify-between">
@@ -14,21 +14,21 @@
         </div>
         <div class="mt-3">
           <h1
-            class="text-7xl font-medium mb-4 text-[#3E3E3E] font-playfair uppercase py-4"
+              class="text-7xl font-medium mb-4 text-[#3E3E3E] font-playfair uppercase py-4"
           >
             {{ singleProductData?.products?.name }}
           </h1>
         </div>
         <div class="flex gap-10">
           <ProductPrice
-            :isSingleProductPage="true"
-            :regular-price="
+              :isSingleProductPage="true"
+              :regular-price="
               formatCurrency(Number(singleProductData?.products?.price))
             "
-            :sale-price="
+              :sale-price="
               formatCurrency(Number(singleProductData?.products?.price))
             "
-            class="text-sm"
+              class="text-sm"
           />
         </div>
         <div class="my-8">
@@ -50,13 +50,13 @@
         </div>
         <div class="my-8 flex gap-3 items-center">
           <div
-            v-for="size in sizes"
-            :key="size"
-            @click="() => selectSize(size)"
-            :class="[
+              v-for="size in sizes"
+              :key="size"
+              :class="[
               'w-full cursor-pointer max-w-[64px] p-3 text-xl text-white text-center',
               sizeSelected === size ? 'bg-[#8B4513]' : 'bg-[#C7B8B0]',
             ]"
+              @click="() => selectSize(size)"
           >
             {{ size }}
           </div>
@@ -65,18 +65,18 @@
           <p class="text-xl mb-4 text-[#B4B4B4]">Quantity</p>
           <div class="flex w-full">
             <BaseInputNumber
-              :min="1"
-              :max="10"
-              v-model="defaultQuantity"
-              aria-label="Quantity"
-              class="mr-6"
+                v-model="valueInput"
+                :max="10"
+                :min="1"
+                aria-label="Quantity"
+                class="mr-6"
             />
 
             <AddToCartButton
-              class="flex-1 w-full"
-              @click="shoppingCartStore.addToCart(singleProductData?.products)"
-              :disabled="false"
-              :class="{ loading: true }"
+                :class="{ loading: true }"
+                :disabled="false"
+                class="flex-1 w-full"
+                @click="addToCart(singleProductData?.products?.id)"
             />
           </div>
         </div>
@@ -87,15 +87,15 @@
 
 <script setup>
 const slug = useRoute().params.slug;
-const quantity = ref(1);
+const valueInput = ref(1);
 const sizes = ref(["XXS", "S", "M", "L", "XL", "XXL"]);
 const sizeSelected = ref("XXS");
 const productEcomStore = useProductEcommerceStore();
-const { singleProductData } = storeToRefs(productEcomStore);
+const {singleProductData} = storeToRefs(productEcomStore);
 const productReviewStore = useProductReviewStore();
-const { productReviews } = storeToRefs(productReviewStore);
+const {productReviews} = storeToRefs(productReviewStore);
 const shoppingCartStore = useCartStore();
-const { cartData, showCart, defaultQuantity } = storeToRefs(shoppingCartStore);
+const {cartData, showCart} = storeToRefs(shoppingCartStore);
 
 productEcomStore.fetchSingleProductData(slug).then(async () => {
   const categoryId = singleProductData?.value?.products?.categoryId;
@@ -103,6 +103,23 @@ productEcomStore.fetchSingleProductData(slug).then(async () => {
 
   await productReviewStore.fetchProductReviews(productId);
 });
+
+
+const addToCart = async (productId) => {
+  try {
+
+    await $fetch('/api/e-commerce/cart', {
+      method: "POST",
+      body: {
+        productId: productId,
+        quantity: valueInput.value
+      }
+    })
+    await shoppingCartStore.fetchCartData()
+  } catch (e) {
+    console.error(e)
+  }
+}
 
 const selectSize = (size) => {
   console.log(size);

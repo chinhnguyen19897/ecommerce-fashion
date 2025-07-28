@@ -3,7 +3,7 @@ import prisma from "~/lib/prisma";
 export default defineEventHandler(async (event) => {
   const itemId = event.context.params?.itemId;
   const body = await readBody(event);
-  const { quantity } = body;
+  const {quantity} = body;
 
   if (!itemId || typeof quantity !== "number") {
     throw createError({
@@ -11,13 +11,12 @@ export default defineEventHandler(async (event) => {
       message: "Invalid request",
     });
   }
-  const updateItem = await prisma.cartItem.update({
+  return prisma.cartItem.update({
     where: {
-      id: itemId,
+      id: Number(itemId),
     },
     data: {
       quantity: quantity,
     },
   });
-  return updateItem;
 });

@@ -1,18 +1,19 @@
-import prisma from "~/lib/prisma";
+import {getCookie} from 'h3'
+import prisma from '~/lib/prisma'
 
 export default defineEventHandler(async (event) => {
-  const userId = event.context.params?.userId;
+  const cartToken = getCookie(event, 'cart_token')
 
-  if (!userId) {
+  if (!cartToken) {
     throw createError({
       statusCode: 400,
-      message: "Missing userId",
-    });
+      message: 'Missing cart token',
+    })
   }
 
-  const cart = await prisma.cart.findFirst({
+  const cart = await prisma.cart.findUnique({
     where: {
-      userId: Number(userId),
+      cartToken: cartToken,
     },
     include: {
       items: {
@@ -21,19 +22,21 @@ export default defineEventHandler(async (event) => {
         },
       },
     },
-  });
+  })
+
   if (!cart) {
     return {
       items: [],
       totalAmount: 0,
-    };
+    }
   }
+
   const totalAmount = cart.items.reduce((acc, item: any) => {
-    return acc + item.quantity * item.product.price;
-  }, 0);
+    return acc + item.quantity * item.product.price
+  }, 0)
 
   return {
     ...cart,
     totalAmount,
-  };
-});
+  }
+})

@@ -1,4 +1,4 @@
-import prisma } from "~/lib/prisma";
+import prisma from "~/lib/prisma";
 
 export default defineEventHandler(async (event) => {
   const itemId = event.context.params?.itemId;
@@ -10,11 +10,9 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  const cartItem = await prisma.cartItem.delete({
+  return prisma.cartItem.delete({
     where: {
-      id: itemId,
+      id: Number(itemId),
     },
   });
-
-  return cartItem;
 });

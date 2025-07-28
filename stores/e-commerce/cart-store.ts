@@ -1,5 +1,6 @@
 import {defineStore} from "pinia";
 
+
 export const useCartStore = defineStore('cart-store', () => {
   const cartData = ref<Record<string, any>>([])
   const showCart = ref<boolean>(false)
@@ -20,6 +21,13 @@ export const useCartStore = defineStore('cart-store', () => {
       cartData.value = JSON.parse(data)
       getTotalPrice()
     }
+  }
+
+  async function fetchCartData() {
+    const cart = await $fetch('/api/e-commerce/cart', {
+      method: "GET"
+    })
+    cartData.value = cart.items
   }
 
   function addToCart(product: Record<string, any>) {
@@ -117,6 +125,7 @@ export const useCartStore = defineStore('cart-store', () => {
     clearOutCart,
     removeProductToCart,
     toggleCartDrawer,
+    fetchCartData,
     showCart
   }
 })

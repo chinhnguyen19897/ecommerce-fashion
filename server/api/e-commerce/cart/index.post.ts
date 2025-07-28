@@ -2,25 +2,52 @@ import prisma from "~/lib/prisma";
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
-  const { userId, productId, quantity } = body;
+  const {userId, productId, quantity} = body;
+  const cartToken = getCookie(event, "cart_token");
 
-  if (!userId || !productId || !quantity) {
+  if (!cartToken) {
+    throw createError({statusCode: 400, message: "Missing cart token"});
+  }
+  if (!productId || !quantity) {
     throw createError({
       statusCode: 400,
       message: "Missing required parameters",
     });
   }
 
-  let cart = await prisma.cart.findFrist({
-    where: {
-      userId: userId,
-    },
-    include: {
-      items: true,
-    },
-  });
+  let cart;
+  if (userId) {
+    cart = await prisma.cart.findFirst({
+      where: {
+        userId: userId,
+      },
+      include: {
+        items: true,
+      },
+    });
+  } else if (cartToken) {
+    cart = await prisma.cart.findUnique({
+      where: {cartToken},
+      include: {items: true},
+    });
+  }
 
-  if (!cart) {
+  if (!cart && !userId) {
+    cart = await prisma.cart.create({
+      data: {
+        cartToken: cartToken,
+        items: {
+          create: {
+            productId: productId,
+            quantity: quantity,
+          },
+        },
+      },
+      include: {
+        items: true,
+      },
+    });
+  } else if (!cart && userId) {
     cart = await prisma.cart.create({
       data: {
         userId: userId,
@@ -36,7 +63,7 @@ export default defineEventHandler(async (event) => {
       },
     });
   } else {
-    const existItem = cart.items.find((i: any) => i.productId === productId);
+    const existItem = cart?.items.find((i: any) => i.productId === productId);
     if (existItem) {
       await prisma.cartItem.update({
         where: {
@@ -49,7 +76,7 @@ export default defineEventHandler(async (event) => {
     } else {
       await prisma.cartItem.create({
         data: {
-          cartId: cart.id,
+          cartId: cart?.id,
           productId: productId,
           quantity: quantity,
         },
@@ -57,5 +84,9 @@ export default defineEventHandler(async (event) => {
     }
   }
 
-  return { message: "Cart added successfully" };
+  return {
+    cartId: cart?.id,
+    cartToken: cart?.cartToken,
+    message: "Cart added successfully",
+  };
 });
