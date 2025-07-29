@@ -1,8 +1,8 @@
-import type { Config } from "tailwindcss";
-import { _DEFAULT } from "#tailwind-config/theme/typography";
+import type { Config } from 'tailwindcss'
 
-export default <Partial<Config>>{
-  content: [
+export default {
+    darkMode: ["class"],
+    content: [
     "./components/**/*.{js,vue,ts}",
     "./layouts/**/*.vue",
     "./pages/**/*.vue",
@@ -10,35 +10,85 @@ export default <Partial<Config>>{
     "./nuxt.config.{js,ts}",
   ],
   theme: {
-    container: {
-      center: true,
-      padding: {
-        DEFAULT: "1rem",
-        sm: "2rem",
-        lg: "4rem",
-        xl: "5rem",
-        "2xl": "6rem",
-      },
-    },
-    extend: {
-      fontFamily: {
-        lato: ["Lato", "sans-serif"],
-        playfair: ["Playfair Display", "serif"],
-      },
-      colors: {
-        primary: {
-          light: "#AE7DDD",
-          DEFAULT: process.env.PRIMARY_COLOR || "#7F54B2",
-          dark: "#754fa3",
-        },
-      },
-      aspectRatio: {
-        "9/8": "1 / 1.125",
-      },
-      screens: {
-        "2xl": "1400px",
-      },
-    },
+  	container: {
+  		center: true,
+  		padding: {
+  			DEFAULT: '1rem',
+  			sm: '2rem',
+  			lg: '4rem',
+  			xl: '5rem',
+  			'2xl': '6rem'
+  		}
+  	},
+  	extend: {
+  		fontFamily: {
+  			lato: [
+  				'Lato',
+  				'sans-serif'
+  			],
+  			playfair: [
+  				'Playfair Display',
+  				'serif'
+  			]
+  		},
+  		colors: {
+  			primary: {
+  				light: '#AE7DDD',
+  				DEFAULT: 'hsl(var(--primary))',
+  				dark: '#754fa3',
+  				foreground: 'hsl(var(--primary-foreground))'
+  			},
+  			background: 'hsl(var(--background))',
+  			foreground: 'hsl(var(--foreground))',
+  			card: {
+  				DEFAULT: 'hsl(var(--card))',
+  				foreground: 'hsl(var(--card-foreground))'
+  			},
+  			popover: {
+  				DEFAULT: 'hsl(var(--popover))',
+  				foreground: 'hsl(var(--popover-foreground))'
+  			},
+  			secondary: {
+  				DEFAULT: 'hsl(var(--secondary))',
+  				foreground: 'hsl(var(--secondary-foreground))'
+  			},
+  			muted: {
+  				DEFAULT: 'hsl(var(--muted))',
+  				foreground: 'hsl(var(--muted-foreground))'
+  			},
+  			accent: {
+  				DEFAULT: 'hsl(var(--accent))',
+  				foreground: 'hsl(var(--accent-foreground))'
+  			},
+  			destructive: {
+  				DEFAULT: 'hsl(var(--destructive))',
+  				foreground: 'hsl(var(--destructive-foreground))'
+  			},
+  			border: 'hsl(var(--border))',
+  			input: 'hsl(var(--input))',
+  			ring: 'hsl(var(--ring))',
+  			chart: {
+  				'1': 'hsl(var(--chart-1))',
+  				'2': 'hsl(var(--chart-2))',
+  				'3': 'hsl(var(--chart-3))',
+  				'4': 'hsl(var(--chart-4))',
+  				'5': 'hsl(var(--chart-5))'
+  			}
+  		},
+  		aspectRatio: {
+  			'9/8': '1 / 1.125'
+  		},
+  		screens: {
+  			'2xl': '1400px'
+  		},
+  		borderRadius: {
+  			lg: 'var(--radius)',
+  			md: 'calc(var(--radius) - 2px)',
+  			sm: 'calc(var(--radius) - 4px)'
+  		}
+  	}
   },
-  plugins: [require("@tailwindcss/typography")],
-};
+  plugins: [require("@tailwindcss/typography"), require("tailwindcss-animate")],
+} satisfies Config
+
+
