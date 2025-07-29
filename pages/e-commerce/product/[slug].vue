@@ -2,8 +2,8 @@
   <div class="mb-11">
     <div class="flex flex-col gap-12 md:flex-row">
       <ProductImageGallery
-          :images="singleProductData?.products?.images"
-          class="xl:max-w-[656px] w-full"
+        :images="singleProductData?.products?.images"
+        class="xl:max-w-[656px] w-full"
       />
       <div class="lg:max-w-md xl:max-w-[670px] md:py-2 w-full">
         <div class="flex justify-between">
@@ -14,21 +14,21 @@
         </div>
         <div class="mt-3">
           <h1
-              class="text-7xl font-medium mb-4 text-[#3E3E3E] font-playfair uppercase py-4"
+            class="text-7xl font-medium mb-4 text-[#3E3E3E] font-playfair uppercase py-4"
           >
             {{ singleProductData?.products?.name }}
           </h1>
         </div>
         <div class="flex gap-10">
           <ProductPrice
-              :isSingleProductPage="true"
-              :regular-price="
+            :isSingleProductPage="true"
+            :regular-price="
               formatCurrency(Number(singleProductData?.products?.price))
             "
-              :sale-price="
+            :sale-price="
               formatCurrency(Number(singleProductData?.products?.price))
             "
-              class="text-sm"
+            class="text-sm"
           />
         </div>
         <div class="my-8">
@@ -50,13 +50,13 @@
         </div>
         <div class="my-8 flex gap-3 items-center">
           <div
-              v-for="size in sizes"
-              :key="size"
-              :class="[
+            v-for="size in sizes"
+            :key="size"
+            :class="[
               'w-full cursor-pointer max-w-[64px] p-3 text-xl text-white text-center',
               sizeSelected === size ? 'bg-[#8B4513]' : 'bg-[#C7B8B0]',
             ]"
-              @click="() => selectSize(size)"
+            @click="() => selectSize(size)"
           >
             {{ size }}
           </div>
@@ -65,37 +65,42 @@
           <p class="text-xl mb-4 text-[#B4B4B4]">Quantity</p>
           <div class="flex w-full">
             <BaseInputNumber
-                v-model="valueInput"
-                :max="10"
-                :min="1"
-                aria-label="Quantity"
-                class="mr-6"
+              v-model="valueInput"
+              :max="10"
+              :min="1"
+              aria-label="Quantity"
+              class="mr-6"
             />
-
             <AddToCartButton
-                :class="{ loading: true }"
-                :disabled="false"
-                class="flex-1 w-full"
-                @click="addToCart(singleProductData?.products?.id)"
+              :class="{ loading: loading.value }"
+              :disabled="false"
+              class="flex-1 w-full"
+              @click="addToCart(singleProductData?.products?.id)"
             />
           </div>
         </div>
       </div>
     </div>
   </div>
+
+<DrawerCustom title="Cart" v-model:modelValue="open" side="right" width="w-[400px]"/>
 </template>
 
 <script setup>
+import DrawerCustom from "~/components/ui/shared/DrawerCustom/DrawerCustom.vue";
+
 const slug = useRoute().params.slug;
 const valueInput = ref(1);
+const open = ref(false);
+const loading = ref(false);
 const sizes = ref(["XXS", "S", "M", "L", "XL", "XXL"]);
 const sizeSelected = ref("XXS");
 const productEcomStore = useProductEcommerceStore();
-const {singleProductData} = storeToRefs(productEcomStore);
+const { singleProductData } = storeToRefs(productEcomStore);
 const productReviewStore = useProductReviewStore();
-const {productReviews} = storeToRefs(productReviewStore);
+const { productReviews } = storeToRefs(productReviewStore);
 const shoppingCartStore = useCartStore();
-const {cartData, showCart} = storeToRefs(shoppingCartStore);
+const { cartData, showCart } = storeToRefs(shoppingCartStore);
 
 productEcomStore.fetchSingleProductData(slug).then(async () => {
   const categoryId = singleProductData?.value?.products?.categoryId;
@@ -104,22 +109,24 @@ productEcomStore.fetchSingleProductData(slug).then(async () => {
   await productReviewStore.fetchProductReviews(productId);
 });
 
-
 const addToCart = async (productId) => {
+  loading.value = true;
   try {
-
-    await $fetch('/api/e-commerce/cart', {
+    await $fetch("/api/e-commerce/cart", {
       method: "POST",
       body: {
         productId: productId,
-        quantity: valueInput.value
-      }
-    })
-    await shoppingCartStore.fetchCartData()
+        quantity: valueInput.value,
+      },
+    });
+    await shoppingCartStore.fetchCartData();
+    open.value = true;
+    loading.value = false;
   } catch (e) {
-    console.error(e)
+    loading.value = false;
+    console.error(e);
   }
-}
+};
 
 const selectSize = (size) => {
   console.log(size);

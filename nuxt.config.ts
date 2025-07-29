@@ -32,14 +32,21 @@ export default defineNuxtConfig({
     REFRESH_TOKEN_KEY: process.env.REFRESH_TOKEN_KEY,
     DATABASE_URL: process.env.DATABASE_URL,
   },
-  tailwindcss: { exposeConfig: true },
   modules: [
     "@nuxtjs/tailwindcss",
+    "shadcn-nuxt",
     "@pinia/nuxt",
     "nuxt-nodemailer",
     "@nuxt/image",
     "@nuxt/icon",
   ],
+  shadcn: {
+    prefix: "",
+    componentDir: "./components/ui",
+  },
+  tailwindcss: {
+    exposeConfig: true,
+  },
   pinia: {
     storesDirs: ["./stores/**"],
   },
