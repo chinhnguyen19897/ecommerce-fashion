@@ -83,7 +83,11 @@
     </div>
   </div>
 
-<DrawerCustom title="Cart" v-model:modelValue="open" side="right" width="w-[400px]"/>
+  <DrawerCustom v-model:modelValue="open" side="right" title="Cart" width="w-[400px]">
+    <div>
+      <div v-for="product in cartData" >{{product}}</div>
+    </div>
+  </DrawerCustom>
 </template>
 
 <script setup>
@@ -101,7 +105,6 @@ const productReviewStore = useProductReviewStore();
 const { productReviews } = storeToRefs(productReviewStore);
 const shoppingCartStore = useCartStore();
 const { cartData, showCart } = storeToRefs(shoppingCartStore);
-
 productEcomStore.fetchSingleProductData(slug).then(async () => {
   const categoryId = singleProductData?.value?.products?.categoryId;
   const productId = singleProductData?.value?.products?.id;
