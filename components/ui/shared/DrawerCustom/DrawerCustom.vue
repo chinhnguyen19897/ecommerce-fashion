@@ -61,7 +61,7 @@ const onOpenChange = (val: boolean) => {
             <slot />
           </div>
           <DrawerFooter>
-            <slot />
+            <slot name="footer" />
           </DrawerFooter>
         </DrawerContent>
       </DrawerPortal>
