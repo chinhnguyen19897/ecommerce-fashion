@@ -1,23 +1,29 @@
 <template>
-  <div class="relative flex items-center max-w-[135px] w-full">
+  <div
+    :style="{ maxWidth: maxWidth }"
+    class="relative flex items-center w-full"
+  >
     <input
-        :aria-label="ariaLabel"
-        :max="max"
-        :min="min"
-        :v-model="valueDefault"
-        :value="modelValue"
-        class="w-full appearance-none text-xl text-[#3E3E3E] font-lato font-light g-transparent h-[50px] text-center outline-none border border-[#3E3E3E]"
-        type="number"
-        @change="(event) => onChange(event)"
+      :aria-label="ariaLabel"
+      :max="max"
+      :min="min"
+      :v-model="valueDefault"
+      :value="modelValue"
+      :class="[
+        'w-full appearance-none text-center outline-none border',
+        inputClass,
+      ]"
+      type="number"
+      @change="(event) => onChange(event)"
     />
     <div class="absolute flex items-center inset-y-0 end-0 ps-1">
       <button class="px-2" @click="increse">
-        <PlusIcon/>
+        <PlusIcon :iconClass="iconClass" />
       </button>
     </div>
     <div class="absolute flex items-center inset-y-0 start-0 ps-1">
-      <button class="px-2" @click="decrese">
-        <MinusIcon/>
+      <button class="px-2" @click="decrese" :iconClassMinus="iconClassMinus">
+        <MinusIcon />
       </button>
     </div>
   </div>
@@ -30,6 +36,10 @@ const props = defineProps([
   "max",
   "modelValue",
   "ariaLabel",
+  "maxWidth",
+  "inputClass",
+  "iconClass",
+  "iconClassMinus",
 ]);
 const emit = defineEmits(["update:modelValue"]);
 

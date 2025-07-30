@@ -68,8 +68,10 @@
               v-model="valueInput"
               :max="10"
               :min="1"
+              maxWidth="135px"
               aria-label="Quantity"
               class="mr-6"
+              inputClass="h-[50px]"
             />
             <AddToCartButton
               :class="{ loading: loading.value }"
@@ -83,10 +85,56 @@
     </div>
   </div>
 
-  <DrawerCustom v-model:modelValue="open" side="right" title="Cart" width="w-[400px]">
-    <div>
-      <div v-for="product in cartData" >{{product}}</div>
-    </div>
+  <DrawerCustom
+    v-model:modelValue="open"
+    side="right"
+    title="Cart"
+    width="w-[400px]"
+  >
+    <template #default>
+      <div v-for="product in cartData">
+        <div class="flex">
+          <NuxtImg
+            :src="product.product.images[0]?.url || ''"
+            width="166px"
+            height="155px"
+            title="product-image"
+            alt="product-image"
+            fetchpriority="high"
+            placeholder
+          />
+          <div class="flex flex-col w-full gap-2">
+            <h5 class="text-lg text-[#3E3E3E] font-light">
+              {{ product.product.name }}
+            </h5>
+            <p class="text-sm text-[#757575] font-light">
+              {{ formatCurrency(Number(product?.product?.price)) }}
+            </p>
+            <div class="flex justify-between">
+              <BaseInputNumber
+                v-model="product.quantity"
+                :max="10"
+                :min="1"
+                maxWidth="100px"
+                inputClass="text-xs h-[35px]"
+                aria-label="Quantity"
+                iconClass="size-4"
+                iconClassMinus="size-4"
+              />
+              <div
+                class="flex items-center text-xs text-[#929292] gap-2 cursor-pointer underline"
+              >
+                <TrashIcon iconClass="size-4" />
+                <span>Delete</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </template>
+    <template #footer>
+      <div>Hello</div>
+    </template>
   </DrawerCustom>
 </template>
 

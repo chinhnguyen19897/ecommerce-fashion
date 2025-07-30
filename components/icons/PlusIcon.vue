@@ -6,7 +6,7 @@
       viewBox="0 0 24 24"
       stroke-width="1.5"
       stroke="currentColor"
-      class="size-6"
+      :class="props.iconClass"
     >
       <path
         stroke-linecap="round"
@@ -16,3 +16,12 @@
     </svg>
   </div>
 </template>
+
+<script setup>
+const props = defineProps({
+  iconClass: {
+    type: String,
+    default: "size-6",
+  },
+});
+</script>
