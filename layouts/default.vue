@@ -53,6 +53,11 @@ select {
   padding-right: 2.5rem;
 }
 
+p,
+span {
+  text-color: #3e3e3e;
+}
+
 /* Slide-from-right & Slide-from-left */
 .slide-from-right-leave-active,
 .slide-from-right-enter-active,

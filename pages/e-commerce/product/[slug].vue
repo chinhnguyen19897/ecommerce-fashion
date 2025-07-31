@@ -93,47 +93,7 @@
   >
     <template #default>
       <div>
-        <div v-for="product in cartData">
-          <div class="flex gap-4">
-            <div class="max-w-[116px] w-full">
-              <NuxtImg
-                :src="product.product.images[0]?.url || ''"
-                width="116"
-                height="155"
-                title="product-image"
-                alt="product-image"
-                fetchpriority="high"
-                placeholder
-              />
-            </div>
-            <div class="flex flex-col w-full gap-2">
-              <h5 class="text-lg text-[#3E3E3E] font-light">
-                {{ product.product.name }}
-              </h5>
-              <p class="text-sm text-[#757575] font-light">
-                {{ formatCurrency(Number(product?.product?.price)) }}
-              </p>
-              <div class="flex justify-between">
-                <BaseInputNumber
-                  v-model="product.quantity"
-                  :max="10"
-                  :min="1"
-                  maxWidth="100px"
-                  inputClass="text-xs h-[35px]"
-                  aria-label="Quantity"
-                  iconClass="size-4"
-                  iconClassMinus="size-4"
-                />
-                <div
-                  class="flex items-center text-xs text-[#929292] gap-2 cursor-pointer underline"
-                >
-                  <TrashIcon iconClass="size-4" />
-                  <span>Delete</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <CartCard :cartData="cartData" />
       </div>
     </template>
     <template v-slot:footer>
@@ -142,14 +102,14 @@
           <BaseBtn
             btnClass="bg-[#8B4513] rounded-0 w-full text-white text-center text-lg font-lato uppercase font-normal"
             label="View To Cart"
-            @click="$route.push('/cart')"
+            @click="$router.push('/e-commerce/cart')"
           />
         </div>
         <div>
           <BaseBtn
             btnClass="bg-[#8B4513] rounded-0 w-full text-white text-center text-lg font-lato uppercase font-normal"
             label="Check Out"
-            @click="$route.push('/checkout')"
+            @click="$router.push('/e-commerce/checkout')"
           />
         </div>
       </div>
@@ -179,6 +139,7 @@ productEcomStore.fetchSingleProductData(slug).then(async () => {
   await productReviewStore.fetchProductReviews(productId);
 });
 const route = useRoute();
+const router = useRouter();
 const addToCart = async (productId) => {
   loading.value = true;
   try {
