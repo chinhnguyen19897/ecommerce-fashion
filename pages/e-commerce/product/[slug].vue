@@ -137,18 +137,20 @@
       </div>
     </template>
     <template v-slot:footer>
-      <div>
+      <div class="flex flex-col gap-4">
         <div>
-          <BaseBtn>
-            Checkout
-            <CheckIcon iconClass="size-4" />
-          </BaseBtn>
+          <BaseBtn
+            btnClass="bg-[#8B4513] rounded-0 w-full text-white text-center text-lg font-lato uppercase font-normal"
+            label="View To Cart"
+            @click="$route.push('/cart')"
+          />
         </div>
         <div>
-          <BaseBtn>
-            <span>Continue Shopping</span>
-            <ArrowRightIcon iconClass="size-4" />
-          </BaseBtn>
+          <BaseBtn
+            btnClass="bg-[#8B4513] rounded-0 w-full text-white text-center text-lg font-lato uppercase font-normal"
+            label="Check Out"
+            @click="$route.push('/checkout')"
+          />
         </div>
       </div>
     </template>
@@ -176,7 +178,7 @@ productEcomStore.fetchSingleProductData(slug).then(async () => {
 
   await productReviewStore.fetchProductReviews(productId);
 });
-
+const route = useRoute();
 const addToCart = async (productId) => {
   loading.value = true;
   try {
