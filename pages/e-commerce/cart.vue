@@ -49,12 +49,16 @@
               <span class="text-2xl text-[#757575]">Subtotal</span>
             </div>
             <div class="flex justify-between">
-              <span>Total</span>
+              <span class="font-semibold text-2xl">Total</span>
+              <span class="font-semibold text-2xl">{{
+                formatCurrency(totalPrice)
+              }}</span>
             </div>
           </div>
         </div>
         <div>
           <BaseBtn
+            @click="$router.push('/checkout')"
             btnClass="bg-[#8B4513] rounded-none tracking-[2px] w-full !p-5 text-white text-center text-lg font-lato uppercase font-normal"
             label="Proceed to checkout"
           />
@@ -65,10 +69,11 @@
 </template>
 
 <script setup>
-const shoppingCartStore = useCartStore();
-const { cartData } = storeToRefs(shoppingCartStore);
-const showNote = ref(false);
+const router = useRouter();
 
+const shoppingCartStore = useCartStore();
+const { cartData, totalPrice } = storeToRefs(shoppingCartStore);
+const showNote = ref(false);
 const toggleShowNote = () => {
   showNote.value = !showNote.value;
 };
