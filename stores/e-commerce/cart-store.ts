@@ -23,11 +23,12 @@ export const useCartStore = defineStore("cart-store", () => {
   }
 
   async function fetchCartData() {
-    const cart = await $fetch("/api/e-commerce/cart", {
+    const { data } = await useFetch("/api/e-commerce/cart", {
       method: "GET",
     });
-    cartData.value = cart.items;
-    totalPrice.value = cart.totalAmount;
+    if (!data.value?.items) return;
+    cartData.value = data.value?.items;
+    totalPrice.value = data.value?.totalAmount;
   }
 
   function addToCart(product: Record<string, any>) {
@@ -137,4 +138,3 @@ export const useCartStore = defineStore("cart-store", () => {
     showCart,
   };
 });
-

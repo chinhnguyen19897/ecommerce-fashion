@@ -77,10 +77,7 @@ const showNote = ref(false);
 const toggleShowNote = () => {
   showNote.value = !showNote.value;
 };
-
-onMounted(() => {
-  shoppingCartStore.fetchCartData();
-});
+await shoppingCartStore.fetchCartData();
 </script>
 
 <style scoped></style>

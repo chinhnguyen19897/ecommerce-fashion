@@ -13,20 +13,10 @@
         />
       </div>
       <div class="flex flex-col w-full gap-2">
-        <h5
-          :class="[
-            cartPage ? 'text-2xl' : 'text-lg',
-            'text-[#3E3E3E] font-light',
-          ]"
-        >
+        <h5 class="text-[#3E3E3E] font-light text-xl uppercase">
           {{ product.product.name }}
         </h5>
-        <p
-          :class="[
-            cartPage ? 'text-2xl' : 'text-sm',
-            'text-[#757575] font-light flex items-center',
-          ]"
-        >
+        <p class="text-[#757575] text-[16px] font-light flex items-center">
           {{
             product?.quantity +
             " X " +
@@ -39,23 +29,35 @@
   <div class="table table-auto w-full">
     <div class="table-row-group">
       <div class="table-row mb-3">
-        <div class="table-cell pb-3 text-left"><span>Subtotal</span></div>
+        <div class="table-cell pb-3 text-left">
+          <span class="text-[#757575]">Subtotal</span>
+        </div>
         <div class="table-cell pb-3 text-right">
-          <span>{{ formatCurrency(totalPrice) }}</span>
+          <span class="text-[#757575]">{{ formatCurrency(totalPrice) }}</span>
         </div>
       </div>
       <div class="table-row mb-3">
-        <div class="table-cell pb-3 text-left"><span>Voucher</span></div>
-        <div class="table-cell pb-3 text-right"><span></span></div>
+        <div class="table-cell pb-3 text-left">
+          <span class="text-[#757575]">Voucher</span>
+        </div>
+        <div class="table-cell pb-3 text-right">
+          <span class="text-[#757575]"></span>
+        </div>
       </div>
       <div class="table-row mb-3">
-        <div class="table-cell pb-3 text-left"><span>Shipping</span></div>
-        <div class="table-cell pb-3 text-right"><span></span></div>
+        <div class="table-cell pb-3 text-left">
+          <span class="text-[#757575]">Shipping</span>
+        </div>
+        <div class="table-cell pb-3 text-right">
+          <span class="text-[#757575]"></span>
+        </div>
       </div>
       <div class="table-row font-bold mt-3">
-        <div class="table-cell pt-3 text-left"><span>Total</span></div>
+        <div class="table-cell pt-3 text-left">
+          <span class="text-[#3E3E3E]">Total</span>
+        </div>
         <div class="table-cell pt-3 text-right">
-          <span>{{ formatCurrency(totalPrice) }}</span>
+          <span class="text-[#3E3E3E]">{{ formatCurrency(totalPrice) }}</span>
         </div>
       </div>
     </div>
