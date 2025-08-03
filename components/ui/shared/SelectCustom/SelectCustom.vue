@@ -1,7 +1,8 @@
 <template>
-  <Select :id="id" :name="name">
-    <SelectTrigger :classTrigger="classTrigger">
-      <SelectValue :placeholder="placeholder" />
+  <Select :id="id" :name="name"
+  >
+    <SelectTrigger :class="classTrigger">
+      <SelectValue :placeholder="placeholder" class="placeholder:text-[#B4B4B4]" />
     </SelectTrigger>
     <SelectContent>
       <SelectGroup>
@@ -30,7 +31,7 @@ defineProps({
   classTrigger: {
     type: String,
     default:
-      "w-[100px] h-[35px] rounded-[5px] border-[1px] border-gray-300 bg-white px-2 text-sm",
+      "w-full h-[35px] rounded-[5px] border-[1px] border-gray-300 bg-white px-2 text-sm",
   },
   placeholder: {
     type: String,

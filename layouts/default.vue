@@ -18,9 +18,9 @@ useHead({
   <div class="flex flex-col min-h-screen">
     <Header />
     <main
+      class="mt-12 flex-1 container mx-auto px-[42px]"
       role="main"
       tabindex="-1"
-      class="mt-12 flex-1 container mx-auto px-[42px]"
     >
       <NuxtPage />
     </main>
@@ -31,9 +31,10 @@ useHead({
 <style lang="postcss">
 html,
 body {
-  @apply bg-white text-gray-900;
+  @apply bg-white text-primary;
   scroll-behavior: smooth;
   font-family: "Lato", sans-serif;
+  color: #3E3E3E;
 }
 
 img {
@@ -53,10 +54,6 @@ select {
   padding-right: 2.5rem;
 }
 
-p,
-span {
-  text-color: #3e3e3e;
-}
 
 /* Slide-from-right & Slide-from-left */
 .slide-from-right-leave-active,

@@ -20,8 +20,15 @@ export default {
         "2xl": "6rem",
       },
     },
+    textColor: {
+          'primary': "#3e3e3e",
+          'secondary': "#757575",
+          'tertiary': '#8B4513',
+          'danger': '#E90000',
+        },
     extend: {
       fontFamily: {
+        sans: ["Lato", "sans-serif"],
         lato: ["Lato", "sans-serif"],
         playfair: ["Playfair Display", "serif"],
       },
@@ -32,6 +39,7 @@ export default {
           dark: "#754fa3",
           foreground: "hsl(var(--primary-foreground))",
         },
+
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         card: {

@@ -1,13 +1,13 @@
 <script setup>
-const props = defineProps(["error"]);
+const props = defineProps(["errors"]);
 </script>
 
 <template>
-  <div :class="{ error: props.error.length }">
+  <div :class="{ error: props?.errors?.length }">
     <slot />
-    <div class="input-error" v-for="error in props.errors" :key="error.$uid">
+    <div v-for="error in props.errors" :key="error.$uid" class="input-error">
       <div class="error-msg" style="color: red; font-weight: bold">
-        {{ error.message }}
+        {{ error.$message }}
       </div>
     </div>
   </div>

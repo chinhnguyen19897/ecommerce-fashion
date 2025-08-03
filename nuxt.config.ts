@@ -40,6 +40,7 @@ export default defineNuxtConfig({
     "@nuxt/image",
     "@nuxt/icon",
   ],
+  css: ["~/assets/css/main.css"],
   shadcn: {
     prefix: "",
     componentDir: "./components/ui",

@@ -1,9 +1,9 @@
 <template>
   <div class="flex flex-col min-h-screen">
     <main
+      class="mt-12 flex-1 container mx-auto px-[42px]"
       role="main"
       tabindex="-1"
-      class="mt-12 flex-1 container mx-auto px-[42px]"
     >
       <slot />
     </main>
@@ -25,4 +25,3 @@ useHead({
 });
 </script>
 
-<style scoped></style>
