@@ -252,9 +252,9 @@ export type ProductWhereInput = {
   reviews?: Prisma.ProductReviewListRelationFilter
   stars?: Prisma.ProductStarListRelationFilter
   starPercents?: Prisma.ProductStarPercentListRelationFilter
-  payments?: Prisma.PaymentListRelationFilter
   CartItems?: Prisma.CartItemListRelationFilter
-  order?: Prisma.OrderListRelationFilter
+  OrderItem?: Prisma.OrderItemListRelationFilter
+  payment?: Prisma.PaymentListRelationFilter
 }
 
 export type ProductOrderByWithRelationInput = {
@@ -271,9 +271,9 @@ export type ProductOrderByWithRelationInput = {
   reviews?: Prisma.ProductReviewOrderByRelationAggregateInput
   stars?: Prisma.productStarOrderByRelationAggregateInput
   starPercents?: Prisma.productStarPercentOrderByRelationAggregateInput
-  payments?: Prisma.paymentOrderByRelationAggregateInput
   CartItems?: Prisma.CartItemOrderByRelationAggregateInput
-  order?: Prisma.orderOrderByRelationAggregateInput
+  OrderItem?: Prisma.OrderItemOrderByRelationAggregateInput
+  payment?: Prisma.paymentOrderByRelationAggregateInput
 }
 
 export type ProductWhereUniqueInput = Prisma.AtLeast<{
@@ -293,9 +293,9 @@ export type ProductWhereUniqueInput = Prisma.AtLeast<{
   reviews?: Prisma.ProductReviewListRelationFilter
   stars?: Prisma.ProductStarListRelationFilter
   starPercents?: Prisma.ProductStarPercentListRelationFilter
-  payments?: Prisma.PaymentListRelationFilter
   CartItems?: Prisma.CartItemListRelationFilter
-  order?: Prisma.OrderListRelationFilter
+  OrderItem?: Prisma.OrderItemListRelationFilter
+  payment?: Prisma.PaymentListRelationFilter
 }, "id">
 
 export type ProductOrderByWithAggregationInput = {
@@ -340,9 +340,9 @@ export type ProductCreateInput = {
   reviews?: Prisma.ProductReviewCreateNestedManyWithoutProductInput
   stars?: Prisma.productStarCreateNestedManyWithoutProductInput
   starPercents?: Prisma.productStarPercentCreateNestedManyWithoutProductInput
-  payments?: Prisma.paymentCreateNestedManyWithoutProductInput
   CartItems?: Prisma.CartItemCreateNestedManyWithoutProductInput
-  order?: Prisma.orderCreateNestedManyWithoutProductInput
+  OrderItem?: Prisma.OrderItemCreateNestedManyWithoutProductInput
+  payment?: Prisma.paymentCreateNestedManyWithoutProductsInput
 }
 
 export type ProductUncheckedCreateInput = {
@@ -358,9 +358,9 @@ export type ProductUncheckedCreateInput = {
   reviews?: Prisma.ProductReviewUncheckedCreateNestedManyWithoutProductInput
   stars?: Prisma.productStarUncheckedCreateNestedManyWithoutProductInput
   starPercents?: Prisma.productStarPercentUncheckedCreateNestedManyWithoutProductInput
-  payments?: Prisma.paymentUncheckedCreateNestedManyWithoutProductInput
   CartItems?: Prisma.CartItemUncheckedCreateNestedManyWithoutProductInput
-  order?: Prisma.orderUncheckedCreateNestedManyWithoutProductInput
+  OrderItem?: Prisma.OrderItemUncheckedCreateNestedManyWithoutProductInput
+  payment?: Prisma.paymentUncheckedCreateNestedManyWithoutProductsInput
 }
 
 export type ProductUpdateInput = {
@@ -375,9 +375,9 @@ export type ProductUpdateInput = {
   reviews?: Prisma.ProductReviewUpdateManyWithoutProductNestedInput
   stars?: Prisma.productStarUpdateManyWithoutProductNestedInput
   starPercents?: Prisma.productStarPercentUpdateManyWithoutProductNestedInput
-  payments?: Prisma.paymentUpdateManyWithoutProductNestedInput
   CartItems?: Prisma.CartItemUpdateManyWithoutProductNestedInput
-  order?: Prisma.orderUpdateManyWithoutProductNestedInput
+  OrderItem?: Prisma.OrderItemUpdateManyWithoutProductNestedInput
+  payment?: Prisma.paymentUpdateManyWithoutProductsNestedInput
 }
 
 export type ProductUncheckedUpdateInput = {
@@ -393,9 +393,9 @@ export type ProductUncheckedUpdateInput = {
   reviews?: Prisma.ProductReviewUncheckedUpdateManyWithoutProductNestedInput
   stars?: Prisma.productStarUncheckedUpdateManyWithoutProductNestedInput
   starPercents?: Prisma.productStarPercentUncheckedUpdateManyWithoutProductNestedInput
-  payments?: Prisma.paymentUncheckedUpdateManyWithoutProductNestedInput
   CartItems?: Prisma.CartItemUncheckedUpdateManyWithoutProductNestedInput
-  order?: Prisma.orderUncheckedUpdateManyWithoutProductNestedInput
+  OrderItem?: Prisma.OrderItemUncheckedUpdateManyWithoutProductNestedInput
+  payment?: Prisma.paymentUncheckedUpdateManyWithoutProductsNestedInput
 }
 
 export type ProductCreateManyInput = {
@@ -489,6 +489,11 @@ export type ProductScalarRelationFilter = {
   isNot?: Prisma.ProductWhereInput
 }
 
+export type ProductNullableScalarRelationFilter = {
+  is?: Prisma.ProductWhereInput | null
+  isNot?: Prisma.ProductWhereInput | null
+}
+
 export type ProductCreateNestedManyWithoutCategoryInput = {
   create?: Prisma.XOR<Prisma.ProductCreateWithoutCategoryInput, Prisma.ProductUncheckedCreateWithoutCategoryInput> | Prisma.ProductCreateWithoutCategoryInput[] | Prisma.ProductUncheckedCreateWithoutCategoryInput[]
   connectOrCreate?: Prisma.ProductCreateOrConnectWithoutCategoryInput | Prisma.ProductCreateOrConnectWithoutCategoryInput[]
@@ -557,32 +562,34 @@ export type ProductUpdateOneRequiredWithoutCartItemsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ProductUpdateToOneWithWhereWithoutCartItemsInput, Prisma.ProductUpdateWithoutCartItemsInput>, Prisma.ProductUncheckedUpdateWithoutCartItemsInput>
 }
 
-export type ProductCreateNestedOneWithoutPaymentsInput = {
-  create?: Prisma.XOR<Prisma.ProductCreateWithoutPaymentsInput, Prisma.ProductUncheckedCreateWithoutPaymentsInput>
-  connectOrCreate?: Prisma.ProductCreateOrConnectWithoutPaymentsInput
+export type ProductCreateNestedOneWithoutPaymentInput = {
+  create?: Prisma.XOR<Prisma.ProductCreateWithoutPaymentInput, Prisma.ProductUncheckedCreateWithoutPaymentInput>
+  connectOrCreate?: Prisma.ProductCreateOrConnectWithoutPaymentInput
   connect?: Prisma.ProductWhereUniqueInput
 }
 
-export type ProductUpdateOneRequiredWithoutPaymentsNestedInput = {
-  create?: Prisma.XOR<Prisma.ProductCreateWithoutPaymentsInput, Prisma.ProductUncheckedCreateWithoutPaymentsInput>
-  connectOrCreate?: Prisma.ProductCreateOrConnectWithoutPaymentsInput
-  upsert?: Prisma.ProductUpsertWithoutPaymentsInput
+export type ProductUpdateOneWithoutPaymentNestedInput = {
+  create?: Prisma.XOR<Prisma.ProductCreateWithoutPaymentInput, Prisma.ProductUncheckedCreateWithoutPaymentInput>
+  connectOrCreate?: Prisma.ProductCreateOrConnectWithoutPaymentInput
+  upsert?: Prisma.ProductUpsertWithoutPaymentInput
+  disconnect?: Prisma.ProductWhereInput | boolean
+  delete?: Prisma.ProductWhereInput | boolean
   connect?: Prisma.ProductWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.ProductUpdateToOneWithWhereWithoutPaymentsInput, Prisma.ProductUpdateWithoutPaymentsInput>, Prisma.ProductUncheckedUpdateWithoutPaymentsInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProductUpdateToOneWithWhereWithoutPaymentInput, Prisma.ProductUpdateWithoutPaymentInput>, Prisma.ProductUncheckedUpdateWithoutPaymentInput>
 }
 
-export type ProductCreateNestedOneWithoutOrderInput = {
-  create?: Prisma.XOR<Prisma.ProductCreateWithoutOrderInput, Prisma.ProductUncheckedCreateWithoutOrderInput>
-  connectOrCreate?: Prisma.ProductCreateOrConnectWithoutOrderInput
+export type ProductCreateNestedOneWithoutOrderItemInput = {
+  create?: Prisma.XOR<Prisma.ProductCreateWithoutOrderItemInput, Prisma.ProductUncheckedCreateWithoutOrderItemInput>
+  connectOrCreate?: Prisma.ProductCreateOrConnectWithoutOrderItemInput
   connect?: Prisma.ProductWhereUniqueInput
 }
 
-export type ProductUpdateOneRequiredWithoutOrderNestedInput = {
-  create?: Prisma.XOR<Prisma.ProductCreateWithoutOrderInput, Prisma.ProductUncheckedCreateWithoutOrderInput>
-  connectOrCreate?: Prisma.ProductCreateOrConnectWithoutOrderInput
-  upsert?: Prisma.ProductUpsertWithoutOrderInput
+export type ProductUpdateOneRequiredWithoutOrderItemNestedInput = {
+  create?: Prisma.XOR<Prisma.ProductCreateWithoutOrderItemInput, Prisma.ProductUncheckedCreateWithoutOrderItemInput>
+  connectOrCreate?: Prisma.ProductCreateOrConnectWithoutOrderItemInput
+  upsert?: Prisma.ProductUpsertWithoutOrderItemInput
   connect?: Prisma.ProductWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.ProductUpdateToOneWithWhereWithoutOrderInput, Prisma.ProductUpdateWithoutOrderInput>, Prisma.ProductUncheckedUpdateWithoutOrderInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProductUpdateToOneWithWhereWithoutOrderItemInput, Prisma.ProductUpdateWithoutOrderItemInput>, Prisma.ProductUncheckedUpdateWithoutOrderItemInput>
 }
 
 export type ProductCreateNestedOneWithoutStarPercentsInput = {
@@ -652,9 +659,9 @@ export type ProductCreateWithoutCategoryInput = {
   reviews?: Prisma.ProductReviewCreateNestedManyWithoutProductInput
   stars?: Prisma.productStarCreateNestedManyWithoutProductInput
   starPercents?: Prisma.productStarPercentCreateNestedManyWithoutProductInput
-  payments?: Prisma.paymentCreateNestedManyWithoutProductInput
   CartItems?: Prisma.CartItemCreateNestedManyWithoutProductInput
-  order?: Prisma.orderCreateNestedManyWithoutProductInput
+  OrderItem?: Prisma.OrderItemCreateNestedManyWithoutProductInput
+  payment?: Prisma.paymentCreateNestedManyWithoutProductsInput
 }
 
 export type ProductUncheckedCreateWithoutCategoryInput = {
@@ -669,9 +676,9 @@ export type ProductUncheckedCreateWithoutCategoryInput = {
   reviews?: Prisma.ProductReviewUncheckedCreateNestedManyWithoutProductInput
   stars?: Prisma.productStarUncheckedCreateNestedManyWithoutProductInput
   starPercents?: Prisma.productStarPercentUncheckedCreateNestedManyWithoutProductInput
-  payments?: Prisma.paymentUncheckedCreateNestedManyWithoutProductInput
   CartItems?: Prisma.CartItemUncheckedCreateNestedManyWithoutProductInput
-  order?: Prisma.orderUncheckedCreateNestedManyWithoutProductInput
+  OrderItem?: Prisma.OrderItemUncheckedCreateNestedManyWithoutProductInput
+  payment?: Prisma.paymentUncheckedCreateNestedManyWithoutProductsInput
 }
 
 export type ProductCreateOrConnectWithoutCategoryInput = {
@@ -726,8 +733,8 @@ export type ProductCreateWithoutCartItemsInput = {
   reviews?: Prisma.ProductReviewCreateNestedManyWithoutProductInput
   stars?: Prisma.productStarCreateNestedManyWithoutProductInput
   starPercents?: Prisma.productStarPercentCreateNestedManyWithoutProductInput
-  payments?: Prisma.paymentCreateNestedManyWithoutProductInput
-  order?: Prisma.orderCreateNestedManyWithoutProductInput
+  OrderItem?: Prisma.OrderItemCreateNestedManyWithoutProductInput
+  payment?: Prisma.paymentCreateNestedManyWithoutProductsInput
 }
 
 export type ProductUncheckedCreateWithoutCartItemsInput = {
@@ -743,8 +750,8 @@ export type ProductUncheckedCreateWithoutCartItemsInput = {
   reviews?: Prisma.ProductReviewUncheckedCreateNestedManyWithoutProductInput
   stars?: Prisma.productStarUncheckedCreateNestedManyWithoutProductInput
   starPercents?: Prisma.productStarPercentUncheckedCreateNestedManyWithoutProductInput
-  payments?: Prisma.paymentUncheckedCreateNestedManyWithoutProductInput
-  order?: Prisma.orderUncheckedCreateNestedManyWithoutProductInput
+  OrderItem?: Prisma.OrderItemUncheckedCreateNestedManyWithoutProductInput
+  payment?: Prisma.paymentUncheckedCreateNestedManyWithoutProductsInput
 }
 
 export type ProductCreateOrConnectWithoutCartItemsInput = {
@@ -775,8 +782,8 @@ export type ProductUpdateWithoutCartItemsInput = {
   reviews?: Prisma.ProductReviewUpdateManyWithoutProductNestedInput
   stars?: Prisma.productStarUpdateManyWithoutProductNestedInput
   starPercents?: Prisma.productStarPercentUpdateManyWithoutProductNestedInput
-  payments?: Prisma.paymentUpdateManyWithoutProductNestedInput
-  order?: Prisma.orderUpdateManyWithoutProductNestedInput
+  OrderItem?: Prisma.OrderItemUpdateManyWithoutProductNestedInput
+  payment?: Prisma.paymentUpdateManyWithoutProductsNestedInput
 }
 
 export type ProductUncheckedUpdateWithoutCartItemsInput = {
@@ -792,11 +799,11 @@ export type ProductUncheckedUpdateWithoutCartItemsInput = {
   reviews?: Prisma.ProductReviewUncheckedUpdateManyWithoutProductNestedInput
   stars?: Prisma.productStarUncheckedUpdateManyWithoutProductNestedInput
   starPercents?: Prisma.productStarPercentUncheckedUpdateManyWithoutProductNestedInput
-  payments?: Prisma.paymentUncheckedUpdateManyWithoutProductNestedInput
-  order?: Prisma.orderUncheckedUpdateManyWithoutProductNestedInput
+  OrderItem?: Prisma.OrderItemUncheckedUpdateManyWithoutProductNestedInput
+  payment?: Prisma.paymentUncheckedUpdateManyWithoutProductsNestedInput
 }
 
-export type ProductCreateWithoutPaymentsInput = {
+export type ProductCreateWithoutPaymentInput = {
   name: string
   slug?: string | null
   color: string
@@ -809,10 +816,10 @@ export type ProductCreateWithoutPaymentsInput = {
   stars?: Prisma.productStarCreateNestedManyWithoutProductInput
   starPercents?: Prisma.productStarPercentCreateNestedManyWithoutProductInput
   CartItems?: Prisma.CartItemCreateNestedManyWithoutProductInput
-  order?: Prisma.orderCreateNestedManyWithoutProductInput
+  OrderItem?: Prisma.OrderItemCreateNestedManyWithoutProductInput
 }
 
-export type ProductUncheckedCreateWithoutPaymentsInput = {
+export type ProductUncheckedCreateWithoutPaymentInput = {
   id?: number
   name: string
   slug?: string | null
@@ -826,26 +833,26 @@ export type ProductUncheckedCreateWithoutPaymentsInput = {
   stars?: Prisma.productStarUncheckedCreateNestedManyWithoutProductInput
   starPercents?: Prisma.productStarPercentUncheckedCreateNestedManyWithoutProductInput
   CartItems?: Prisma.CartItemUncheckedCreateNestedManyWithoutProductInput
-  order?: Prisma.orderUncheckedCreateNestedManyWithoutProductInput
+  OrderItem?: Prisma.OrderItemUncheckedCreateNestedManyWithoutProductInput
 }
 
-export type ProductCreateOrConnectWithoutPaymentsInput = {
+export type ProductCreateOrConnectWithoutPaymentInput = {
   where: Prisma.ProductWhereUniqueInput
-  create: Prisma.XOR<Prisma.ProductCreateWithoutPaymentsInput, Prisma.ProductUncheckedCreateWithoutPaymentsInput>
+  create: Prisma.XOR<Prisma.ProductCreateWithoutPaymentInput, Prisma.ProductUncheckedCreateWithoutPaymentInput>
 }
 
-export type ProductUpsertWithoutPaymentsInput = {
-  update: Prisma.XOR<Prisma.ProductUpdateWithoutPaymentsInput, Prisma.ProductUncheckedUpdateWithoutPaymentsInput>
-  create: Prisma.XOR<Prisma.ProductCreateWithoutPaymentsInput, Prisma.ProductUncheckedCreateWithoutPaymentsInput>
+export type ProductUpsertWithoutPaymentInput = {
+  update: Prisma.XOR<Prisma.ProductUpdateWithoutPaymentInput, Prisma.ProductUncheckedUpdateWithoutPaymentInput>
+  create: Prisma.XOR<Prisma.ProductCreateWithoutPaymentInput, Prisma.ProductUncheckedCreateWithoutPaymentInput>
   where?: Prisma.ProductWhereInput
 }
 
-export type ProductUpdateToOneWithWhereWithoutPaymentsInput = {
+export type ProductUpdateToOneWithWhereWithoutPaymentInput = {
   where?: Prisma.ProductWhereInput
-  data: Prisma.XOR<Prisma.ProductUpdateWithoutPaymentsInput, Prisma.ProductUncheckedUpdateWithoutPaymentsInput>
+  data: Prisma.XOR<Prisma.ProductUpdateWithoutPaymentInput, Prisma.ProductUncheckedUpdateWithoutPaymentInput>
 }
 
-export type ProductUpdateWithoutPaymentsInput = {
+export type ProductUpdateWithoutPaymentInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   color?: Prisma.StringFieldUpdateOperationsInput | string
@@ -858,10 +865,10 @@ export type ProductUpdateWithoutPaymentsInput = {
   stars?: Prisma.productStarUpdateManyWithoutProductNestedInput
   starPercents?: Prisma.productStarPercentUpdateManyWithoutProductNestedInput
   CartItems?: Prisma.CartItemUpdateManyWithoutProductNestedInput
-  order?: Prisma.orderUpdateManyWithoutProductNestedInput
+  OrderItem?: Prisma.OrderItemUpdateManyWithoutProductNestedInput
 }
 
-export type ProductUncheckedUpdateWithoutPaymentsInput = {
+export type ProductUncheckedUpdateWithoutPaymentInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -875,10 +882,10 @@ export type ProductUncheckedUpdateWithoutPaymentsInput = {
   stars?: Prisma.productStarUncheckedUpdateManyWithoutProductNestedInput
   starPercents?: Prisma.productStarPercentUncheckedUpdateManyWithoutProductNestedInput
   CartItems?: Prisma.CartItemUncheckedUpdateManyWithoutProductNestedInput
-  order?: Prisma.orderUncheckedUpdateManyWithoutProductNestedInput
+  OrderItem?: Prisma.OrderItemUncheckedUpdateManyWithoutProductNestedInput
 }
 
-export type ProductCreateWithoutOrderInput = {
+export type ProductCreateWithoutOrderItemInput = {
   name: string
   slug?: string | null
   color: string
@@ -890,11 +897,11 @@ export type ProductCreateWithoutOrderInput = {
   reviews?: Prisma.ProductReviewCreateNestedManyWithoutProductInput
   stars?: Prisma.productStarCreateNestedManyWithoutProductInput
   starPercents?: Prisma.productStarPercentCreateNestedManyWithoutProductInput
-  payments?: Prisma.paymentCreateNestedManyWithoutProductInput
   CartItems?: Prisma.CartItemCreateNestedManyWithoutProductInput
+  payment?: Prisma.paymentCreateNestedManyWithoutProductsInput
 }
 
-export type ProductUncheckedCreateWithoutOrderInput = {
+export type ProductUncheckedCreateWithoutOrderItemInput = {
   id?: number
   name: string
   slug?: string | null
@@ -907,27 +914,27 @@ export type ProductUncheckedCreateWithoutOrderInput = {
   reviews?: Prisma.ProductReviewUncheckedCreateNestedManyWithoutProductInput
   stars?: Prisma.productStarUncheckedCreateNestedManyWithoutProductInput
   starPercents?: Prisma.productStarPercentUncheckedCreateNestedManyWithoutProductInput
-  payments?: Prisma.paymentUncheckedCreateNestedManyWithoutProductInput
   CartItems?: Prisma.CartItemUncheckedCreateNestedManyWithoutProductInput
+  payment?: Prisma.paymentUncheckedCreateNestedManyWithoutProductsInput
 }
 
-export type ProductCreateOrConnectWithoutOrderInput = {
+export type ProductCreateOrConnectWithoutOrderItemInput = {
   where: Prisma.ProductWhereUniqueInput
-  create: Prisma.XOR<Prisma.ProductCreateWithoutOrderInput, Prisma.ProductUncheckedCreateWithoutOrderInput>
+  create: Prisma.XOR<Prisma.ProductCreateWithoutOrderItemInput, Prisma.ProductUncheckedCreateWithoutOrderItemInput>
 }
 
-export type ProductUpsertWithoutOrderInput = {
-  update: Prisma.XOR<Prisma.ProductUpdateWithoutOrderInput, Prisma.ProductUncheckedUpdateWithoutOrderInput>
-  create: Prisma.XOR<Prisma.ProductCreateWithoutOrderInput, Prisma.ProductUncheckedCreateWithoutOrderInput>
+export type ProductUpsertWithoutOrderItemInput = {
+  update: Prisma.XOR<Prisma.ProductUpdateWithoutOrderItemInput, Prisma.ProductUncheckedUpdateWithoutOrderItemInput>
+  create: Prisma.XOR<Prisma.ProductCreateWithoutOrderItemInput, Prisma.ProductUncheckedCreateWithoutOrderItemInput>
   where?: Prisma.ProductWhereInput
 }
 
-export type ProductUpdateToOneWithWhereWithoutOrderInput = {
+export type ProductUpdateToOneWithWhereWithoutOrderItemInput = {
   where?: Prisma.ProductWhereInput
-  data: Prisma.XOR<Prisma.ProductUpdateWithoutOrderInput, Prisma.ProductUncheckedUpdateWithoutOrderInput>
+  data: Prisma.XOR<Prisma.ProductUpdateWithoutOrderItemInput, Prisma.ProductUncheckedUpdateWithoutOrderItemInput>
 }
 
-export type ProductUpdateWithoutOrderInput = {
+export type ProductUpdateWithoutOrderItemInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   color?: Prisma.StringFieldUpdateOperationsInput | string
@@ -939,11 +946,11 @@ export type ProductUpdateWithoutOrderInput = {
   reviews?: Prisma.ProductReviewUpdateManyWithoutProductNestedInput
   stars?: Prisma.productStarUpdateManyWithoutProductNestedInput
   starPercents?: Prisma.productStarPercentUpdateManyWithoutProductNestedInput
-  payments?: Prisma.paymentUpdateManyWithoutProductNestedInput
   CartItems?: Prisma.CartItemUpdateManyWithoutProductNestedInput
+  payment?: Prisma.paymentUpdateManyWithoutProductsNestedInput
 }
 
-export type ProductUncheckedUpdateWithoutOrderInput = {
+export type ProductUncheckedUpdateWithoutOrderItemInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -956,8 +963,8 @@ export type ProductUncheckedUpdateWithoutOrderInput = {
   reviews?: Prisma.ProductReviewUncheckedUpdateManyWithoutProductNestedInput
   stars?: Prisma.productStarUncheckedUpdateManyWithoutProductNestedInput
   starPercents?: Prisma.productStarPercentUncheckedUpdateManyWithoutProductNestedInput
-  payments?: Prisma.paymentUncheckedUpdateManyWithoutProductNestedInput
   CartItems?: Prisma.CartItemUncheckedUpdateManyWithoutProductNestedInput
+  payment?: Prisma.paymentUncheckedUpdateManyWithoutProductsNestedInput
 }
 
 export type ProductCreateWithoutStarPercentsInput = {
@@ -971,9 +978,9 @@ export type ProductCreateWithoutStarPercentsInput = {
   images?: Prisma.ImageCreateNestedManyWithoutProductInput
   reviews?: Prisma.ProductReviewCreateNestedManyWithoutProductInput
   stars?: Prisma.productStarCreateNestedManyWithoutProductInput
-  payments?: Prisma.paymentCreateNestedManyWithoutProductInput
   CartItems?: Prisma.CartItemCreateNestedManyWithoutProductInput
-  order?: Prisma.orderCreateNestedManyWithoutProductInput
+  OrderItem?: Prisma.OrderItemCreateNestedManyWithoutProductInput
+  payment?: Prisma.paymentCreateNestedManyWithoutProductsInput
 }
 
 export type ProductUncheckedCreateWithoutStarPercentsInput = {
@@ -988,9 +995,9 @@ export type ProductUncheckedCreateWithoutStarPercentsInput = {
   images?: Prisma.ImageUncheckedCreateNestedManyWithoutProductInput
   reviews?: Prisma.ProductReviewUncheckedCreateNestedManyWithoutProductInput
   stars?: Prisma.productStarUncheckedCreateNestedManyWithoutProductInput
-  payments?: Prisma.paymentUncheckedCreateNestedManyWithoutProductInput
   CartItems?: Prisma.CartItemUncheckedCreateNestedManyWithoutProductInput
-  order?: Prisma.orderUncheckedCreateNestedManyWithoutProductInput
+  OrderItem?: Prisma.OrderItemUncheckedCreateNestedManyWithoutProductInput
+  payment?: Prisma.paymentUncheckedCreateNestedManyWithoutProductsInput
 }
 
 export type ProductCreateOrConnectWithoutStarPercentsInput = {
@@ -1020,9 +1027,9 @@ export type ProductUpdateWithoutStarPercentsInput = {
   images?: Prisma.ImageUpdateManyWithoutProductNestedInput
   reviews?: Prisma.ProductReviewUpdateManyWithoutProductNestedInput
   stars?: Prisma.productStarUpdateManyWithoutProductNestedInput
-  payments?: Prisma.paymentUpdateManyWithoutProductNestedInput
   CartItems?: Prisma.CartItemUpdateManyWithoutProductNestedInput
-  order?: Prisma.orderUpdateManyWithoutProductNestedInput
+  OrderItem?: Prisma.OrderItemUpdateManyWithoutProductNestedInput
+  payment?: Prisma.paymentUpdateManyWithoutProductsNestedInput
 }
 
 export type ProductUncheckedUpdateWithoutStarPercentsInput = {
@@ -1037,9 +1044,9 @@ export type ProductUncheckedUpdateWithoutStarPercentsInput = {
   images?: Prisma.ImageUncheckedUpdateManyWithoutProductNestedInput
   reviews?: Prisma.ProductReviewUncheckedUpdateManyWithoutProductNestedInput
   stars?: Prisma.productStarUncheckedUpdateManyWithoutProductNestedInput
-  payments?: Prisma.paymentUncheckedUpdateManyWithoutProductNestedInput
   CartItems?: Prisma.CartItemUncheckedUpdateManyWithoutProductNestedInput
-  order?: Prisma.orderUncheckedUpdateManyWithoutProductNestedInput
+  OrderItem?: Prisma.OrderItemUncheckedUpdateManyWithoutProductNestedInput
+  payment?: Prisma.paymentUncheckedUpdateManyWithoutProductsNestedInput
 }
 
 export type ProductCreateWithoutStarsInput = {
@@ -1053,9 +1060,9 @@ export type ProductCreateWithoutStarsInput = {
   images?: Prisma.ImageCreateNestedManyWithoutProductInput
   reviews?: Prisma.ProductReviewCreateNestedManyWithoutProductInput
   starPercents?: Prisma.productStarPercentCreateNestedManyWithoutProductInput
-  payments?: Prisma.paymentCreateNestedManyWithoutProductInput
   CartItems?: Prisma.CartItemCreateNestedManyWithoutProductInput
-  order?: Prisma.orderCreateNestedManyWithoutProductInput
+  OrderItem?: Prisma.OrderItemCreateNestedManyWithoutProductInput
+  payment?: Prisma.paymentCreateNestedManyWithoutProductsInput
 }
 
 export type ProductUncheckedCreateWithoutStarsInput = {
@@ -1070,9 +1077,9 @@ export type ProductUncheckedCreateWithoutStarsInput = {
   images?: Prisma.ImageUncheckedCreateNestedManyWithoutProductInput
   reviews?: Prisma.ProductReviewUncheckedCreateNestedManyWithoutProductInput
   starPercents?: Prisma.productStarPercentUncheckedCreateNestedManyWithoutProductInput
-  payments?: Prisma.paymentUncheckedCreateNestedManyWithoutProductInput
   CartItems?: Prisma.CartItemUncheckedCreateNestedManyWithoutProductInput
-  order?: Prisma.orderUncheckedCreateNestedManyWithoutProductInput
+  OrderItem?: Prisma.OrderItemUncheckedCreateNestedManyWithoutProductInput
+  payment?: Prisma.paymentUncheckedCreateNestedManyWithoutProductsInput
 }
 
 export type ProductCreateOrConnectWithoutStarsInput = {
@@ -1102,9 +1109,9 @@ export type ProductUpdateWithoutStarsInput = {
   images?: Prisma.ImageUpdateManyWithoutProductNestedInput
   reviews?: Prisma.ProductReviewUpdateManyWithoutProductNestedInput
   starPercents?: Prisma.productStarPercentUpdateManyWithoutProductNestedInput
-  payments?: Prisma.paymentUpdateManyWithoutProductNestedInput
   CartItems?: Prisma.CartItemUpdateManyWithoutProductNestedInput
-  order?: Prisma.orderUpdateManyWithoutProductNestedInput
+  OrderItem?: Prisma.OrderItemUpdateManyWithoutProductNestedInput
+  payment?: Prisma.paymentUpdateManyWithoutProductsNestedInput
 }
 
 export type ProductUncheckedUpdateWithoutStarsInput = {
@@ -1119,9 +1126,9 @@ export type ProductUncheckedUpdateWithoutStarsInput = {
   images?: Prisma.ImageUncheckedUpdateManyWithoutProductNestedInput
   reviews?: Prisma.ProductReviewUncheckedUpdateManyWithoutProductNestedInput
   starPercents?: Prisma.productStarPercentUncheckedUpdateManyWithoutProductNestedInput
-  payments?: Prisma.paymentUncheckedUpdateManyWithoutProductNestedInput
   CartItems?: Prisma.CartItemUncheckedUpdateManyWithoutProductNestedInput
-  order?: Prisma.orderUncheckedUpdateManyWithoutProductNestedInput
+  OrderItem?: Prisma.OrderItemUncheckedUpdateManyWithoutProductNestedInput
+  payment?: Prisma.paymentUncheckedUpdateManyWithoutProductsNestedInput
 }
 
 export type ProductCreateWithoutReviewsInput = {
@@ -1135,9 +1142,9 @@ export type ProductCreateWithoutReviewsInput = {
   images?: Prisma.ImageCreateNestedManyWithoutProductInput
   stars?: Prisma.productStarCreateNestedManyWithoutProductInput
   starPercents?: Prisma.productStarPercentCreateNestedManyWithoutProductInput
-  payments?: Prisma.paymentCreateNestedManyWithoutProductInput
   CartItems?: Prisma.CartItemCreateNestedManyWithoutProductInput
-  order?: Prisma.orderCreateNestedManyWithoutProductInput
+  OrderItem?: Prisma.OrderItemCreateNestedManyWithoutProductInput
+  payment?: Prisma.paymentCreateNestedManyWithoutProductsInput
 }
 
 export type ProductUncheckedCreateWithoutReviewsInput = {
@@ -1152,9 +1159,9 @@ export type ProductUncheckedCreateWithoutReviewsInput = {
   images?: Prisma.ImageUncheckedCreateNestedManyWithoutProductInput
   stars?: Prisma.productStarUncheckedCreateNestedManyWithoutProductInput
   starPercents?: Prisma.productStarPercentUncheckedCreateNestedManyWithoutProductInput
-  payments?: Prisma.paymentUncheckedCreateNestedManyWithoutProductInput
   CartItems?: Prisma.CartItemUncheckedCreateNestedManyWithoutProductInput
-  order?: Prisma.orderUncheckedCreateNestedManyWithoutProductInput
+  OrderItem?: Prisma.OrderItemUncheckedCreateNestedManyWithoutProductInput
+  payment?: Prisma.paymentUncheckedCreateNestedManyWithoutProductsInput
 }
 
 export type ProductCreateOrConnectWithoutReviewsInput = {
@@ -1184,9 +1191,9 @@ export type ProductUpdateWithoutReviewsInput = {
   images?: Prisma.ImageUpdateManyWithoutProductNestedInput
   stars?: Prisma.productStarUpdateManyWithoutProductNestedInput
   starPercents?: Prisma.productStarPercentUpdateManyWithoutProductNestedInput
-  payments?: Prisma.paymentUpdateManyWithoutProductNestedInput
   CartItems?: Prisma.CartItemUpdateManyWithoutProductNestedInput
-  order?: Prisma.orderUpdateManyWithoutProductNestedInput
+  OrderItem?: Prisma.OrderItemUpdateManyWithoutProductNestedInput
+  payment?: Prisma.paymentUpdateManyWithoutProductsNestedInput
 }
 
 export type ProductUncheckedUpdateWithoutReviewsInput = {
@@ -1201,9 +1208,9 @@ export type ProductUncheckedUpdateWithoutReviewsInput = {
   images?: Prisma.ImageUncheckedUpdateManyWithoutProductNestedInput
   stars?: Prisma.productStarUncheckedUpdateManyWithoutProductNestedInput
   starPercents?: Prisma.productStarPercentUncheckedUpdateManyWithoutProductNestedInput
-  payments?: Prisma.paymentUncheckedUpdateManyWithoutProductNestedInput
   CartItems?: Prisma.CartItemUncheckedUpdateManyWithoutProductNestedInput
-  order?: Prisma.orderUncheckedUpdateManyWithoutProductNestedInput
+  OrderItem?: Prisma.OrderItemUncheckedUpdateManyWithoutProductNestedInput
+  payment?: Prisma.paymentUncheckedUpdateManyWithoutProductsNestedInput
 }
 
 export type ProductCreateWithoutImagesInput = {
@@ -1217,9 +1224,9 @@ export type ProductCreateWithoutImagesInput = {
   reviews?: Prisma.ProductReviewCreateNestedManyWithoutProductInput
   stars?: Prisma.productStarCreateNestedManyWithoutProductInput
   starPercents?: Prisma.productStarPercentCreateNestedManyWithoutProductInput
-  payments?: Prisma.paymentCreateNestedManyWithoutProductInput
   CartItems?: Prisma.CartItemCreateNestedManyWithoutProductInput
-  order?: Prisma.orderCreateNestedManyWithoutProductInput
+  OrderItem?: Prisma.OrderItemCreateNestedManyWithoutProductInput
+  payment?: Prisma.paymentCreateNestedManyWithoutProductsInput
 }
 
 export type ProductUncheckedCreateWithoutImagesInput = {
@@ -1234,9 +1241,9 @@ export type ProductUncheckedCreateWithoutImagesInput = {
   reviews?: Prisma.ProductReviewUncheckedCreateNestedManyWithoutProductInput
   stars?: Prisma.productStarUncheckedCreateNestedManyWithoutProductInput
   starPercents?: Prisma.productStarPercentUncheckedCreateNestedManyWithoutProductInput
-  payments?: Prisma.paymentUncheckedCreateNestedManyWithoutProductInput
   CartItems?: Prisma.CartItemUncheckedCreateNestedManyWithoutProductInput
-  order?: Prisma.orderUncheckedCreateNestedManyWithoutProductInput
+  OrderItem?: Prisma.OrderItemUncheckedCreateNestedManyWithoutProductInput
+  payment?: Prisma.paymentUncheckedCreateNestedManyWithoutProductsInput
 }
 
 export type ProductCreateOrConnectWithoutImagesInput = {
@@ -1266,9 +1273,9 @@ export type ProductUpdateWithoutImagesInput = {
   reviews?: Prisma.ProductReviewUpdateManyWithoutProductNestedInput
   stars?: Prisma.productStarUpdateManyWithoutProductNestedInput
   starPercents?: Prisma.productStarPercentUpdateManyWithoutProductNestedInput
-  payments?: Prisma.paymentUpdateManyWithoutProductNestedInput
   CartItems?: Prisma.CartItemUpdateManyWithoutProductNestedInput
-  order?: Prisma.orderUpdateManyWithoutProductNestedInput
+  OrderItem?: Prisma.OrderItemUpdateManyWithoutProductNestedInput
+  payment?: Prisma.paymentUpdateManyWithoutProductsNestedInput
 }
 
 export type ProductUncheckedUpdateWithoutImagesInput = {
@@ -1283,9 +1290,9 @@ export type ProductUncheckedUpdateWithoutImagesInput = {
   reviews?: Prisma.ProductReviewUncheckedUpdateManyWithoutProductNestedInput
   stars?: Prisma.productStarUncheckedUpdateManyWithoutProductNestedInput
   starPercents?: Prisma.productStarPercentUncheckedUpdateManyWithoutProductNestedInput
-  payments?: Prisma.paymentUncheckedUpdateManyWithoutProductNestedInput
   CartItems?: Prisma.CartItemUncheckedUpdateManyWithoutProductNestedInput
-  order?: Prisma.orderUncheckedUpdateManyWithoutProductNestedInput
+  OrderItem?: Prisma.OrderItemUncheckedUpdateManyWithoutProductNestedInput
+  payment?: Prisma.paymentUncheckedUpdateManyWithoutProductsNestedInput
 }
 
 export type ProductCreateManyCategoryInput = {
@@ -1309,9 +1316,9 @@ export type ProductUpdateWithoutCategoryInput = {
   reviews?: Prisma.ProductReviewUpdateManyWithoutProductNestedInput
   stars?: Prisma.productStarUpdateManyWithoutProductNestedInput
   starPercents?: Prisma.productStarPercentUpdateManyWithoutProductNestedInput
-  payments?: Prisma.paymentUpdateManyWithoutProductNestedInput
   CartItems?: Prisma.CartItemUpdateManyWithoutProductNestedInput
-  order?: Prisma.orderUpdateManyWithoutProductNestedInput
+  OrderItem?: Prisma.OrderItemUpdateManyWithoutProductNestedInput
+  payment?: Prisma.paymentUpdateManyWithoutProductsNestedInput
 }
 
 export type ProductUncheckedUpdateWithoutCategoryInput = {
@@ -1326,9 +1333,9 @@ export type ProductUncheckedUpdateWithoutCategoryInput = {
   reviews?: Prisma.ProductReviewUncheckedUpdateManyWithoutProductNestedInput
   stars?: Prisma.productStarUncheckedUpdateManyWithoutProductNestedInput
   starPercents?: Prisma.productStarPercentUncheckedUpdateManyWithoutProductNestedInput
-  payments?: Prisma.paymentUncheckedUpdateManyWithoutProductNestedInput
   CartItems?: Prisma.CartItemUncheckedUpdateManyWithoutProductNestedInput
-  order?: Prisma.orderUncheckedUpdateManyWithoutProductNestedInput
+  OrderItem?: Prisma.OrderItemUncheckedUpdateManyWithoutProductNestedInput
+  payment?: Prisma.paymentUncheckedUpdateManyWithoutProductsNestedInput
 }
 
 export type ProductUncheckedUpdateManyWithoutCategoryInput = {
@@ -1351,9 +1358,9 @@ export type ProductCountOutputType = {
   reviews: number
   stars: number
   starPercents: number
-  payments: number
   CartItems: number
-  order: number
+  OrderItem: number
+  payment: number
 }
 
 export type ProductCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1361,9 +1368,9 @@ export type ProductCountOutputTypeSelect<ExtArgs extends runtime.Types.Extension
   reviews?: boolean | ProductCountOutputTypeCountReviewsArgs
   stars?: boolean | ProductCountOutputTypeCountStarsArgs
   starPercents?: boolean | ProductCountOutputTypeCountStarPercentsArgs
-  payments?: boolean | ProductCountOutputTypeCountPaymentsArgs
   CartItems?: boolean | ProductCountOutputTypeCountCartItemsArgs
-  order?: boolean | ProductCountOutputTypeCountOrderArgs
+  OrderItem?: boolean | ProductCountOutputTypeCountOrderItemArgs
+  payment?: boolean | ProductCountOutputTypeCountPaymentArgs
 }
 
 /**
@@ -1407,13 +1414,6 @@ export type ProductCountOutputTypeCountStarPercentsArgs<ExtArgs extends runtime.
 /**
  * ProductCountOutputType without action
  */
-export type ProductCountOutputTypeCountPaymentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.paymentWhereInput
-}
-
-/**
- * ProductCountOutputType without action
- */
 export type ProductCountOutputTypeCountCartItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.CartItemWhereInput
 }
@@ -1421,8 +1421,15 @@ export type ProductCountOutputTypeCountCartItemsArgs<ExtArgs extends runtime.Typ
 /**
  * ProductCountOutputType without action
  */
-export type ProductCountOutputTypeCountOrderArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.orderWhereInput
+export type ProductCountOutputTypeCountOrderItemArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.OrderItemWhereInput
+}
+
+/**
+ * ProductCountOutputType without action
+ */
+export type ProductCountOutputTypeCountPaymentArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.paymentWhereInput
 }
 
 
@@ -1440,9 +1447,9 @@ export type ProductSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   reviews?: boolean | Prisma.Product$reviewsArgs<ExtArgs>
   stars?: boolean | Prisma.Product$starsArgs<ExtArgs>
   starPercents?: boolean | Prisma.Product$starPercentsArgs<ExtArgs>
-  payments?: boolean | Prisma.Product$paymentsArgs<ExtArgs>
   CartItems?: boolean | Prisma.Product$CartItemsArgs<ExtArgs>
-  order?: boolean | Prisma.Product$orderArgs<ExtArgs>
+  OrderItem?: boolean | Prisma.Product$OrderItemArgs<ExtArgs>
+  payment?: boolean | Prisma.Product$paymentArgs<ExtArgs>
   _count?: boolean | Prisma.ProductCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["product"]>
 
@@ -1488,9 +1495,9 @@ export type ProductInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   reviews?: boolean | Prisma.Product$reviewsArgs<ExtArgs>
   stars?: boolean | Prisma.Product$starsArgs<ExtArgs>
   starPercents?: boolean | Prisma.Product$starPercentsArgs<ExtArgs>
-  payments?: boolean | Prisma.Product$paymentsArgs<ExtArgs>
   CartItems?: boolean | Prisma.Product$CartItemsArgs<ExtArgs>
-  order?: boolean | Prisma.Product$orderArgs<ExtArgs>
+  OrderItem?: boolean | Prisma.Product$OrderItemArgs<ExtArgs>
+  payment?: boolean | Prisma.Product$paymentArgs<ExtArgs>
   _count?: boolean | Prisma.ProductCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ProductIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1508,9 +1515,9 @@ export type $ProductPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     reviews: Prisma.$ProductReviewPayload<ExtArgs>[]
     stars: Prisma.$productStarPayload<ExtArgs>[]
     starPercents: Prisma.$productStarPercentPayload<ExtArgs>[]
-    payments: Prisma.$paymentPayload<ExtArgs>[]
     CartItems: Prisma.$CartItemPayload<ExtArgs>[]
-    order: Prisma.$orderPayload<ExtArgs>[]
+    OrderItem: Prisma.$OrderItemPayload<ExtArgs>[]
+    payment: Prisma.$paymentPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1920,9 +1927,9 @@ export interface Prisma__ProductClient<T, Null = never, ExtArgs extends runtime.
   reviews<T extends Prisma.Product$reviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Product$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   stars<T extends Prisma.Product$starsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Product$starsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$productStarPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   starPercents<T extends Prisma.Product$starPercentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Product$starPercentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$productStarPercentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  payments<T extends Prisma.Product$paymentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Product$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$paymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   CartItems<T extends Prisma.Product$CartItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Product$CartItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CartItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  order<T extends Prisma.Product$orderArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Product$orderArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$orderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  OrderItem<T extends Prisma.Product$OrderItemArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Product$OrderItemArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrderItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  payment<T extends Prisma.Product$paymentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Product$paymentArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$paymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2452,30 +2459,6 @@ export type Product$starPercentsArgs<ExtArgs extends runtime.Types.Extensions.In
 }
 
 /**
- * Product.payments
- */
-export type Product$paymentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the payment
-   */
-  select?: Prisma.paymentSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the payment
-   */
-  omit?: Prisma.paymentOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.paymentInclude<ExtArgs> | null
-  where?: Prisma.paymentWhereInput
-  orderBy?: Prisma.paymentOrderByWithRelationInput | Prisma.paymentOrderByWithRelationInput[]
-  cursor?: Prisma.paymentWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.PaymentScalarFieldEnum | Prisma.PaymentScalarFieldEnum[]
-}
-
-/**
  * Product.CartItems
  */
 export type Product$CartItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2500,27 +2483,51 @@ export type Product$CartItemsArgs<ExtArgs extends runtime.Types.Extensions.Inter
 }
 
 /**
- * Product.order
+ * Product.OrderItem
  */
-export type Product$orderArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Product$OrderItemArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the order
+   * Select specific fields to fetch from the OrderItem
    */
-  select?: Prisma.orderSelect<ExtArgs> | null
+  select?: Prisma.OrderItemSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the order
+   * Omit specific fields from the OrderItem
    */
-  omit?: Prisma.orderOmit<ExtArgs> | null
+  omit?: Prisma.OrderItemOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.orderInclude<ExtArgs> | null
-  where?: Prisma.orderWhereInput
-  orderBy?: Prisma.orderOrderByWithRelationInput | Prisma.orderOrderByWithRelationInput[]
-  cursor?: Prisma.orderWhereUniqueInput
+  include?: Prisma.OrderItemInclude<ExtArgs> | null
+  where?: Prisma.OrderItemWhereInput
+  orderBy?: Prisma.OrderItemOrderByWithRelationInput | Prisma.OrderItemOrderByWithRelationInput[]
+  cursor?: Prisma.OrderItemWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.OrderScalarFieldEnum | Prisma.OrderScalarFieldEnum[]
+  distinct?: Prisma.OrderItemScalarFieldEnum | Prisma.OrderItemScalarFieldEnum[]
+}
+
+/**
+ * Product.payment
+ */
+export type Product$paymentArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the payment
+   */
+  select?: Prisma.paymentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the payment
+   */
+  omit?: Prisma.paymentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.paymentInclude<ExtArgs> | null
+  where?: Prisma.paymentWhereInput
+  orderBy?: Prisma.paymentOrderByWithRelationInput | Prisma.paymentOrderByWithRelationInput[]
+  cursor?: Prisma.paymentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PaymentScalarFieldEnum | Prisma.PaymentScalarFieldEnum[]
 }
 
 /**

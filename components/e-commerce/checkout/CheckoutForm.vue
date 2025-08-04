@@ -14,7 +14,15 @@
           <ContactPersonForm :formData="formData" :validValue="validValue" />
         </div>
         <div v-if="stepIndex === 2">
-          <CheckoutPayments :formData="formData" :cartData="cartData" :totalPrice="totalPrice" />
+          <CheckoutPayments
+            v-model:paymentMethod="formData.paymentMethod"
+            :cartData="cartData"
+            :formData="formData"
+            :totalPrice="totalPrice"
+          />
+        </div>
+        <div v-if="stepIndex === 3">
+          <ConfirmPayment />
         </div>
       </template>
     </StepperForm>
@@ -25,13 +33,14 @@
   import useVuelidate from '@vuelidate/core'
   import { required, email, minLength, maxLength, helpers } from '@vuelidate/validators'
   import StepperForm from '~/components/ui/shared/StepperForm/StepperForm.vue'
-  const { cartData } = defineProps(['cartData'])
-  const headers = useHeaders();
+  import ConfirmPayment from '~/components/e-commerce/checkout/ConfirmPayment.vue'
+
+  const headers = useHeaders()
   const stepIndex = ref(1)
-  const checkoutStore = useCheckoutStore();
-  const {orderData} = storeToRefs(checkoutStore);
-  const cartStore = useCartStore();
-const { totalPrice } = storeToRefs(cartStore);
+  const checkoutStore = useCheckoutStore()
+  const { orderData } = storeToRefs(checkoutStore)
+  const cartStore = useCartStore()
+  const { totalPrice, cartData } = storeToRefs(cartStore)
   const formData = reactive({
     fullName: '',
     phoneNumber: '',
@@ -40,7 +49,7 @@ const { totalPrice } = storeToRefs(cartStore);
     cityProvince: '',
     wards: '',
     paymentMethod: '',
-    amount: '',
+    amount: ''
   })
   const rules = {
     fullName: {
@@ -69,43 +78,31 @@ required: helpers.withMessage("Wards is required", required),
   const createOrder = async (formData) => {
     try {
       const data = await $fetch('/api/payments/create-order', {
-      method: 'POST',
-      body: JSON.stringify({
-        fullName: formData.fullName,
-        phoneNumber: formData.phoneNumber,
-        email: formData.email,
-        address: formData.address,
-        totalPrice: totalPrice,
-        method: formData.paymentMethod,
-        items: cartData.items,
-      }),
-      headers: {
-        ...headers,
-      }
-    })
-    console.log(data)
-    orderData.value = data.value
-    } catch(e) {
+        method: 'POST',
+        body: JSON.stringify({
+          fullName: formData.fullName,
+          phoneNumber: formData.phoneNumber,
+          email: formData.email,
+          address: formData.address,
+          totalPrice: totalPrice.value,
+          items: cartData.value
+        }),
+        headers: {
+          ...headers
+        }
+      })
+      console.log(data)
+      orderData.value = data?.order
+    } catch (e) {
       console.error(e)
     }
-
   }
-
   const $v = useVuelidate(rules, formData)
 
   const submitForm = async () => {
     const result = await $v.value.$validate()
     console.log(formData, stepIndex)
-    if(!result) return;
-
-    if(stepIndex.value === 2 ){
-      await createOrder(formData)
-    }
-
-    console.log(result, $v.value.$errors)
   }
-
-
 
   const nextStepForm = async () => {
     if (stepIndex.value === 1) {
@@ -115,8 +112,35 @@ required: helpers.withMessage("Wards is required", required),
 
       stepIndex.value++
     } else if (stepIndex.value === 2) {
+      await createOrder(formData)
+      stepIndex.value++
     }
   }
+  const method = computed(() => {
+    return formData.paymentMethod === 'bank_transfer' ? 'bank_transfer' : null
+  })
+  console.log(orderData.value?.id, method)
+  watch(
+    () => orderData.value?.id,
+    async (orderId) => {
+      if (!orderId) return
+      if (orderId && method.value === 'bank_transfer') {
+        try {
+          const res = await $fetch('api/payments/create-payment', {
+            method: 'POST',
+            body: {
+              orderId: orderData.value.id,
+              amount: totalPrice.value,
+              items: cartData.value
+            }
+          })
+          console.log('Payment created', res)
+        } catch (err) {
+          console.error('Create payment failed', err)
+        }
+      }
+    }
+  )
 
   const buttonLabel = computed(() => {
     if (stepIndex.value === 1) return 'Continue to shipping'

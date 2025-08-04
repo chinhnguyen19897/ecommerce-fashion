@@ -1410,13 +1410,13 @@ export type CartItemScalarFieldEnum = (typeof CartItemScalarFieldEnum)[keyof typ
 
 export const PaymentScalarFieldEnum = {
   id: 'id',
-  productId: 'productId',
-  method: 'method',
   status: 'status',
   amount: 'amount',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  userId: 'userId'
+  orderId: 'orderId',
+  userId: 'userId',
+  productId: 'productId'
 } as const
 
 export type PaymentScalarFieldEnum = (typeof PaymentScalarFieldEnum)[keyof typeof PaymentScalarFieldEnum]
@@ -1424,7 +1424,6 @@ export type PaymentScalarFieldEnum = (typeof PaymentScalarFieldEnum)[keyof typeo
 
 export const OrderScalarFieldEnum = {
   id: 'id',
-  productId: 'productId',
   userId: 'userId',
   fullName: 'fullName',
   phoneNumber: 'phoneNumber',
@@ -1433,9 +1432,7 @@ export const OrderScalarFieldEnum = {
   province: 'province',
   wards: 'wards',
   totalPrice: 'totalPrice',
-  status: 'status',
-  amount: 'amount',
-  paymentId: 'paymentId'
+  status: 'status'
 } as const
 
 export type OrderScalarFieldEnum = (typeof OrderScalarFieldEnum)[keyof typeof OrderScalarFieldEnum]
@@ -1444,7 +1441,8 @@ export type OrderScalarFieldEnum = (typeof OrderScalarFieldEnum)[keyof typeof Or
 export const OrderItemScalarFieldEnum = {
   id: 'id',
   orderId: 'orderId',
-  method: 'method',
+  productId: 'productId',
+  quantity: 'quantity',
   status: 'status',
   amount: 'amount',
   createdAt: 'createdAt',

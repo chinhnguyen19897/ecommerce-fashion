@@ -1,51 +1,54 @@
 <script lang="ts" setup>
-const props = defineProps<{
-  stepIndex: number
-  formData: any
-  totalPrice: number
-  cartData: any
-}>()
-import {RadioGroup} from "~/components/ui/radio-group";
+  const props = defineProps<{
+    stepIndex: number
+    formData: any
+    totalPrice: number
+    cartData: any
+    paymentMethod: string
+  }>()
+  import { RadioGroup } from '~/components/ui/radio-group'
 
+  const emit = defineEmits<{
+    (e: 'update:paymentMethod', value: string): void
+  }>()
 
+  const localMethod = ref(props.paymentMethod ?? 'cod')
 
-
-const localMethod = ref(props.formData.paymentMethod ?? 'cod')
-
-watch(localMethod, (val) => {
-  props.formData.paymentMethod = val
-})
-
+  watch(localMethod, (val) => {
+    emit('update:paymentMethod', val)
+  })
 </script>
 
 <template>
   <div class="my-10">
- <h3 class="text-[32px] uppercase font-medium mb-10">Payments & Delivery</h3>
-<RadioGroup default-value="cod" v-model="localMethod" :orientation="'vertical'">
-  <div class="flex items-center gap-4 border border-[#B4B4B4] border-solid p-3">
-    <RadioGroupItem value="cod" id="cod"/>
-    <div class="flex gap-2">
-      <NuxtImg src="/images/logo/cod.png" width="45" height="40" alt="cod" title="cod-logo"/>
-      <div class="flex flex-col gap-1">
-        <Label class="font-semibold text-[16px]">COD</Label>
-        <span class="text-sm text-secondary">
-          (Cash of delivery)
-        </span>
+    <h3 class="mb-10 text-[32px] font-medium uppercase">Payments & Delivery</h3>
+    <RadioGroup v-model="localMethod" :orientation="'vertical'" default-value="cod">
+      <div class="flex items-center gap-4 border border-solid border-[#B4B4B4] p-3">
+        <RadioGroupItem id="cod" value="cod" />
+        <div class="flex gap-2">
+          <NuxtImg alt="cod" height="40" src="/images/logo/cod.png" title="cod-logo" width="45" />
+          <div class="flex flex-col gap-1">
+            <Label class="text-[16px] font-semibold">COD</Label>
+            <span class="text-sm text-secondary"> (Cash of delivery) </span>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-  <div class="flex items-center gap-4 border border-[#B4B4B4] border-solid p-3">
-    <RadioGroupItem value="bank_transfer" id="b_trfs"/>
-    <div class="flex gap-2">
-      <NuxtImg src="/images/logo/bank-transfer.png" width="45" height="40" alt="bank-transfer" title="bank-transfer"/>
-      <div class="flex flex-col gap-1">
-        <Label class="font-semibold text-[16px]">Bank Transfer</Label>
-        <span class="text-sm text-secondary">
-          (Transfer to our bank account)
-        </span>
+      <div class="flex items-center gap-4 border border-solid border-[#B4B4B4] p-3">
+        <RadioGroupItem id="b_trfs" value="bank_transfer" />
+        <div class="flex gap-2">
+          <NuxtImg
+            alt="bank-transfer"
+            height="40"
+            src="/images/logo/bank-transfer.png"
+            title="bank-transfer"
+            width="45"
+          />
+          <div class="flex flex-col gap-1">
+            <Label class="text-[16px] font-semibold">Bank Transfer</Label>
+            <span class="text-sm text-secondary"> (Transfer to our bank account) </span>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-</RadioGroup>
+    </RadioGroup>
   </div>
 </template>

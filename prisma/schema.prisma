@@ -42,11 +42,11 @@ model Product {
   reviews      ProductReview[]
   stars        productStar[]
   starPercents productStarPercent[]
-  payments     payment[]
   CartItems    CartItem[]
   createdAt    DateTime             @default(now())
   updatedAt    DateTime             @updatedAt
-  order        order[]
+  OrderItem    OrderItem[]
+  payment      payment[]
 }
 
 model Cart {
@@ -69,49 +69,46 @@ model CartItem {
 }
 
 model payment {
-  id        Int     @id @default(autoincrement())
-  productId Int
-  method    String
-  status    String  @default("PENDING")
-  amount    Decimal @db.Decimal(10, 2)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  order     order?
-  User      User?    @relation(fields: [userId], references: [id])
+  id        Int        @id @default(autoincrement())
+  status    String     @default("PENDING")
+  amount    Int
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  orderId   Int?       @unique
   userId    Int?
-  Product   Product  @relation(fields: [productId], references: [id])
+  productId Int?
+  User      User?      @relation(fields: [userId], references: [id])
+  orders    OrderItem? @relation(fields: [orderId], references: [id])
+  products  Product?   @relation(fields: [productId], references: [id])
 }
 
 model order {
   id          Int         @id @default(autoincrement())
-  productId   Int
   userId      Int?
   fullName    String
   phoneNumber String
   email       String?
   address     String
-  province    String
-  wards       String
+  province    String?
+  wards       String?
   totalPrice  Int
-  status      String      @default("PENDING")
-  amount      Decimal     @db.Decimal(10, 2)
-  product     Product     @relation(fields: [productId], references: [id])
+  status      String      @default("AWAITING_CONFIRM")
   user        User?       @relation(fields: [userId], references: [id])
   items       OrderItem[]
-  payment     payment?    @relation(fields: [paymentId], references: [id])
-  paymentId   Int?        @unique
 }
 
 model OrderItem {
   id        Int      @id @default(autoincrement())
   order     order?   @relation(fields: [orderId], references: [id])
   orderId   Int?
-  method    String
+  product   Product  @relation(fields: [productId], references: [id])
+  productId Int
+  quantity  Int
   status    String   @default("PENDING")
   amount    Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  payment   payment?
 }
 
 model productStarPercent {
