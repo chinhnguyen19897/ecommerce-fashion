@@ -1,12 +1,12 @@
 <template >
   <div class="flex flex-col mt-10">
     <div class="mb-10">
-      <h3 class="text-[32px] uppercase font-semibold mb-10">Contact Person</h3>
+      <h3 class="text-[32px] uppercase font-medium mb-10">Contact Person</h3>
 
       <div class="flex flex-col gap-4">
         <div class="flex flex-col gap-1">
-            <FormError :errors="props.validValue.name.$errors">
-              <FormInput :id="'name'" v-model="props.formData.name" :forLabel="'name'" :label="'Name'" :placeholder="'Eg: Chinh'" :type="'text'" />
+            <FormError :errors="props.validValue.fullName.$errors">
+              <FormInput :id="'fullName'" v-model="props.formData.fullName" :forLabel="'name'" :label="'Name'" :placeholder="'Eg: Chinh'" :type="'text'" />
           </FormError>
         </div>
         <div class="flex flex-col gap-2">
@@ -22,7 +22,7 @@
       </div>
     </div>
     <div>
-      <h3 class="text-[32px] uppercase font-semibold mb-10">Address Details</h3>
+      <h3 class="text-[32px] uppercase font-medium mb-10">Address Details</h3>
       <div class="flex flex-col gap-4">
         <div class="flex flex-col gap-1">
            <FormError :errors="props.validValue.address.$errors">

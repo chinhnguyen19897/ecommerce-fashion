@@ -11,7 +11,7 @@
           </h1>
         </div>
         <div>
-          <CheckoutForm />
+          <CheckoutForm :cartData="cartData" :totalPrice="totalPrice" />
         </div>
       </div>
       <div class="col-span-4 col-start-9">
