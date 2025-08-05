@@ -1,14 +1,14 @@
 import prisma from '@/lib/prisma'
-import { Prisma } from '@prisma/client'
-
+import {orderSchema} from './modules/validateOrder';
 export default defineEventHandler(async (event) => {
   const { userId, fullName, phoneNumber, email, address, province, wards, totalPrice, items } =
     await readBody(event)
-
-  if (!fullName || !phoneNumber || !email || !address || !items || items.length === 0) {
+  const result = orderSchema.safeParse({userId, fullName, phoneNumber, email, address,  totalPrice, items})
+  if (!result.success) {
     throw createError({
       statusCode: 400,
-      message: 'Missing required fields'
+      message: 'Missing required fields',
+      data: result.error,
     })
   }
 

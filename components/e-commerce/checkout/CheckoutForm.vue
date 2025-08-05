@@ -22,7 +22,7 @@
           />
         </div>
         <div v-if="stepIndex === 3">
-          <ConfirmPayment />
+          <ConfirmPayment :paymentData="paymentData"/>
         </div>
       </template>
     </StepperForm>
@@ -37,6 +37,7 @@
 
   const headers = useHeaders()
   const stepIndex = ref(1)
+  const paymentData = ref()
   const checkoutStore = useCheckoutStore()
   const { orderData } = storeToRefs(checkoutStore)
   const cartStore = useCartStore()
@@ -91,7 +92,6 @@ required: helpers.withMessage("Wards is required", required),
           ...headers
         }
       })
-      console.log(data)
       orderData.value = data?.order
     } catch (e) {
       console.error(e)
@@ -119,7 +119,6 @@ required: helpers.withMessage("Wards is required", required),
   const method = computed(() => {
     return formData.paymentMethod === 'bank_transfer' ? 'bank_transfer' : null
   })
-  console.log(orderData.value?.id, method)
   watch(
     () => orderData.value?.id,
     async (orderId) => {
@@ -134,6 +133,7 @@ required: helpers.withMessage("Wards is required", required),
               items: cartData.value
             }
           })
+          paymentData.value = res.payment
           console.log('Payment created', res)
         } catch (err) {
           console.error('Create payment failed', err)

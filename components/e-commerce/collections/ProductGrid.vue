@@ -1,7 +1,9 @@
 <script setup>
-const productEcommerceStore = useProductEcommerceStore();
-const { productData } = storeToRefs(productEcommerceStore);
-await productEcommerceStore.fetchProducts();
+defineProps({
+  productData: {
+    type: Array,
+  }
+})
 </script>
 
 <template>

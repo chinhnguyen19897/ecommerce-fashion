@@ -584,10 +584,12 @@ export type ProductCreateNestedOneWithoutOrderItemInput = {
   connect?: Prisma.ProductWhereUniqueInput
 }
 
-export type ProductUpdateOneRequiredWithoutOrderItemNestedInput = {
+export type ProductUpdateOneWithoutOrderItemNestedInput = {
   create?: Prisma.XOR<Prisma.ProductCreateWithoutOrderItemInput, Prisma.ProductUncheckedCreateWithoutOrderItemInput>
   connectOrCreate?: Prisma.ProductCreateOrConnectWithoutOrderItemInput
   upsert?: Prisma.ProductUpsertWithoutOrderItemInput
+  disconnect?: Prisma.ProductWhereInput | boolean
+  delete?: Prisma.ProductWhereInput | boolean
   connect?: Prisma.ProductWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.ProductUpdateToOneWithWhereWithoutOrderItemInput, Prisma.ProductUpdateWithoutOrderItemInput>, Prisma.ProductUncheckedUpdateWithoutOrderItemInput>
 }

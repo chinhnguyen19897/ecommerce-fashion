@@ -101,8 +101,8 @@ model OrderItem {
   id        Int      @id @default(autoincrement())
   order     order?   @relation(fields: [orderId], references: [id])
   orderId   Int?
-  product   Product  @relation(fields: [productId], references: [id])
-  productId Int
+  product   Product? @relation(fields: [productId], references: [id])
+  productId Int?
   quantity  Int
   status    String   @default("PENDING")
   amount    Int

@@ -17,7 +17,7 @@ const FALL_BACK_IMG_URL = config?.public?.FALL_BACK_IMG_URL;
   >
     <NuxtLink
       :title="product?.name"
-      :to="`/e-commerce/product/${product?.slug}`"
+      :to="`/product/${product?.slug}`"
     >
       <NuxtImg
         :alt="product?.name"

@@ -8,7 +8,7 @@ export const useCheckoutStore = defineStore('checkout-store', () => {
             method: "POST",
             body: formData
         })
-
+        console.log(data)
         qrCodeData.value = data.value
     }
 

@@ -5,6 +5,12 @@ export default defineEventHandler(async (event) => {
   const body = await readBody(event)
 
   const { amount, orderId } = body
+  if (!orderId || !amount) {
+    throw new createError({
+      statusCode: 400,
+      statusMessage: 'Invalid orderId or orderId'
+    })
+  }
   const bankInfo = await getBankInfo()
 
   const note = `ORDER_${orderId}`

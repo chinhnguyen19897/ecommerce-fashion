@@ -102,14 +102,14 @@
           <BaseBtn
             btnClass="bg-[#8B4513] rounded-0 w-full text-white text-center text-lg font-lato uppercase font-normal"
             label="View To Cart"
-            @click="$router.push('/e-commerce/cart')"
+            @click="$router.push('/cart')"
           />
         </div>
         <div>
           <BaseBtn
             btnClass="bg-[#8B4513] rounded-0 w-full text-white text-center text-lg font-lato uppercase font-normal"
             label="Check Out"
-            @click="$router.push('/e-commerce/checkout')"
+            @click="$router.push('/checkout')"
           />
         </div>
       </div>

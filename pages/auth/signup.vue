@@ -37,11 +37,11 @@ async function submitForm() {
     });
 
     loading.value = false;
-    router.push("/auth/email-verification");
+    await router.push("/auth/email-verification");
   } catch (error) {
     console.error(error);
     loading.value = false;
-    showLoginOrSignupError(error);
+    //showLoginOrSignupError(error);
   }
 }
 </script>

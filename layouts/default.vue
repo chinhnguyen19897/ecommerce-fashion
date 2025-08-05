@@ -28,7 +28,7 @@ useHead({
   </div>
 </template>
 
-<style lang="postcss">
+<!--<style lang="postcss">
 html,
 body {
   @apply bg-white text-primary;
@@ -263,4 +263,4 @@ input[type="radio"]:checked:after {
   opacity: 1;
   transform: scale(1);
 }
-</style>
+</style>-->
