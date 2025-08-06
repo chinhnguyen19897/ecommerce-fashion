@@ -21,8 +21,8 @@
             :totalPrice="totalPrice"
           />
         </div>
-        <div v-if="stepIndex === 3">
-          <ConfirmPayment :paymentData="paymentData"/>
+        <div v-if="stepIndex === 3 && paymentData">
+          <ConfirmPayment :paymentData="paymentData" :orderData="orderData" />
         </div>
       </template>
     </StepperForm>
@@ -37,7 +37,7 @@
 
   const headers = useHeaders()
   const stepIndex = ref(1)
-  const paymentData = ref()
+  const paymentData = ref({})
   const checkoutStore = useCheckoutStore()
   const { orderData } = storeToRefs(checkoutStore)
   const cartStore = useCartStore()
@@ -113,17 +113,16 @@ required: helpers.withMessage("Wards is required", required),
       stepIndex.value++
     } else if (stepIndex.value === 2) {
       await createOrder(formData)
-      stepIndex.value++
     }
   }
   const method = computed(() => {
-    return formData.paymentMethod === 'bank_transfer' ? 'bank_transfer' : null
+    return formData.paymentMethod === 'bank_transfer' ? 'bank_transfer' : 'cod'
   })
   watch(
     () => orderData.value?.id,
     async (orderId) => {
       if (!orderId) return
-      if (orderId && method.value === 'bank_transfer') {
+      if (orderId && method.value === 'bank_transfer' && stepIndex.value === 2) {
         try {
           const res = await $fetch('api/payments/create-payment', {
             method: 'POST',
@@ -134,6 +133,9 @@ required: helpers.withMessage("Wards is required", required),
             }
           })
           paymentData.value = res.payment
+          if(stepIndex.value === 2) {
+            stepIndex.value++
+          }
           console.log('Payment created', res)
         } catch (err) {
           console.error('Create payment failed', err)
@@ -141,6 +143,7 @@ required: helpers.withMessage("Wards is required", required),
       }
     }
   )
+  console.log(paymentData.value, orderData)
 
   const buttonLabel = computed(() => {
     if (stepIndex.value === 1) return 'Continue to shipping'

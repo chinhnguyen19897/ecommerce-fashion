@@ -32,9 +32,17 @@ export default defineEventHandler(async (event) => {
       items: true
     }
   })
+    const orderNumber = `ORD-${String(order.id).padStart(6, '0')}` // VD: ORD-000123
+const updatedOrder = await prisma.order.update({
+    where: { id: order.id },
+    data: { orderNumber }
+  })
 
   return {
     message: 'Order created successfully.',
-    order
+    order: {
+      ...updatedOrder,
+      items: order.items
+    }
   }
 })

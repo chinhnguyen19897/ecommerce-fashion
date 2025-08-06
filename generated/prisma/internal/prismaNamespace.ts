@@ -1432,6 +1432,7 @@ export const OrderScalarFieldEnum = {
   province: 'province',
   wards: 'wards',
   totalPrice: 'totalPrice',
+  orderNumber: 'orderNumber',
   status: 'status'
 } as const
 

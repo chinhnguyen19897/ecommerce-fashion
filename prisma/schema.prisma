@@ -92,6 +92,7 @@ model order {
   province    String?
   wards       String?
   totalPrice  Int
+  orderNumber String?     @unique
   status      String      @default("AWAITING_CONFIRM")
   user        User?       @relation(fields: [userId], references: [id])
   items       OrderItem[]

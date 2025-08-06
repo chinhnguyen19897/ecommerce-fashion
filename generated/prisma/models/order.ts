@@ -47,6 +47,7 @@ export type OrderMinAggregateOutputType = {
   province: string | null
   wards: string | null
   totalPrice: number | null
+  orderNumber: string | null
   status: string | null
 }
 
@@ -60,6 +61,7 @@ export type OrderMaxAggregateOutputType = {
   province: string | null
   wards: string | null
   totalPrice: number | null
+  orderNumber: string | null
   status: string | null
 }
 
@@ -73,6 +75,7 @@ export type OrderCountAggregateOutputType = {
   province: number
   wards: number
   totalPrice: number
+  orderNumber: number
   status: number
   _all: number
 }
@@ -100,6 +103,7 @@ export type OrderMinAggregateInputType = {
   province?: true
   wards?: true
   totalPrice?: true
+  orderNumber?: true
   status?: true
 }
 
@@ -113,6 +117,7 @@ export type OrderMaxAggregateInputType = {
   province?: true
   wards?: true
   totalPrice?: true
+  orderNumber?: true
   status?: true
 }
 
@@ -126,6 +131,7 @@ export type OrderCountAggregateInputType = {
   province?: true
   wards?: true
   totalPrice?: true
+  orderNumber?: true
   status?: true
   _all?: true
 }
@@ -226,6 +232,7 @@ export type OrderGroupByOutputType = {
   province: string | null
   wards: string | null
   totalPrice: number
+  orderNumber: string | null
   status: string
   _count: OrderCountAggregateOutputType | null
   _avg: OrderAvgAggregateOutputType | null
@@ -262,6 +269,7 @@ export type orderWhereInput = {
   province?: Prisma.StringNullableFilter<"order"> | string | null
   wards?: Prisma.StringNullableFilter<"order"> | string | null
   totalPrice?: Prisma.IntFilter<"order"> | number
+  orderNumber?: Prisma.StringNullableFilter<"order"> | string | null
   status?: Prisma.StringFilter<"order"> | string
   user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   items?: Prisma.OrderItemListRelationFilter
@@ -277,6 +285,7 @@ export type orderOrderByWithRelationInput = {
   province?: Prisma.SortOrderInput | Prisma.SortOrder
   wards?: Prisma.SortOrderInput | Prisma.SortOrder
   totalPrice?: Prisma.SortOrder
+  orderNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
   items?: Prisma.OrderItemOrderByRelationAggregateInput
@@ -284,6 +293,7 @@ export type orderOrderByWithRelationInput = {
 
 export type orderWhereUniqueInput = Prisma.AtLeast<{
   id?: number
+  orderNumber?: string
   AND?: Prisma.orderWhereInput | Prisma.orderWhereInput[]
   OR?: Prisma.orderWhereInput[]
   NOT?: Prisma.orderWhereInput | Prisma.orderWhereInput[]
@@ -298,7 +308,7 @@ export type orderWhereUniqueInput = Prisma.AtLeast<{
   status?: Prisma.StringFilter<"order"> | string
   user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   items?: Prisma.OrderItemListRelationFilter
-}, "id">
+}, "id" | "orderNumber">
 
 export type orderOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -310,6 +320,7 @@ export type orderOrderByWithAggregationInput = {
   province?: Prisma.SortOrderInput | Prisma.SortOrder
   wards?: Prisma.SortOrderInput | Prisma.SortOrder
   totalPrice?: Prisma.SortOrder
+  orderNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   _count?: Prisma.orderCountOrderByAggregateInput
   _avg?: Prisma.orderAvgOrderByAggregateInput
@@ -331,6 +342,7 @@ export type orderScalarWhereWithAggregatesInput = {
   province?: Prisma.StringNullableWithAggregatesFilter<"order"> | string | null
   wards?: Prisma.StringNullableWithAggregatesFilter<"order"> | string | null
   totalPrice?: Prisma.IntWithAggregatesFilter<"order"> | number
+  orderNumber?: Prisma.StringNullableWithAggregatesFilter<"order"> | string | null
   status?: Prisma.StringWithAggregatesFilter<"order"> | string
 }
 
@@ -342,6 +354,7 @@ export type orderCreateInput = {
   province?: string | null
   wards?: string | null
   totalPrice: number
+  orderNumber?: string | null
   status?: string
   user?: Prisma.UserCreateNestedOneWithoutOrderInput
   items?: Prisma.OrderItemCreateNestedManyWithoutOrderInput
@@ -357,6 +370,7 @@ export type orderUncheckedCreateInput = {
   province?: string | null
   wards?: string | null
   totalPrice: number
+  orderNumber?: string | null
   status?: string
   items?: Prisma.OrderItemUncheckedCreateNestedManyWithoutOrderInput
 }
@@ -369,6 +383,7 @@ export type orderUpdateInput = {
   province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   wards?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalPrice?: Prisma.IntFieldUpdateOperationsInput | number
+  orderNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
   user?: Prisma.UserUpdateOneWithoutOrderNestedInput
   items?: Prisma.OrderItemUpdateManyWithoutOrderNestedInput
@@ -384,6 +399,7 @@ export type orderUncheckedUpdateInput = {
   province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   wards?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalPrice?: Prisma.IntFieldUpdateOperationsInput | number
+  orderNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
   items?: Prisma.OrderItemUncheckedUpdateManyWithoutOrderNestedInput
 }
@@ -398,6 +414,7 @@ export type orderCreateManyInput = {
   province?: string | null
   wards?: string | null
   totalPrice: number
+  orderNumber?: string | null
   status?: string
 }
 
@@ -409,6 +426,7 @@ export type orderUpdateManyMutationInput = {
   province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   wards?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalPrice?: Prisma.IntFieldUpdateOperationsInput | number
+  orderNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
@@ -422,6 +440,7 @@ export type orderUncheckedUpdateManyInput = {
   province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   wards?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalPrice?: Prisma.IntFieldUpdateOperationsInput | number
+  orderNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
@@ -445,6 +464,7 @@ export type orderCountOrderByAggregateInput = {
   province?: Prisma.SortOrder
   wards?: Prisma.SortOrder
   totalPrice?: Prisma.SortOrder
+  orderNumber?: Prisma.SortOrder
   status?: Prisma.SortOrder
 }
 
@@ -464,6 +484,7 @@ export type orderMaxOrderByAggregateInput = {
   province?: Prisma.SortOrder
   wards?: Prisma.SortOrder
   totalPrice?: Prisma.SortOrder
+  orderNumber?: Prisma.SortOrder
   status?: Prisma.SortOrder
 }
 
@@ -477,6 +498,7 @@ export type orderMinOrderByAggregateInput = {
   province?: Prisma.SortOrder
   wards?: Prisma.SortOrder
   totalPrice?: Prisma.SortOrder
+  orderNumber?: Prisma.SortOrder
   status?: Prisma.SortOrder
 }
 
@@ -557,6 +579,7 @@ export type orderCreateWithoutUserInput = {
   province?: string | null
   wards?: string | null
   totalPrice: number
+  orderNumber?: string | null
   status?: string
   items?: Prisma.OrderItemCreateNestedManyWithoutOrderInput
 }
@@ -570,6 +593,7 @@ export type orderUncheckedCreateWithoutUserInput = {
   province?: string | null
   wards?: string | null
   totalPrice: number
+  orderNumber?: string | null
   status?: string
   items?: Prisma.OrderItemUncheckedCreateNestedManyWithoutOrderInput
 }
@@ -613,6 +637,7 @@ export type orderScalarWhereInput = {
   province?: Prisma.StringNullableFilter<"order"> | string | null
   wards?: Prisma.StringNullableFilter<"order"> | string | null
   totalPrice?: Prisma.IntFilter<"order"> | number
+  orderNumber?: Prisma.StringNullableFilter<"order"> | string | null
   status?: Prisma.StringFilter<"order"> | string
 }
 
@@ -624,6 +649,7 @@ export type orderCreateWithoutItemsInput = {
   province?: string | null
   wards?: string | null
   totalPrice: number
+  orderNumber?: string | null
   status?: string
   user?: Prisma.UserCreateNestedOneWithoutOrderInput
 }
@@ -638,6 +664,7 @@ export type orderUncheckedCreateWithoutItemsInput = {
   province?: string | null
   wards?: string | null
   totalPrice: number
+  orderNumber?: string | null
   status?: string
 }
 
@@ -665,6 +692,7 @@ export type orderUpdateWithoutItemsInput = {
   province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   wards?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalPrice?: Prisma.IntFieldUpdateOperationsInput | number
+  orderNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
   user?: Prisma.UserUpdateOneWithoutOrderNestedInput
 }
@@ -679,6 +707,7 @@ export type orderUncheckedUpdateWithoutItemsInput = {
   province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   wards?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalPrice?: Prisma.IntFieldUpdateOperationsInput | number
+  orderNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
@@ -691,6 +720,7 @@ export type orderCreateManyUserInput = {
   province?: string | null
   wards?: string | null
   totalPrice: number
+  orderNumber?: string | null
   status?: string
 }
 
@@ -702,6 +732,7 @@ export type orderUpdateWithoutUserInput = {
   province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   wards?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalPrice?: Prisma.IntFieldUpdateOperationsInput | number
+  orderNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
   items?: Prisma.OrderItemUpdateManyWithoutOrderNestedInput
 }
@@ -715,6 +746,7 @@ export type orderUncheckedUpdateWithoutUserInput = {
   province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   wards?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalPrice?: Prisma.IntFieldUpdateOperationsInput | number
+  orderNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
   items?: Prisma.OrderItemUncheckedUpdateManyWithoutOrderNestedInput
 }
@@ -728,6 +760,7 @@ export type orderUncheckedUpdateManyWithoutUserInput = {
   province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   wards?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalPrice?: Prisma.IntFieldUpdateOperationsInput | number
+  orderNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
@@ -772,6 +805,7 @@ export type orderSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   province?: boolean
   wards?: boolean
   totalPrice?: boolean
+  orderNumber?: boolean
   status?: boolean
   user?: boolean | Prisma.order$userArgs<ExtArgs>
   items?: boolean | Prisma.order$itemsArgs<ExtArgs>
@@ -788,6 +822,7 @@ export type orderSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   province?: boolean
   wards?: boolean
   totalPrice?: boolean
+  orderNumber?: boolean
   status?: boolean
   user?: boolean | Prisma.order$userArgs<ExtArgs>
 }, ExtArgs["result"]["order"]>
@@ -802,6 +837,7 @@ export type orderSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   province?: boolean
   wards?: boolean
   totalPrice?: boolean
+  orderNumber?: boolean
   status?: boolean
   user?: boolean | Prisma.order$userArgs<ExtArgs>
 }, ExtArgs["result"]["order"]>
@@ -816,10 +852,11 @@ export type orderSelectScalar = {
   province?: boolean
   wards?: boolean
   totalPrice?: boolean
+  orderNumber?: boolean
   status?: boolean
 }
 
-export type orderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "fullName" | "phoneNumber" | "email" | "address" | "province" | "wards" | "totalPrice" | "status", ExtArgs["result"]["order"]>
+export type orderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "fullName" | "phoneNumber" | "email" | "address" | "province" | "wards" | "totalPrice" | "orderNumber" | "status", ExtArgs["result"]["order"]>
 export type orderInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.order$userArgs<ExtArgs>
   items?: boolean | Prisma.order$itemsArgs<ExtArgs>
@@ -848,6 +885,7 @@ export type $orderPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     province: string | null
     wards: string | null
     totalPrice: number
+    orderNumber: string | null
     status: string
   }, ExtArgs["result"]["order"]>
   composites: {}
@@ -1283,6 +1321,7 @@ export interface orderFieldRefs {
   readonly province: Prisma.FieldRef<"order", 'String'>
   readonly wards: Prisma.FieldRef<"order", 'String'>
   readonly totalPrice: Prisma.FieldRef<"order", 'Int'>
+  readonly orderNumber: Prisma.FieldRef<"order", 'String'>
   readonly status: Prisma.FieldRef<"order", 'String'>
 }
     

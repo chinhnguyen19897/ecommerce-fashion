@@ -4,24 +4,31 @@ import { getBankInfo } from '~/server/utils/bank-info'
 export default defineEventHandler(async (event) => {
   const body = await readBody(event)
 
-  const { amount, orderId } = body
-  if (!orderId || !amount) {
-    throw new createError({
+  const {amount} = body
+  if (amount <= 0) {
+    throw createError({
       statusCode: 400,
-      statusMessage: 'Invalid orderId or orderId'
+      statusMessage: 'Amount is must be greater than 0',
     })
   }
   const bankInfo = await getBankInfo()
 
-  const note = `ORDER_${orderId}`
-  const qrText = `STK: ${bankInfo.accountNumber}\nName: ${bankInfo.bankName}\nAmount: ${amount}\nNote: ${note}`
-  const qrCodeUrl = await QR.toDataURL(qrText)
+    const res: any = await $fetch('https://api.vietqr.io/v2/generate', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: {
+      accountNo: bankInfo.accountNumber,
+      accountName: bankInfo.accountName,
+      acqId: bankInfo.acqId,
+      amount: amount,
+      format: 'text',
+      template: 'compact2',
+    },
+  })
 
-  return {
-    qrCodeUrl,
-    accountNumber: bankInfo.accountNumber,
-    accountName: bankInfo.accountName,
-    bankName: bankInfo.bankName,
-    note
-  }
+
+  return { qrCode: res.data }
+
 })

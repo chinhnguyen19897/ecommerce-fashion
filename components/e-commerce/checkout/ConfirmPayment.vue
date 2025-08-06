@@ -1,36 +1,36 @@
-<script lang="ts" setup>
+<script setup>
 
-const props = defineProps<{
-  paymentData: any
-}>()
-const qrCodeData = ref<any>()
-watchEffect(() => {
-  console.log(props.paymentData, props.paymentData?.amount)
+const props = defineProps({
+  paymentData: {
+    type: Object,
+    default: () => ({})
+  },
+  orderData: {
+    type: Object
+  }
 })
+const qrCodeData = ref(null)
 const bankInfo = {
   bankName: "Vietcombank",
     accountNumber: "0031000334675",
     accountName: "NGUYEN TRAN CHINH",
-    acqId: "970436"
+  note:"TEN + SDT"
+}
+
+async function fetchQRCodeData() {
+  const res = await $fetch('/api/payments/create-qrcode', {
+    method: 'POST',
+    body: {
+      amount: props.paymentData.amount,
+    }
+  })
+  qrCodeData.value = res.qrCode?.qrDataURL
 }
 
 onMounted(() => {
-   $fetch('https://api.vietqr.io/v2/generate', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: {
-      accountNo: bankInfo.accountNumber,
-      accountName: bankInfo.accountName,
-      acqId: bankInfo.acqId,
-      amount: props.paymentData?.amount,
-      format: 'text',
-      template: 'compact2',
-    },
-  }).then((res: any) => {
-    console.log(res)
-  })
+  if (props.paymentData?.amount) {
+    fetchQRCodeData()
+  }
 })
 
 
@@ -38,31 +38,34 @@ onMounted(() => {
 </script>
 
 <template>
+  <ClientOnly>
   <div class="my-10">
-    <div class="flex justify-between">
-      <div>
-        <span>Order Number</span>
-        <span>Number</span>
+    <div class="flex justify-between mb-6">
+      <div class="flex flex-col gap-1">
+        <span class="text-xl font-normal text-[#757575]">Order Number</span>
+        <span class="text-xl font-normal text-[#3E3E3E]">{{ props?.orderData?.orderNumber }}</span>
       </div>
-      <div>
-        <span>Status</span>
-        <span>{{props.paymentData?.status}}</span>
+      <div class="bg-[#ECC0C0] rounded-full border border-[#FBE0E0] py-2 px-3 flex items-center h-max text-[#CD0909] text-xs normal-case">
+        {{props.paymentData?.status}}
       </div>
     </div>
     <div>
-      <span>Payment information</span>
-      <p>
-        Please make the bank transfer using the bank details provided below:
+      <span class="text-xl font-normal mb-1 text-[#757575]">Payment Information</span>
+      <p class="mb-5 text-[#3E3E3E]">
+        Upon completing your purchase, please proceed with a bank transfer to make the payment. Below you will find the necessary bank information and the total amount to be paid.
       </p>
-      <div>
-        <p><strong>STK:</strong> {{ qrCodeData?.accountNumber }}</p>
-        <p><strong>Ngân hàng:</strong> {{ qrCodeData?.bankName }}</p>
-        <p><strong>Tên tài khoản:</strong> {{ qrCodeData?.accountName }}</p>
-        <p><strong>Nội dung chuyển khoản:</strong> {{ qrCodeData?.note }}</p>
-        <img :src="qrCodeData.qrCodeUrl" alt="QR code chuyển khoản" class="w-60 h-60" />
+      <div class="flex flex-col gap-5">
+        <div>
+          <p><strong>STK:</strong> {{ bankInfo.accountNumber }}</p>
+        <p><strong>Ngân hàng:</strong> {{ bankInfo.bankName }}</p>
+        <p><strong>Tên tài khoản:</strong> {{ bankInfo?.accountName }}</p>
+        <p><strong>Nội dung chuyển khoản:</strong> {{ bankInfo?.note }}</p>
+        </div>
+        <img v-if="qrCodeData" :src="qrCodeData" alt="QR code chuyển khoản" width="50%"  />
       </div>
     </div>
   </div>
+    </ClientOnly>
 </template>
 
 <style scoped></style>
