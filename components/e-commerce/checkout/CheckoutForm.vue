@@ -24,6 +24,9 @@
         <div v-if="stepIndex === 3 && paymentData">
           <ConfirmPayment :paymentData="paymentData" :orderData="orderData" />
         </div>
+        <div v-if="stepIndex === 3 && formData.value?.paymentMethod === 'COD'">
+          <ConfirmStatus />
+        </div>
       </template>
     </StepperForm>
   </ClientOnly>
