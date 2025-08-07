@@ -22,7 +22,7 @@
           />
         </div>
         <div v-if="stepIndex === 3 && paymentData">
-          <ConfirmPayment :paymentData="paymentData" :orderData="orderData" />
+          <ConfirmPayment :orderData="orderData" :paymentData="paymentData" />
         </div>
       </template>
     </StepperForm>
@@ -34,7 +34,8 @@
   import { required, email, minLength, maxLength, helpers } from '@vuelidate/validators'
   import StepperForm from '~/components/ui/shared/StepperForm/StepperForm.vue'
   import ConfirmPayment from '~/components/e-commerce/checkout/ConfirmPayment.vue'
-const router = useRouter()
+
+  const router = useRouter()
   const headers = useHeaders()
   const stepIndex = ref(1)
   const paymentData = ref({})
@@ -49,7 +50,7 @@ const router = useRouter()
     address: '',
     cityProvince: '',
     wards: '',
-    paymentMethod: '',
+    paymentMethod: 'cod',
     amount: ''
   })
   const rules = {
@@ -102,32 +103,37 @@ required: helpers.withMessage("Wards is required", required),
 
   const submitForm = async () => {
     const result = await $v.value.$validate()
-      if (!result) return;
-      // router.push('/thank-you')
+    if (!result) return
+    await createOrder(formData)
+    router.push('/thank-you')
   }
 
   const nextStepForm = async () => {
+    console.log(stepIndex.value, formData.paymentMethod)
+
     if (stepIndex.value === 1) {
       $v.value.$touch()
       const isValid = await $v.value.$validate()
       if (!isValid) return
 
       stepIndex.value++
+      return
     }
     if (stepIndex.value === 2 && formData.paymentMethod === 'bank_transfer') {
       await createOrder(formData)
-      if (formData.paymentMethod === 'cod') {
-        await createOrder(formData)
-        submitForm()
+
+      stepIndex.value++
+    }
+    if (stepIndex.value === 2 && formData.paymentMethod === 'cod') {
+      await submitForm()
+      return
+    }
+    if (stepIndex.value === 3) {
+      if (formData.paymentMethod === 'bank_transfer') {
+        router.push('/thank-you')
       }
     }
-    if(stepIndex.value === 3 && formData.paymentMethod === 'bank_transfer') {
-      router.push('/thank-you')
-    }
   }
-
-  console.log(stepIndex.value)
-
 
   const method = computed(() => {
     return formData.paymentMethod === 'bank_transfer' ? 'bank_transfer' : 'cod'
@@ -147,7 +153,7 @@ required: helpers.withMessage("Wards is required", required),
             }
           })
           paymentData.value = res.payment
-          if(stepIndex.value === 2) {
+          if (stepIndex.value === 2) {
             stepIndex.value++
           }
           console.log('Payment created', res)
@@ -180,7 +186,7 @@ required: helpers.withMessage("Wards is required", required),
       step: 3,
       title: 'CONFIRMATION',
       description: 'Step 3'
-    },
+    }
   ]
 </script>
 

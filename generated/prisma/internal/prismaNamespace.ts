@@ -397,6 +397,7 @@ export const ModelName = {
   User: 'User',
   Category: 'Category',
   Product: 'Product',
+  Colors: 'Colors',
   Cart: 'Cart',
   CartItem: 'CartItem',
   payment: 'payment',
@@ -421,7 +422,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "category" | "product" | "cart" | "cartItem" | "payment" | "order" | "orderItem" | "productStarPercent" | "productStar" | "productReview" | "image"
+    modelProps: "user" | "category" | "product" | "colors" | "cart" | "cartItem" | "payment" | "order" | "orderItem" | "productStarPercent" | "productStar" | "productReview" | "image"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -644,6 +645,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.ProductCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.ProductCountAggregateOutputType> | number
+        }
+      }
+    }
+    Colors: {
+      payload: Prisma.$ColorsPayload<ExtArgs>
+      fields: Prisma.ColorsFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ColorsFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ColorsPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ColorsFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ColorsPayload>
+        }
+        findFirst: {
+          args: Prisma.ColorsFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ColorsPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ColorsFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ColorsPayload>
+        }
+        findMany: {
+          args: Prisma.ColorsFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ColorsPayload>[]
+        }
+        create: {
+          args: Prisma.ColorsCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ColorsPayload>
+        }
+        createMany: {
+          args: Prisma.ColorsCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ColorsCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ColorsPayload>[]
+        }
+        delete: {
+          args: Prisma.ColorsDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ColorsPayload>
+        }
+        update: {
+          args: Prisma.ColorsUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ColorsPayload>
+        }
+        deleteMany: {
+          args: Prisma.ColorsDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ColorsUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ColorsUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ColorsPayload>[]
+        }
+        upsert: {
+          args: Prisma.ColorsUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ColorsPayload>
+        }
+        aggregate: {
+          args: Prisma.ColorsAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateColors>
+        }
+        groupBy: {
+          args: Prisma.ColorsGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ColorsGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ColorsCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ColorsCountAggregateOutputType> | number
         }
       }
     }
@@ -1377,7 +1452,11 @@ export const ProductScalarFieldEnum = {
   id: 'id',
   name: 'name',
   slug: 'slug',
-  color: 'color',
+  sizes: 'sizes',
+  description: 'description',
+  shortDescription: 'shortDescription',
+  sku: 'sku',
+  stocks: 'stocks',
   price: 'price',
   categoryId: 'categoryId',
   createdAt: 'createdAt',
@@ -1385,6 +1464,17 @@ export const ProductScalarFieldEnum = {
 } as const
 
 export type ProductScalarFieldEnum = (typeof ProductScalarFieldEnum)[keyof typeof ProductScalarFieldEnum]
+
+
+export const ColorsScalarFieldEnum = {
+  id: 'id',
+  nameColor: 'nameColor',
+  code: 'code',
+  image: 'image',
+  productId: 'productId'
+} as const
+
+export type ColorsScalarFieldEnum = (typeof ColorsScalarFieldEnum)[keyof typeof ColorsScalarFieldEnum]
 
 
 export const CartScalarFieldEnum = {
@@ -1675,6 +1765,7 @@ export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
   category?: Prisma.CategoryOmit
   product?: Prisma.ProductOmit
+  colors?: Prisma.ColorsOmit
   cart?: Prisma.CartOmit
   cartItem?: Prisma.CartItemOmit
   payment?: Prisma.paymentOmit
