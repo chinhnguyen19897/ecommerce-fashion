@@ -83,19 +83,20 @@ model payment {
 }
 
 model order {
-  id          Int         @id @default(autoincrement())
-  userId      Int?
-  fullName    String
-  phoneNumber String
-  email       String?
-  address     String
-  province    String?
-  wards       String?
-  totalPrice  Int
-  orderNumber String?     @unique
-  status      String      @default("AWAITING_CONFIRM")
-  user        User?       @relation(fields: [userId], references: [id])
-  items       OrderItem[]
+  id            Int         @id @default(autoincrement())
+  userId        Int?
+  fullName      String
+  phoneNumber   String
+  email         String?
+  address       String
+  province      String?
+  wards         String?
+  totalPrice    Int
+  orderNumber   String?     @unique
+  paymentMethod String      @default("cod")
+  status        String      @default("AWAITING_CONFIRM")
+  user          User?       @relation(fields: [userId], references: [id])
+  items         OrderItem[]
 }
 
 model OrderItem {
@@ -105,7 +106,6 @@ model OrderItem {
   product   Product? @relation(fields: [productId], references: [id])
   productId Int?
   quantity  Int
-  status    String   @default("PENDING")
   amount    Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

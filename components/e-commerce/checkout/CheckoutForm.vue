@@ -24,9 +24,6 @@
         <div v-if="stepIndex === 3 && paymentData">
           <ConfirmPayment :paymentData="paymentData" :orderData="orderData" />
         </div>
-        <div v-if="stepIndex === 3 && formData.value?.paymentMethod === 'COD'">
-          <ConfirmStatus />
-        </div>
       </template>
     </StepperForm>
   </ClientOnly>
@@ -37,7 +34,7 @@
   import { required, email, minLength, maxLength, helpers } from '@vuelidate/validators'
   import StepperForm from '~/components/ui/shared/StepperForm/StepperForm.vue'
   import ConfirmPayment from '~/components/e-commerce/checkout/ConfirmPayment.vue'
-
+const router = useRouter()
   const headers = useHeaders()
   const stepIndex = ref(1)
   const paymentData = ref({})
@@ -89,6 +86,7 @@ required: helpers.withMessage("Wards is required", required),
           email: formData.email,
           address: formData.address,
           totalPrice: totalPrice.value,
+          paymentMethod: formData.paymentMethod,
           items: cartData.value
         }),
         headers: {
@@ -104,7 +102,8 @@ required: helpers.withMessage("Wards is required", required),
 
   const submitForm = async () => {
     const result = await $v.value.$validate()
-    console.log(formData, stepIndex)
+      if (!result) return;
+      // router.push('/thank-you')
   }
 
   const nextStepForm = async () => {
@@ -114,10 +113,22 @@ required: helpers.withMessage("Wards is required", required),
       if (!isValid) return
 
       stepIndex.value++
-    } else if (stepIndex.value === 2) {
+    }
+    if (stepIndex.value === 2 && formData.paymentMethod === 'bank_transfer') {
       await createOrder(formData)
+      if (formData.paymentMethod === 'cod') {
+        await createOrder(formData)
+        submitForm()
+      }
+    }
+    if(stepIndex.value === 3 && formData.paymentMethod === 'bank_transfer') {
+      router.push('/thank-you')
     }
   }
+
+  console.log(stepIndex.value)
+
+
   const method = computed(() => {
     return formData.paymentMethod === 'bank_transfer' ? 'bank_transfer' : 'cod'
   })
@@ -146,7 +157,7 @@ required: helpers.withMessage("Wards is required", required),
       }
     }
   )
-  console.log(paymentData.value, orderData)
+  console.log(method)
 
   const buttonLabel = computed(() => {
     if (stepIndex.value === 1) return 'Continue to shipping'
@@ -169,7 +180,7 @@ required: helpers.withMessage("Wards is required", required),
       step: 3,
       title: 'CONFIRMATION',
       description: 'Step 3'
-    }
+    },
   ]
 </script>
 

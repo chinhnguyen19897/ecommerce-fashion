@@ -1,7 +1,7 @@
 import prisma from '@/lib/prisma'
 import {orderSchema} from './modules/validateOrder';
 export default defineEventHandler(async (event) => {
-  const { userId, fullName, phoneNumber, email, address, province, wards, totalPrice, items } =
+  const { userId, fullName, phoneNumber, email, address, province, wards, totalPrice, items, paymentMethod } =
     await readBody(event)
   const result = orderSchema.safeParse({userId, fullName, phoneNumber, email, address,  totalPrice, items})
   if (!result.success) {
@@ -20,6 +20,8 @@ export default defineEventHandler(async (event) => {
       email: email,
       address: address,
       totalPrice: totalPrice,
+      paymentMethod: paymentMethod,
+      status: paymentMethod === 'cod' ? 'AWAITING_CONFIRM' : 'PENDING',
       items: {
         create: items.map((item: any) => ({
           productId: item.productId,
@@ -32,7 +34,7 @@ export default defineEventHandler(async (event) => {
       items: true
     }
   })
-    const orderNumber = `ORD-${String(order.id).padStart(6, '0')}` // VD: ORD-000123
+    const orderNumber = `ORD-${String(order.id).padStart(6, '0')}`
 const updatedOrder = await prisma.order.update({
     where: { id: order.id },
     data: { orderNumber }

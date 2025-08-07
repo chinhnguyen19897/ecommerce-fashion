@@ -48,6 +48,7 @@ export type OrderMinAggregateOutputType = {
   wards: string | null
   totalPrice: number | null
   orderNumber: string | null
+  paymentMethod: string | null
   status: string | null
 }
 
@@ -62,6 +63,7 @@ export type OrderMaxAggregateOutputType = {
   wards: string | null
   totalPrice: number | null
   orderNumber: string | null
+  paymentMethod: string | null
   status: string | null
 }
 
@@ -76,6 +78,7 @@ export type OrderCountAggregateOutputType = {
   wards: number
   totalPrice: number
   orderNumber: number
+  paymentMethod: number
   status: number
   _all: number
 }
@@ -104,6 +107,7 @@ export type OrderMinAggregateInputType = {
   wards?: true
   totalPrice?: true
   orderNumber?: true
+  paymentMethod?: true
   status?: true
 }
 
@@ -118,6 +122,7 @@ export type OrderMaxAggregateInputType = {
   wards?: true
   totalPrice?: true
   orderNumber?: true
+  paymentMethod?: true
   status?: true
 }
 
@@ -132,6 +137,7 @@ export type OrderCountAggregateInputType = {
   wards?: true
   totalPrice?: true
   orderNumber?: true
+  paymentMethod?: true
   status?: true
   _all?: true
 }
@@ -233,6 +239,7 @@ export type OrderGroupByOutputType = {
   wards: string | null
   totalPrice: number
   orderNumber: string | null
+  paymentMethod: string
   status: string
   _count: OrderCountAggregateOutputType | null
   _avg: OrderAvgAggregateOutputType | null
@@ -270,6 +277,7 @@ export type orderWhereInput = {
   wards?: Prisma.StringNullableFilter<"order"> | string | null
   totalPrice?: Prisma.IntFilter<"order"> | number
   orderNumber?: Prisma.StringNullableFilter<"order"> | string | null
+  paymentMethod?: Prisma.StringFilter<"order"> | string
   status?: Prisma.StringFilter<"order"> | string
   user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   items?: Prisma.OrderItemListRelationFilter
@@ -286,6 +294,7 @@ export type orderOrderByWithRelationInput = {
   wards?: Prisma.SortOrderInput | Prisma.SortOrder
   totalPrice?: Prisma.SortOrder
   orderNumber?: Prisma.SortOrderInput | Prisma.SortOrder
+  paymentMethod?: Prisma.SortOrder
   status?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
   items?: Prisma.OrderItemOrderByRelationAggregateInput
@@ -305,6 +314,7 @@ export type orderWhereUniqueInput = Prisma.AtLeast<{
   province?: Prisma.StringNullableFilter<"order"> | string | null
   wards?: Prisma.StringNullableFilter<"order"> | string | null
   totalPrice?: Prisma.IntFilter<"order"> | number
+  paymentMethod?: Prisma.StringFilter<"order"> | string
   status?: Prisma.StringFilter<"order"> | string
   user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   items?: Prisma.OrderItemListRelationFilter
@@ -321,6 +331,7 @@ export type orderOrderByWithAggregationInput = {
   wards?: Prisma.SortOrderInput | Prisma.SortOrder
   totalPrice?: Prisma.SortOrder
   orderNumber?: Prisma.SortOrderInput | Prisma.SortOrder
+  paymentMethod?: Prisma.SortOrder
   status?: Prisma.SortOrder
   _count?: Prisma.orderCountOrderByAggregateInput
   _avg?: Prisma.orderAvgOrderByAggregateInput
@@ -343,6 +354,7 @@ export type orderScalarWhereWithAggregatesInput = {
   wards?: Prisma.StringNullableWithAggregatesFilter<"order"> | string | null
   totalPrice?: Prisma.IntWithAggregatesFilter<"order"> | number
   orderNumber?: Prisma.StringNullableWithAggregatesFilter<"order"> | string | null
+  paymentMethod?: Prisma.StringWithAggregatesFilter<"order"> | string
   status?: Prisma.StringWithAggregatesFilter<"order"> | string
 }
 
@@ -355,6 +367,7 @@ export type orderCreateInput = {
   wards?: string | null
   totalPrice: number
   orderNumber?: string | null
+  paymentMethod?: string
   status?: string
   user?: Prisma.UserCreateNestedOneWithoutOrderInput
   items?: Prisma.OrderItemCreateNestedManyWithoutOrderInput
@@ -371,6 +384,7 @@ export type orderUncheckedCreateInput = {
   wards?: string | null
   totalPrice: number
   orderNumber?: string | null
+  paymentMethod?: string
   status?: string
   items?: Prisma.OrderItemUncheckedCreateNestedManyWithoutOrderInput
 }
@@ -384,6 +398,7 @@ export type orderUpdateInput = {
   wards?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalPrice?: Prisma.IntFieldUpdateOperationsInput | number
   orderNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentMethod?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
   user?: Prisma.UserUpdateOneWithoutOrderNestedInput
   items?: Prisma.OrderItemUpdateManyWithoutOrderNestedInput
@@ -400,6 +415,7 @@ export type orderUncheckedUpdateInput = {
   wards?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalPrice?: Prisma.IntFieldUpdateOperationsInput | number
   orderNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentMethod?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
   items?: Prisma.OrderItemUncheckedUpdateManyWithoutOrderNestedInput
 }
@@ -415,6 +431,7 @@ export type orderCreateManyInput = {
   wards?: string | null
   totalPrice: number
   orderNumber?: string | null
+  paymentMethod?: string
   status?: string
 }
 
@@ -427,6 +444,7 @@ export type orderUpdateManyMutationInput = {
   wards?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalPrice?: Prisma.IntFieldUpdateOperationsInput | number
   orderNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentMethod?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
@@ -441,6 +459,7 @@ export type orderUncheckedUpdateManyInput = {
   wards?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalPrice?: Prisma.IntFieldUpdateOperationsInput | number
   orderNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentMethod?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
@@ -465,6 +484,7 @@ export type orderCountOrderByAggregateInput = {
   wards?: Prisma.SortOrder
   totalPrice?: Prisma.SortOrder
   orderNumber?: Prisma.SortOrder
+  paymentMethod?: Prisma.SortOrder
   status?: Prisma.SortOrder
 }
 
@@ -485,6 +505,7 @@ export type orderMaxOrderByAggregateInput = {
   wards?: Prisma.SortOrder
   totalPrice?: Prisma.SortOrder
   orderNumber?: Prisma.SortOrder
+  paymentMethod?: Prisma.SortOrder
   status?: Prisma.SortOrder
 }
 
@@ -499,6 +520,7 @@ export type orderMinOrderByAggregateInput = {
   wards?: Prisma.SortOrder
   totalPrice?: Prisma.SortOrder
   orderNumber?: Prisma.SortOrder
+  paymentMethod?: Prisma.SortOrder
   status?: Prisma.SortOrder
 }
 
@@ -580,6 +602,7 @@ export type orderCreateWithoutUserInput = {
   wards?: string | null
   totalPrice: number
   orderNumber?: string | null
+  paymentMethod?: string
   status?: string
   items?: Prisma.OrderItemCreateNestedManyWithoutOrderInput
 }
@@ -594,6 +617,7 @@ export type orderUncheckedCreateWithoutUserInput = {
   wards?: string | null
   totalPrice: number
   orderNumber?: string | null
+  paymentMethod?: string
   status?: string
   items?: Prisma.OrderItemUncheckedCreateNestedManyWithoutOrderInput
 }
@@ -638,6 +662,7 @@ export type orderScalarWhereInput = {
   wards?: Prisma.StringNullableFilter<"order"> | string | null
   totalPrice?: Prisma.IntFilter<"order"> | number
   orderNumber?: Prisma.StringNullableFilter<"order"> | string | null
+  paymentMethod?: Prisma.StringFilter<"order"> | string
   status?: Prisma.StringFilter<"order"> | string
 }
 
@@ -650,6 +675,7 @@ export type orderCreateWithoutItemsInput = {
   wards?: string | null
   totalPrice: number
   orderNumber?: string | null
+  paymentMethod?: string
   status?: string
   user?: Prisma.UserCreateNestedOneWithoutOrderInput
 }
@@ -665,6 +691,7 @@ export type orderUncheckedCreateWithoutItemsInput = {
   wards?: string | null
   totalPrice: number
   orderNumber?: string | null
+  paymentMethod?: string
   status?: string
 }
 
@@ -693,6 +720,7 @@ export type orderUpdateWithoutItemsInput = {
   wards?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalPrice?: Prisma.IntFieldUpdateOperationsInput | number
   orderNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentMethod?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
   user?: Prisma.UserUpdateOneWithoutOrderNestedInput
 }
@@ -708,6 +736,7 @@ export type orderUncheckedUpdateWithoutItemsInput = {
   wards?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalPrice?: Prisma.IntFieldUpdateOperationsInput | number
   orderNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentMethod?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
@@ -721,6 +750,7 @@ export type orderCreateManyUserInput = {
   wards?: string | null
   totalPrice: number
   orderNumber?: string | null
+  paymentMethod?: string
   status?: string
 }
 
@@ -733,6 +763,7 @@ export type orderUpdateWithoutUserInput = {
   wards?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalPrice?: Prisma.IntFieldUpdateOperationsInput | number
   orderNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentMethod?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
   items?: Prisma.OrderItemUpdateManyWithoutOrderNestedInput
 }
@@ -747,6 +778,7 @@ export type orderUncheckedUpdateWithoutUserInput = {
   wards?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalPrice?: Prisma.IntFieldUpdateOperationsInput | number
   orderNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentMethod?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
   items?: Prisma.OrderItemUncheckedUpdateManyWithoutOrderNestedInput
 }
@@ -761,6 +793,7 @@ export type orderUncheckedUpdateManyWithoutUserInput = {
   wards?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   totalPrice?: Prisma.IntFieldUpdateOperationsInput | number
   orderNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentMethod?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
@@ -806,6 +839,7 @@ export type orderSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   wards?: boolean
   totalPrice?: boolean
   orderNumber?: boolean
+  paymentMethod?: boolean
   status?: boolean
   user?: boolean | Prisma.order$userArgs<ExtArgs>
   items?: boolean | Prisma.order$itemsArgs<ExtArgs>
@@ -823,6 +857,7 @@ export type orderSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   wards?: boolean
   totalPrice?: boolean
   orderNumber?: boolean
+  paymentMethod?: boolean
   status?: boolean
   user?: boolean | Prisma.order$userArgs<ExtArgs>
 }, ExtArgs["result"]["order"]>
@@ -838,6 +873,7 @@ export type orderSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   wards?: boolean
   totalPrice?: boolean
   orderNumber?: boolean
+  paymentMethod?: boolean
   status?: boolean
   user?: boolean | Prisma.order$userArgs<ExtArgs>
 }, ExtArgs["result"]["order"]>
@@ -853,10 +889,11 @@ export type orderSelectScalar = {
   wards?: boolean
   totalPrice?: boolean
   orderNumber?: boolean
+  paymentMethod?: boolean
   status?: boolean
 }
 
-export type orderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "fullName" | "phoneNumber" | "email" | "address" | "province" | "wards" | "totalPrice" | "orderNumber" | "status", ExtArgs["result"]["order"]>
+export type orderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "fullName" | "phoneNumber" | "email" | "address" | "province" | "wards" | "totalPrice" | "orderNumber" | "paymentMethod" | "status", ExtArgs["result"]["order"]>
 export type orderInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.order$userArgs<ExtArgs>
   items?: boolean | Prisma.order$itemsArgs<ExtArgs>
@@ -886,6 +923,7 @@ export type $orderPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     wards: string | null
     totalPrice: number
     orderNumber: string | null
+    paymentMethod: string
     status: string
   }, ExtArgs["result"]["order"]>
   composites: {}
@@ -1322,6 +1360,7 @@ export interface orderFieldRefs {
   readonly wards: Prisma.FieldRef<"order", 'String'>
   readonly totalPrice: Prisma.FieldRef<"order", 'Int'>
   readonly orderNumber: Prisma.FieldRef<"order", 'String'>
+  readonly paymentMethod: Prisma.FieldRef<"order", 'String'>
   readonly status: Prisma.FieldRef<"order", 'String'>
 }
     

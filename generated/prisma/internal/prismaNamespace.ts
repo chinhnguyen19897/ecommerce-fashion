@@ -1433,6 +1433,7 @@ export const OrderScalarFieldEnum = {
   wards: 'wards',
   totalPrice: 'totalPrice',
   orderNumber: 'orderNumber',
+  paymentMethod: 'paymentMethod',
   status: 'status'
 } as const
 
@@ -1444,7 +1445,6 @@ export const OrderItemScalarFieldEnum = {
   orderId: 'orderId',
   productId: 'productId',
   quantity: 'quantity',
-  status: 'status',
   amount: 'amount',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
