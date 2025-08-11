@@ -31,22 +31,36 @@ model Category {
 }
 
 model Product {
-  id           Int                  @id @default(autoincrement())
-  name         String
-  slug         String?
-  color        String
-  price        Decimal              @db.Decimal(10, 2)
-  categoryId   Int
-  category     Category             @relation(fields: [categoryId], references: [id])
-  images       Image[]
-  reviews      ProductReview[]
-  stars        productStar[]
-  starPercents productStarPercent[]
-  CartItems    CartItem[]
-  createdAt    DateTime             @default(now())
-  updatedAt    DateTime             @updatedAt
-  OrderItem    OrderItem[]
-  payment      payment[]
+  id               Int                  @id @default(autoincrement())
+  name             String
+  slug             String?
+  colors           Colors[]
+  sizes            String[]
+  description      String?
+  shortDescription String?
+  sku              String?
+  stocks           Int
+  price            Decimal              @db.Decimal(10, 2)
+  categoryId       Int
+  category         Category             @relation(fields: [categoryId], references: [id])
+  images           Image[]
+  reviews          ProductReview[]
+  stars            productStar[]
+  starPercents     productStarPercent[]
+  CartItems        CartItem[]
+  createdAt        DateTime             @default(now())
+  updatedAt        DateTime             @updatedAt
+  OrderItem        OrderItem[]
+  payment          payment[]
+}
+
+model Colors {
+  id        Int      @id @default(autoincrement())
+  nameColor String
+  code      String?
+  image     String
+  Product   Product? @relation(fields: [productId], references: [id])
+  productId Int?
 }
 
 model Cart {

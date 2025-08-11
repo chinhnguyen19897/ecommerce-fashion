@@ -75,11 +75,13 @@
       <div class="mb-4 mt-8 flex items-center justify-end">
         <div class="flex items-center gap-3">
           <BaseBtn
+            v-if="stepIndex < 3"
             :label="buttonLabel || 'Next'"
             btnClass="!p-4 bg-[#8B4513] uppercase text-[#fff] font-regular text-[16px] rounded-none"
-            type="submit"
+            type="button"
             @click="$emit('nextStepForm')"
           />
+          <BaseBtn v-else label="I already pay" type="submit" />
         </div>
       </div>
     </form>
