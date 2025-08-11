@@ -39,6 +39,7 @@
     "lucide-vue-next": "^0.533.0",
     "multer": "^2.0.2",
     "nuxt": "^3.17.7",
+    "nuxt-swiper": "2.0.1",
     "path": "^0.12.7",
     "pinia": "^3.0.3",
     "postcss-color-gray": "^5.0.0",

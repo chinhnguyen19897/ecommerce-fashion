@@ -1,54 +1,55 @@
-  // https://nuxt.com/docs/api/configuration/nuxt-config
-  export default defineNuxtConfig({
-    compatibilityDate: "2025-05-15",
-    ssr: true,
-    devtools: { enabled: true },
-    nitro: {
-      replace: {
-        "import * as process": "import * as processUnsed",
-      },
-      experimental: {
-        websocket: true,
-      },
+// https://nuxt.com/docs/api/configuration/nuxt-config
+export default defineNuxtConfig({
+  compatibilityDate: "2025-05-15",
+  ssr: true,
+  devtools: { enabled: true },
+  nitro: {
+    replace: {
+      "import * as process": "import * as processUnsed",
     },
-    components: [
-      {
-        path: "./components",
-        pathPrefix: false,
-      },
-    ],
-    nodemailer: {
-      from: '"Giahanmall shop" <noreply@app.com>',
-      host: process.env.MAIL_HOST,
-      port: Number(process.env.MAIL_PORT),
-      secure: false,
-      auth: {
-        user: process.env.MAIL_TRAP_USER,
-        pass: process.env.MAIL_TRAP_PASSWORD,
-      },
+    experimental: {
+      websocket: true,
     },
-    runtimeConfig: {
-      JWT_TOKEN_KEY: process.env.JWT_TOKEN_KEY,
-      REFRESH_TOKEN_KEY: process.env.REFRESH_TOKEN_KEY,
-      DATABASE_URL: process.env.DATABASE_URL,
+  },
+  components: [
+    {
+      path: "./components",
+      pathPrefix: false,
     },
-    modules: [
-      "@nuxtjs/tailwindcss",
-      "shadcn-nuxt",
-      "@pinia/nuxt",
-      "nuxt-nodemailer",
-      "@nuxt/image",
-      "@nuxt/icon",
-    ],
-    css: ["@/assets/css/main.css"],
-    shadcn: {
-      prefix: "",
-      componentDir: "./components/ui",
+  ],
+  nodemailer: {
+    from: '"Giahanmall shop" <noreply@app.com>',
+    host: process.env.MAIL_HOST,
+    port: Number(process.env.MAIL_PORT),
+    secure: false,
+    auth: {
+      user: process.env.MAIL_TRAP_USER,
+      pass: process.env.MAIL_TRAP_PASSWORD,
     },
-    tailwindcss: {
-      exposeConfig: true,
-    },
-    pinia: {
-      storesDirs: ["./stores/**"],
-    },
-  });
+  },
+  runtimeConfig: {
+    JWT_TOKEN_KEY: process.env.JWT_TOKEN_KEY,
+    REFRESH_TOKEN_KEY: process.env.REFRESH_TOKEN_KEY,
+    DATABASE_URL: process.env.DATABASE_URL,
+  },
+  modules: [
+    "@nuxtjs/tailwindcss",
+    "shadcn-nuxt",
+    "@pinia/nuxt",
+    "nuxt-nodemailer",
+    "@nuxt/image",
+    "@nuxt/icon",
+    "nuxt-swiper"
+  ],
+  css: ["@/assets/css/main.css"],
+  shadcn: {
+    prefix: "",
+    componentDir: "./components/ui",
+  },
+  tailwindcss: {
+    exposeConfig: true,
+  },
+  pinia: {
+    storesDirs: ["./stores/**"],
+  },
+});

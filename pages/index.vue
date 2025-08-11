@@ -1,8 +1,8 @@
 <template>
-  <div class="container flex items-start gap-16">
-    <div class="w-full">
-    </div>
-  </div>
+    <section id="hero-slider" class="relative h-screen bg-cover bg-center"
+  style="background-image: url('/images/hero-banner.jpg');">
+    </section>
 </template>
 <script lang="ts" setup>
+
 </script>

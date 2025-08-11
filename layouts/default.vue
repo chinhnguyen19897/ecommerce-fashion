@@ -15,10 +15,10 @@ useHead({
 
 <template>
   <NuxtLoadingIndicator />
-  <div class="flex flex-col min-h-screen">
+  <div class="flex flex-col min-h-screen relative">
     <Header />
     <main
-      class="mt-12 flex-1 container mx-auto px-[42px]"
+      class="flex-1"
       role="main"
       tabindex="-1"
     >
