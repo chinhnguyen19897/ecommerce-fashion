@@ -1,7 +1,7 @@
 <template>
-    <section id="hero-slider" class="relative h-screen bg-cover bg-center"
-  style="background-image: url('/images/hero-banner.jpg');">
-    </section>
+    <HeroSectionSlide />
+    <GalleryCollections />
+    <ProductList />
 </template>
 <script lang="ts" setup>
 

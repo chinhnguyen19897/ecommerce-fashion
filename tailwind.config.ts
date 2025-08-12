@@ -14,11 +14,19 @@ export default {
       center: true,
       padding: {
         DEFAULT: "1rem",
-        sm: "2rem",
-        lg: "4rem",
-        xl: "5rem",
+        sm: "1rem",
+        lg: "1.5rem",
+        xl: "2rem",
         "2xl": "6rem",
       },
+      screens: {
+      sm: '100%',
+      md: '1024px',
+      lg: '1280px',
+      xl: '1440px',
+      '2xl': '1600px',
+      '3xl': '1728px',
+    }
     },
     textColor: {
           'primary': "#3e3e3e",

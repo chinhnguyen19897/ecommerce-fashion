@@ -36,9 +36,9 @@
         </h5>
         <div class="flex flex-col gap-5">
           <div class="bg-[#EDE5E1] px-4 py-3 flex justify-between">
-            <p class="text-[16px] font-normal">
+            <p class="text-base font-normal">
               Hooray! You have promo code!
-              <a href="#" class="text-[#8B4513] text-[16px] font-normal"
+              <a href="#" class="text-[#8B4513] text-base font-normal"
                 >Use promo code</a
               >
             </p>

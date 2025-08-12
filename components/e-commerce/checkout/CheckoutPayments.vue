@@ -28,7 +28,7 @@
         <div class="flex gap-2">
           <NuxtImg alt="cod" height="40" src="/images/logo/cod.png" title="cod-logo" width="45" />
           <div class="flex flex-col gap-1">
-            <Label class="text-[16px] font-semibold">COD</Label>
+            <Label class="text-base font-semibold">COD</Label>
             <span class="text-sm text-secondary"> (Cash of delivery) </span>
           </div>
         </div>
@@ -44,7 +44,7 @@
             width="45"
           />
           <div class="flex flex-col gap-1">
-            <Label class="text-[16px] font-semibold">Bank Transfer</Label>
+            <Label class="text-base font-semibold">Bank Transfer</Label>
             <span class="text-sm text-secondary"> (Transfer to our bank account) </span>
           </div>
         </div>

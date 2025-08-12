@@ -77,7 +77,7 @@
           <BaseBtn
             v-if="stepIndex < 3"
             :label="buttonLabel || 'Next'"
-            btnClass="!p-4 bg-[#8B4513] uppercase text-[#fff] font-regular text-[16px] rounded-none"
+            btnClass="!p-4 bg-[#8B4513] uppercase text-[#fff] font-regular text-base rounded-none"
             type="button"
             @click="$emit('nextStepForm')"
           />

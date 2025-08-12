@@ -16,7 +16,7 @@
         <h5 class="text-[#3E3E3E] font-light text-xl uppercase">
           {{ product.product.name }}
         </h5>
-        <p class="text-[#757575] text-[16px] font-light flex items-center">
+        <p class="text-[#757575] text-base font-light flex items-center">
           {{
             product?.quantity +
             " X " +

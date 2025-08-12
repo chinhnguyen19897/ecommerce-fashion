@@ -17,7 +17,7 @@
       </p>
 
       <h1 class="font-playfair text-7xl font-medium">Payment Success!</h1>
-      <p class="text-[16px] text-[#757575]">
+      <p class="text-base text-[#757575]">
         Lean back and relax, knowing our team is hard at work preparing and shipping your package
         swiftly. Feel free to browse our diverse product selection during this time – you might
         discover another item you'd like to add to your collection!
@@ -35,7 +35,7 @@
         <IconCheckSuccess />
       </p>
       <h1 class="font-playfair text-7xl font-medium uppercase">Order Success!</h1>
-      <p class="text-[16px] text-[#757575]">
+      <p class="text-base text-[#757575]">
         Lean back and relax, knowing our team is hard at work preparing and shipping your package
         swiftly. Feel free to browse our diverse product selection during this time – you might
         discover another item you'd like to add to your collection!
