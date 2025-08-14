@@ -1,30 +1,28 @@
 <script lang="ts" setup>
-useHead({
-  link: [
-    {
-      rel: "stylesheet",
-      href: "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;@700&family=Inter:wght@400;500&display=swap",
-    },
-    {
-      rel: "stylesheet",
-      href: "https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap",
-    },
-  ],
-});
+  useHead({
+    link: [
+      {
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;@700&family=Inter:wght@400;500&display=swap'
+      },
+      {
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap'
+      }
+    ]
+  })
+  const route = useRoute()
+  const isHome = computed(() => route.path === '/')
 </script>
 
 <template>
   <NuxtLoadingIndicator />
-  <div class="flex flex-col min-h-screen relative">
+  <div class="relative flex min-h-screen flex-col">
     <Header />
-    <main
-      class="flex-1"
-      role="main"
-      tabindex="-1"
-    >
+    <main class="flex-1" role="main" tabindex="-1">
       <NuxtPage />
     </main>
-    <Footer />
+    <Footer :extra-top-padding="isHome" />
   </div>
 </template>
 
