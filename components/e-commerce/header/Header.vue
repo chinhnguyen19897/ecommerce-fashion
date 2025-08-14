@@ -1,7 +1,18 @@
-<script stepup></script>
+<script lang="ts" setup>
+  const props = defineProps<{
+    extraTopPadding?: boolean
+  }>()
+</script>
 
 <template>
-  <header class="absolute top-0 z-10 w-full bg-transparent mx-auto py-4 px-[42px]">
+  <header
+    :class="[
+      'mx-auto px-[42px] py-4',
+      props.extraTopPadding
+        ? 'text-white absolute top-0 z-10 w-full bg-transparent'
+        : 'bg-white text-primary'
+    ]"
+  >
     <div class="flex items-center justify-between">
       <div class="flex items-center justify-start">
         <Logo />
@@ -11,7 +22,7 @@
       </div>
       <div class="flex items-center justify-end">
         <ClientOnly>
-          <div class="flex gap-3 items-center">
+          <div class="flex items-center gap-3">
             <Search />
             <SignInLink />
             <Cart />

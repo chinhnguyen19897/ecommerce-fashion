@@ -8,7 +8,7 @@
   <footer
     :class="[
       'text-white relative z-0 bg-[#8B4513]',
-      props.extraTopPadding ? '-mt-16 pb-12 pt-28 md:-mt-36 md:pt-36' : 'py-12'
+      props.extraTopPadding ? '-mt-16 pb-12 pt-28 md:-mt-60 md:pt-60' : 'py-12'
     ]"
   >
     <div class="container mx-auto px-12 py-[42px] text-[#fff]">

@@ -68,7 +68,7 @@
 </script>
 
 <template>
-  <div class="mx-[42px] bg-gray-50 py-16">
+  <div class="mx-[42px] bg-[#F2F2F2] py-16">
     <ClientOnly>
       <swiper-container ref="containerRef" :init="false">
         <swiper-slide v-for="(review, index) in reviews" :key="index">

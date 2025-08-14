@@ -51,5 +51,6 @@ export default defineNuxtConfig({
   },
   pinia: {
     storesDirs: ['./stores/**']
-  }
+  },
+  plugins: ['@/plugins/gsap.client.ts']
 })

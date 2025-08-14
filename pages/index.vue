@@ -11,4 +11,6 @@
 </template>
 <script lang="ts" setup>
   import ServiceFeatures from '~/components/e-commerce/home/ServiceFeatures.vue'
+  import VideoPromoSection from '~/components/e-commerce/home/VideoPromoSection.vue'
+  import ReviewsSection from '~/components/e-commerce/home/ReviewsSection.vue'
 </script>

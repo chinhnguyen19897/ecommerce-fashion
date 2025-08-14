@@ -1,31 +1,112 @@
-<script setup lang="ts">
+<script lang="ts" setup>
+  import { ref, onMounted, nextTick } from 'vue'
+  import gsap from 'gsap'
 
+  const galleryItems = ref<HTMLElement[]>([])
+  const sectionRef = ref<HTMLElement | null>(null)
+
+  const galleryData = [
+    { id: 1, src: '/images/gallery-1.jpg', alt: 'gallery-1', text: 'Formal Woman' },
+    { id: 2, src: '/images/gallery-2.jpg', alt: 'gallery-2', text: 'Formal Men' },
+    { id: 3, src: '/images/gallery-3.jpg', alt: 'gallery-3', text: 'Casual Style' }
+  ]
+
+  const animateGallery = () => {
+    if (!galleryItems.value.length) return
+
+    galleryItems.value.forEach((item) => {
+      const image = item.querySelector('img')
+      const text = item.querySelector('p')
+
+      if (image && text) {
+        item.addEventListener('mouseenter', () => {
+          gsap.to(image, { scale: 1.05, duration: 0.3 })
+          gsap.to(text, { y: -10, duration: 0.3 })
+        })
+
+        item.addEventListener('mouseleave', () => {
+          gsap.to(image, { scale: 1, duration: 0.3 })
+          gsap.to(text, { y: 0, duration: 0.3 })
+        })
+      }
+    })
+  }
+
+  onMounted(() => {
+    nextTick(() => {
+      if (sectionRef.value) {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                animateGallery()
+              }
+            })
+          },
+          { threshold: 0.2 } // triggers when 20% of section is visible
+        )
+        observer.observe(sectionRef.value)
+      }
+    })
+  })
 </script>
 
 <template>
-  <section id="gallery-collections" class="my-10 w-full">
-   <div class="w-full px-[42px]">
-       <div class="grid grid-cols-2 gap-8">
-      <div class="grid grid-rows-2 gap-8">
-        <NuxtLink to="/" class="relative">
-          <NuxtImg src="/images/gallery-1.jpg" alt="gallery-1" class="w-full h-full object-cover"/>
-          <p class="absolute top-1/2 -translate-y-1/2 left-10 text-[#fff] font-medium font-playfair text-5xl uppercase">Formal Woman</p>
-        </NuxtLink>
-         <NuxtLink to="/" class="relative">
-<NuxtImg src="/images/gallery-2.jpg" alt="gallery-2" class="w-full h-full object-cover" />
-           <p class="absolute top-1/2 -translate-y-1/2 left-10 text-[#fff] font-medium font-playfair text-5xl uppercase">Formal Men</p>
-        </NuxtLink>
+  <section id="gallery-collections" ref="sectionRef" class="my-10 w-full">
+    <div class="w-full px-[42px]">
+      <div class="grid grid-cols-2 gap-8">
+        <!-- Left column -->
+        <div class="grid grid-rows-2 gap-8">
+          <div
+            v-for="(item, id) in galleryData.slice(0, 2)"
+            :key="item.id"
+            :ref="(el) => (galleryItems[id] = el as HTMLElement)"
+            class="relative cursor-pointer overflow-hidden"
+          >
+            <NuxtLink to="/">
+              <NuxtImg
+                :alt="item.alt"
+                :src="item.src"
+                class="h-full w-full object-cover"
+                loading="lazy"
+                placeholder="blur"
+              />
+              <p
+                class="text-white absolute left-10 top-1/2 -translate-y-1/2 font-playfair text-5xl font-medium uppercase"
+              >
+                {{ item.text }}
+              </p>
+            </NuxtLink>
+          </div>
+        </div>
+
+        <!-- Right column -->
+        <div
+          :ref="(el) => (galleryItems[2] = el as HTMLElement)"
+          class="relative cursor-pointer overflow-hidden"
+        >
+          <NuxtLink to="/">
+            <NuxtImg
+              :alt="galleryData[2].alt"
+              :src="galleryData[2].src"
+              class="h-full w-full object-cover"
+              loading="lazy"
+              placeholder="blur"
+            />
+            <p
+              class="text-white absolute left-16 top-1/2 -translate-y-1/2 font-playfair text-5xl font-medium uppercase"
+            >
+              {{ galleryData[2].text }}
+            </p>
+          </NuxtLink>
+        </div>
       </div>
-      <NuxtLink to="/" class="relative">
-  <NuxtImg src="/images/gallery-3.jpg" alt="gallery-3"
-          class="w-full h-full object-cover" />
-        <p class="absolute top-1/2 -translate-y-1/2 left-16 text-[#fff] font-medium font-playfair text-5xl uppercase">Casual Style</p>
-</NuxtLink>
     </div>
-   </div>
   </section>
 </template>
 
 <style scoped>
-
+  .overflow-hidden {
+    overflow: hidden;
+  }
 </style>
