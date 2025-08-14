@@ -1,21 +1,21 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  compatibilityDate: "2025-05-15",
+  compatibilityDate: '2025-05-15',
   ssr: true,
   devtools: { enabled: true },
   nitro: {
     replace: {
-      "import * as process": "import * as processUnsed",
+      'import * as process': 'import * as processUnsed'
     },
     experimental: {
-      websocket: true,
-    },
+      websocket: true
+    }
   },
   components: [
     {
-      path: "./components",
-      pathPrefix: false,
-    },
+      path: './components',
+      pathPrefix: false
+    }
   ],
   nodemailer: {
     from: '"Giahanmall shop" <noreply@app.com>',
@@ -24,32 +24,32 @@ export default defineNuxtConfig({
     secure: false,
     auth: {
       user: process.env.MAIL_TRAP_USER,
-      pass: process.env.MAIL_TRAP_PASSWORD,
-    },
+      pass: process.env.MAIL_TRAP_PASSWORD
+    }
   },
   runtimeConfig: {
     JWT_TOKEN_KEY: process.env.JWT_TOKEN_KEY,
     REFRESH_TOKEN_KEY: process.env.REFRESH_TOKEN_KEY,
-    DATABASE_URL: process.env.DATABASE_URL,
+    DATABASE_URL: process.env.DATABASE_URL
   },
   modules: [
-    "@nuxtjs/tailwindcss",
-    "shadcn-nuxt",
-    "@pinia/nuxt",
-    "nuxt-nodemailer",
-    "@nuxt/image",
-    "@nuxt/icon",
-    "nuxt-swiper"
+    '@nuxtjs/tailwindcss',
+    'shadcn-nuxt',
+    '@pinia/nuxt',
+    'nuxt-nodemailer',
+    '@nuxt/image',
+    '@nuxt/icon',
+    'nuxt-swiper'
   ],
-  css: ["@/assets/css/main.css"],
+  css: ['@/assets/css/main.css'],
   shadcn: {
-    prefix: "",
-    componentDir: "./components/ui",
+    prefix: '',
+    componentDir: './components/ui'
   },
   tailwindcss: {
-    exposeConfig: true,
+    exposeConfig: true
   },
   pinia: {
-    storesDirs: ["./stores/**"],
-  },
-});
+    storesDirs: ['./stores/**']
+  }
+})
