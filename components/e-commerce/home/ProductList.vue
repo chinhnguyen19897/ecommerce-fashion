@@ -5,6 +5,7 @@
     products?: any[]
   }>()
   import { useNuxtApp } from '#app'
+  import CartIcon from '@/components/icons/CartIcon.vue'
 
   const { $gsap } = useNuxtApp()
   const products = [
@@ -96,8 +97,10 @@
               class="absolute inset-0 flex items-center justify-center bg-white bg-opacity-0 transition-opacity duration-300 group-hover:bg-opacity-20"
             >
               <BaseBtn
-                btnClass="bg-[#8B4513] rounded-none tracking-[2px] w-full !p-4 text-white text-center text-lg font-lato uppercase font-normal"
-                class="w-full max-w-[282px] translate-y-full transform opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100"
+                :iconBtn="CartIcon"
+                :iconProps="{ color: '#FFFFFF', size: 24 }"
+                btnClass="flex items-center justify-center gap-8 bg-[#8B4513] rounded-none tracking-[2px] w-full !p-4 text-white text-center text-lg font-lato uppercase font-normal"
+                class="w-full max-w-[90%] translate-y-full transform opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100"
                 label="Add To Cart"
               />
             </div>
@@ -105,7 +108,7 @@
         </div>
         <div>
           <BaseBtn
-            btnClass="!p-3 bg-[#8B4513] max-w-[150px] w-full uppercase text-[#fff] font-regular text-base rounded-none"
+            btnClass="!p-3 bg-[#8B4513] max-w-[150px] w-full uppercase text-[#fff] font-regular text-base rounded-none flex items-center justify-center !gap-5"
             label="SEE MORE"
           />
         </div>

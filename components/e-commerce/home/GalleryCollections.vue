@@ -31,21 +31,42 @@
       }
     })
   }
-
+  const animateGalleryEntrance = () => {
+    gsap.fromTo(
+      galleryItems.value,
+      { opacity: 0, y: 50 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: 'power2.out',
+        stagger: 0.15
+      }
+    )
+  }
   onMounted(() => {
     nextTick(() => {
-      if (sectionRef.value) {
-        const observer = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                animateGallery()
-              }
-            })
-          },
-          { threshold: 0.2 } // triggers when 20% of section is visible
-        )
-        observer.observe(sectionRef.value)
+      animateGallery()
+
+      const screenWidth = window.innerWidth
+
+      if (screenWidth < 1440) {
+        animateGalleryEntrance()
+      } else {
+        if (sectionRef.value) {
+          const observer = new IntersectionObserver(
+            (entries, obs) => {
+              entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                  animateGalleryEntrance()
+                  obs.unobserve(entry.target)
+                }
+              })
+            },
+            { threshold: 0.2 }
+          )
+          observer.observe(sectionRef.value)
+        }
       }
     })
   })
@@ -72,7 +93,7 @@
                 placeholder="blur"
               />
               <p
-                class="text-white absolute left-10 top-1/2 -translate-y-1/2 font-playfair text-5xl font-medium uppercase"
+                class="absolute left-10 top-1/2 -translate-y-1/2 font-playfair text-5xl font-medium uppercase text-white"
               >
                 {{ item.text }}
               </p>
@@ -94,7 +115,7 @@
               placeholder="blur"
             />
             <p
-              class="text-white absolute left-16 top-1/2 -translate-y-1/2 font-playfair text-5xl font-medium uppercase"
+              class="absolute left-16 top-1/2 -translate-y-1/2 font-playfair text-5xl font-medium uppercase text-white"
             >
               {{ galleryData[2].text }}
             </p>
