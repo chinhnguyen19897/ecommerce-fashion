@@ -40,11 +40,11 @@
   }
 
   pre {
-    @apply text-white my-8 overflow-auto whitespace-pre-wrap rounded bg-gray-800 p-4 text-xs;
+    @apply my-8 overflow-auto whitespace-pre-wrap rounded bg-gray-800 p-4 text-xs text-white;
   }
 
   select {
-    @apply text-gray-500 relative inline-flex flex-1 appearance-none items-center rounded-md border border-gray-300 bg-white p-1.5 px-4 py-2 pl-4 pr-12 text-sm font-medium hover:bg-gray-50 focus:z-20;
+    @apply relative inline-flex flex-1 appearance-none items-center rounded-md border border-gray-300 bg-white p-1.5 px-4 py-2 pl-4 pr-12 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20;
     background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 16 16'%3E%3Cpath stroke='%23333' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M4 6l4 4 4-4'/%3E%3C/svg%3E")
       center right 10px no-repeat;
     background-size: 1rem;
@@ -232,7 +232,7 @@
   input[type='checkbox']:checked:after,
   input[type='checkbox'] + label,
   input[type='radio'] + label {
-    @apply text-gray-600 cursor-pointer hover:text-primary;
+    @apply cursor-pointer text-gray-600 hover:text-primary;
   }
 
   input[type='checkbox']:checked + label,

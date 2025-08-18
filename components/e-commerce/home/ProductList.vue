@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+  import { useCartStore } from '~/stores/e-commerce/cart-store'
+
   const props = defineProps<{
     title?: string
     description?: string
@@ -6,7 +8,12 @@
   }>()
   import { useNuxtApp } from '#app'
   import CartIcon from '@/components/icons/CartIcon.vue'
-
+  import CartDrawer from '~/components/e-commerce/cart/CartDrawer.vue'
+  import { storeToRefs } from 'pinia'
+  import WishlistIcon from '~/components/icons/WishlistIcon.vue'
+  import ViewIcon from '~/components/icons/ViewIcon.vue'
+  import a from 'ansis'
+  const router = useRouter()
   const { $gsap } = useNuxtApp()
   const products = [
     {
@@ -39,6 +46,11 @@
     }
   ]
   const productGrid = ref<HTMLDivElement | null>(null)
+  const buttonAddToCart = ref<HTMLButtonElement[] | null>(null)
+  const loading = ref<boolean>(false)
+  const showCartBtn = ref<boolean>(false)
+  const cartStore = useCartStore()
+  const { cartData } = storeToRefs(cartStore)
 
   onMounted(() => {
     if (!productGrid.value) return
@@ -68,6 +80,29 @@
 
     observer.observe(productGrid.value)
   })
+
+  const addToCart = async (productId: number) => {
+    loading.value = true
+    try {
+      await $fetch('/api/e-commerce/cart', {
+        method: 'POST',
+        body: {
+          productId: productId,
+          quantity: 1
+        }
+      })
+      await shoppingCartStore.fetchCartData()
+      showCartBtn.value = true
+    } catch (error) {
+      showCartBtn.value = false
+      console.error('Error adding product to cart:', error)
+    } finally {
+      loading.value = false
+    }
+  }
+  const navigateCart = () => {
+    router.push('/cart')
+  }
 </script>
 
 <template>
@@ -93,15 +128,27 @@
               <h3 class="font-playfair text-base uppercase text-secondary">{{ product.name }}</h3>
               <p class="text-sm text-[#b4b4b4]">{{ product.price }}</p>
             </div>
-            <div
-              class="absolute inset-0 flex items-center justify-center bg-white bg-opacity-0 transition-opacity duration-300 group-hover:bg-opacity-20"
-            >
+            <div class="pointer-events-none absolute left-0 top-0 flex flex-col items-center">
+              <div
+                class="pointer-events-auto -translate-x-3 transform p-2 opacity-0 transition-all delay-100 duration-300 ease-out group-hover:translate-x-3 group-hover:opacity-100"
+              >
+                <WishlistIcon :color="'#000'" :size="30" />
+              </div>
+              <div
+                class="pointer-events-auto -translate-x-3 transform p-2 opacity-0 transition-all delay-200 duration-300 ease-out group-hover:translate-x-3 group-hover:opacity-100"
+              >
+                <ViewIcon :color="'#000'" :size="30" />
+              </div>
+            </div>
+            <div class="absolute inset-0 flex items-center justify-center">
               <BaseBtn
                 :iconBtn="CartIcon"
                 :iconProps="{ color: '#FFFFFF', size: 24 }"
+                :label="!showCartBtn ? 'Add To Cart' : 'View Cart'"
+                :loading="loading"
                 btnClass="flex items-center justify-center gap-8 bg-[#8B4513] rounded-none tracking-[2px] w-full !p-4 text-white text-center text-lg font-lato uppercase font-normal"
-                class="w-full max-w-[90%] translate-y-full transform opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100"
-                label="Add To Cart"
+                class="w-full max-w-[90%] translate-y-56 transform opacity-0 transition-all duration-300 group-hover:translate-y-48 group-hover:opacity-100"
+                @click="!showCartBtn ? addToCart(product.id) : navigateCart()"
               />
             </div>
           </div>

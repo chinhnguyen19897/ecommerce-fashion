@@ -3,7 +3,7 @@ module.exports = {
   env: {
     browser: true,
     node: true,
-    es2022: true,
+    es2022: true
   },
   extends: [
     'eslint:recommended',
@@ -15,7 +15,7 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 2022,
     parser: '@typescript-eslint/parser',
-    sourceType: 'module',
+    sourceType: 'module'
   },
   plugins: ['vue', '@typescript-eslint'],
   rules: {
@@ -28,7 +28,7 @@ module.exports = {
         html: {
           void: 'always',
           normal: 'never',
-          component: 'always',
+          component: 'always'
         }
       }
     ],
@@ -38,6 +38,6 @@ module.exports = {
 
     // General JS
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off'
   }
 }
