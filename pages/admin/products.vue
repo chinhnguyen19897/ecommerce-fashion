@@ -1,80 +1,101 @@
 <script setup>
-definePageMeta({
-  layout: "admin",
-});
-const showModal = ref(false);
+  import CardCustom from '~/components/ui/shared/CardCustom.vue'
+  import { QuillEditor } from '@vueup/vue-quill'
 
-const productStore = useProductStore();
-const {
-  productInput,
-  showUploadedImageModal,
-  uploadProductImages,
-  edit,
-  productData,
-  productId,
-  showUploadImage,
-} = storeToRefs(productStore);
+  definePageMeta({
+    layout: 'admin'
+  })
+  const showModal = ref(false)
 
-function toggleProductModal() {
-  showModal.value = !showModal.value;
-}
+  const productStore = useProductStore()
+  const {
+    productInput,
+    showUploadedImageModal,
+    uploadProductImages,
+    edit,
+    productData,
+    productId,
+    showUploadImage
+  } = storeToRefs(productStore)
 
-const categoryStore = useCategoryStore();
-const { data, getCategories } = await categoryStore.fetchCategories();
+  function toggleProductModal() {
+    showModal.value = !showModal.value
+  }
 
-await productStore.fetchProducts();
+  const categoryStore = useCategoryStore()
+  const { data, getCategories } = await categoryStore.fetchCategories()
 
-async function deleteProduct(product) {
-  promptUser("Do you want to delete this product?")
-    .then(async () => {
-      await productStore.deleteProduct(product?.id);
-      productStore.fetchProducts();
-    })
-    .catch((error) => console.error(error));
-}
+  await productStore.fetchProducts()
 
-function editProduct(product) {
-  productInput.value = product;
-  edit.value = true;
-  toggleProductModal();
-}
+  async function deleteProduct(product) {
+    promptUser('Do you want to delete this product?')
+      .then(async () => {
+        await productStore.deleteProduct(product?.id)
+        productStore.fetchProducts()
+      })
+      .catch((error) => console.error(error))
+  }
 
-function uploadImage(product) {
-  productId.value = product?.id;
-  showUploadImage.value = true;
-}
+  function editProduct(product) {
+    productInput.value = product
+    edit.value = true
+    toggleProductModal()
+  }
 
-function showUploadedImages(product) {
-  uploadProductImages.value = product?.images;
-  showUploadedImageModal.value = true;
-}
+  function uploadImage(product) {
+    productId.value = product?.id
+    showUploadImage.value = true
+  }
+
+  function showUploadedImages(product) {
+    uploadProductImages.value = product?.images
+    showUploadedImageModal.value = true
+  }
 </script>
 
 <template>
   <div class="h-screen">
-    <div class="flex justify-end mb-4 pt-4">
+    <!--    <div class="mb-4 flex justify-end pt-4">
+          <ClientOnly>
+            &lt;!&ndash;        <UploadImage @getProducts="productStore.fetchProducts" />
+                    <UploadedImageModal />
+                    <ProductModal
+                      :categories="data?.categories"
+                      :show="showModal"
+                      @getProducts="productStore.fetchProducts"
+                      @toggleProductModal="toggleProductModal"
+                    ></ProductModal>&ndash;&gt;
+
+          </ClientOnly>
+        </div>-->
+    <div v-if="!showModal">
+      <ProductTable
+        :productData="productData"
+        @deleteProduct="deleteProduct"
+        @editProduct="editProduct"
+        @showUploadedImages="showUploadedImages"
+        @uploadImage="uploadImage"
+      >
+        <template #btn>
+          <BaseBtn label="create" @click="toggleProductModal"></BaseBtn>
+        </template>
+      </ProductTable>
+    </div>
+    <div v-else>
       <ClientOnly>
-        <UploadImage @getProducts="productStore.fetchProducts" />
-        <UploadedImageModal />
-        <ProductModal
-          :categories="data?.categories"
-          :show="showModal"
-          @getProducts="productStore.fetchProducts"
-          @toggleProductModal="toggleProductModal"
-        ></ProductModal>
+        <h2>Create a new product</h2>
+        <div>Dashboard > Products > Create</div>
+        <div>
+          <CardCustom :title="'Basic details'">
+            <BaseInput />
+            <div>
+              <span>Description</span>
+              <BaseQuill />
+            </div>
+          </CardCustom>
+        </div>
+        <BaseBtn label="Cancel" @click="toggleProductModal" />
       </ClientOnly>
     </div>
-
-    <ProductTable
-      :productData="productData"
-      @deleteProduct="deleteProduct"
-      @editProduct="editProduct"
-      @showUploadedImages="showUploadedImages"
-      @uploadImage="uploadImage"
-    >
-      <template #btn>
-        <BaseBtn label="create" @click="toggleProductModal"></BaseBtn>
-      </template>
-    </ProductTable>
   </div>
 </template>

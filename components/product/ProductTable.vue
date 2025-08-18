@@ -1,127 +1,109 @@
 <script setup>
-import {useProductStore} from "~/stores/admin/product-store.ts";
+  import { useProductStore } from '~/stores/admin/product-store.ts'
 
-const props = defineProps(["productData"]);
+  const props = defineProps(['productData'])
 
-const emit=defineEmits(['editProduct','deleteProduct','uploadImage','showUploadedImages'])
-const productStore = useProductStore()
-const {search} = storeToRefs(productStore)
+  const emit = defineEmits(['editProduct', 'deleteProduct', 'uploadImage', 'showUploadedImages'])
+  const productStore = useProductStore()
+  const { search } = storeToRefs(productStore)
 
-
-
-const searchProduct=_debounce(async function(event){
-search.value=event[0].target.value
-await productStore.fetchProducts()
-},1000)
-
+  const searchProduct = _debounce(async function (event) {
+    search.value = event[0].target.value
+    await productStore.fetchProducts()
+  }, 1000)
 </script>
 <template>
-
-  <div class="flex justify-between mb-1">
-        <input
-        v-model="search"
-          @keydown="searchProduct"
-            placeholder="Search..."
-            type="text"
-            class="mb-2 border rounded-md py-2 px-2 shadow-md"
-        />
-        <slot name="btn"></slot>
-
-    </div>
-  <table class="bg-white rounded-md w-full shadow-sm border border-gray-300">
+  <div class="mb-1 flex justify-between">
+    <input
+      v-model="search"
+      class="mb-2 rounded-md border px-2 py-2 shadow-md"
+      placeholder="Search..."
+      type="text"
+      @keydown="searchProduct"
+    />
+    <slot name="btn"></slot>
+  </div>
+  <table class="w-full rounded-md bg-white shadow-sm">
     <thead>
-      <tr class="bg-gray-100 text-left" >
-        <td class="border border-gray-300 py-2 px-4">#</td>
+      <tr class="bg-[#F8F9FA] text-left">
+        <td class="px-4 py-3"></td>
 
-        <td class="border border-gray-300 py-2 px-4">Name</td>
-        <td class="border border-gray-300 py-2 px-4">Category</td>
-        <td class="border border-gray-300 py-2 px-4">Color</td>
-        <td class="border border-gray-300 py-2 px-4">Price</td>
-
-        <td class="border border-gray-300 py-2 px-4">Action</td>
+        <td class="px-4 py-3">Name</td>
+        <td class="px-4 py-3">Stock</td>
+        <td class="py-3">Price</td>
+        <td class="py-3">SKU</td>
+        <td class="py-3">Status</td>
+        <td class="py-3">Action</td>
       </tr>
     </thead>
 
     <tbody>
-
-      <tr class=" text-left" v-for="(product,index) in productData?.products" :key="product.id">
-        <td class="border border-gray-300 py-2 px-4">
-          {{ index+1 }}
+      <tr v-for="(product, index) in productData?.products" :key="product.id" class="text-left">
+        <td class="border border-gray-300 px-4 py-2">
+          {{ index + 1 }}
         </td>
 
-        <td  class="border border-gray-300 py-2 px-4">{{product?.name}}</td>
-        <td class="border border-gray-300 py-2 px-4">{{product?.category?.name}}</td>
-        <td class="border border-gray-300 py-2 px-4">{{product?.color}}</td>
-        <td class="border border-gray-300 py-2 px-4">{{product?.price}} $</td>
+        <td class="border border-gray-300 px-4 py-2">{{ product?.name }}</td>
+        <td class="border border-gray-300 px-4 py-2">{{ product?.category?.name }}</td>
+        <td class="border border-gray-300 px-4 py-2">{{ product?.color }}</td>
+        <td class="border border-gray-300 px-4 py-2">{{ product?.price }} $</td>
 
-        <td class="flex border border-gray-300 py-2 px-4">
+        <td class="flex border border-gray-300 px-4 py-2">
           <button
-            @click="emit('editProduct',product)"
-            class="flex justify-center hover:bg-slate-200 text-gray-900 font-bold py-2 px-4 rounded flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
             :disabled="loading"
+            class="text-gray-900 flex items-center justify-center gap-2 rounded px-4 py-2 font-bold hover:bg-slate-200 disabled:cursor-not-allowed disabled:opacity-50"
+            @click="emit('editProduct', product)"
           >
             <EditIcon />
-
           </button>
           <button
-            @click="emit('deleteProduct',product)"
-            class="flex justify-center hover:bg-slate-200 text-gray-900 font-bold py-2 px-4 rounded flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
             :disabled="loading"
+            class="text-gray-900 flex items-center justify-center gap-2 rounded px-4 py-2 font-bold hover:bg-slate-200 disabled:cursor-not-allowed disabled:opacity-50"
+            @click="emit('deleteProduct', product)"
           >
             <TrashIcon />
-
           </button>
 
           <button
-            @click="emit('uploadImage',product)"
-            class="flex justify-center hover:bg-slate-200 text-gray-900 font-bold py-2 px-4 rounded flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
             :disabled="loading"
+            class="text-gray-900 flex items-center justify-center gap-2 rounded px-4 py-2 font-bold hover:bg-slate-200 disabled:cursor-not-allowed disabled:opacity-50"
+            @click="emit('uploadImage', product)"
           >
             <ImageIcon />
-
           </button>
 
           <button
-            @click="emit('showUploadedImages',product)"
-            class="flex justify-center hover:bg-slate-200 text-gray-900 font-bold py-2 px-4 rounded flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
             :disabled="loading"
+            class="text-gray-900 flex items-center justify-center gap-2 rounded px-4 py-2 font-bold hover:bg-slate-200 disabled:cursor-not-allowed disabled:opacity-50"
+            @click="emit('showUploadedImages', product)"
           >
             <EyeIcon />
-
           </button>
         </td>
       </tr>
-
     </tbody>
   </table>
 
+  <div class="mt-4 flex items-center justify-between">
+    <div>
+      <button
+        :disabled="productData?.metadata?.page === 1"
+        class="rounded bg-gray-200 px-4 py-2 disabled:opacity-50"
+        @click="productStore.changePage(productData?.metadata?.page - 1)"
+      >
+        Prev
+      </button>
 
+      <span>Page {{ productData?.metadata?.page }} of {{ productData?.metadata?.totalPages }}</span>
 
-<div class="flex justify-between items-center mt-4">
-
-     <div>
-       <button
-         class="px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
-         :disabled="productData?.metadata?.page === 1"
-         @click="productStore.changePage(productData?.metadata?.page - 1)"
-       >
-         Prev
-       </button>
-
-       <span>Page {{ productData?.metadata?.page }} of {{ productData?.metadata?.totalPages }}</span>
-
-       <button
-         class="px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
-         :disabled="productData?.metadata?.page === productData?.metadata?.totalPages"
-         @click="productStore.changePage(productData?.metadata?.page  + 1)"
-       >
-         Next
-       </button>
-     </div>
-     <div>
-     </div>
-
-     </div>
-
-
+      <button
+        :disabled="productData?.metadata?.page === productData?.metadata?.totalPages"
+        class="rounded bg-gray-200 px-4 py-2 disabled:opacity-50"
+        @click="productStore.changePage(productData?.metadata?.page + 1)"
+      >
+        Next
+      </button>
+    </div>
+    <div></div>
+  </div>
 </template>
