@@ -86,11 +86,15 @@
         <h2>Create a new product</h2>
         <div>Dashboard > Products > Create</div>
         <div>
-          <CardCustom :title="'Basic details'">
-            <BaseInput />
-            <div>
-              <span>Description</span>
-              <BaseQuill />
+          <CardCustom title="Basic details">
+            <div class="space-y-6">
+              <div>
+                <BaseInput />
+              </div>
+              <div>
+                <span>Description</span>
+                <BaseQuill />
+              </div>
             </div>
           </CardCustom>
         </div>

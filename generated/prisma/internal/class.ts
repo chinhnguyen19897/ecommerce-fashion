@@ -22,7 +22,7 @@ const config: runtime.GetPrismaClientConfig = {
       "value": "prisma-client"
     },
     "output": {
-      "value": "E:\\app-ecommerce-fashion\\generated\\prisma",
+      "value": "D:\\ecommerce-fashion\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -49,7 +49,7 @@ const config: runtime.GetPrismaClientConfig = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "E:\\app-ecommerce-fashion\\prisma\\schema.prisma",
+    "sourceFilePath": "D:\\ecommerce-fashion\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativePath": "../../prisma",
