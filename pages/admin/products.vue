@@ -1,6 +1,7 @@
 <script setup>
   import CardCustom from '~/components/ui/shared/CardCustom.vue'
-  import { QuillEditor } from '@vueup/vue-quill'
+
+  const Editor = defineAsyncComponent(() => import('~/components/base/Editor.vue'))
 
   definePageMeta({
     layout: 'admin'
@@ -82,24 +83,24 @@
       </ProductTable>
     </div>
     <div v-else>
-      <ClientOnly>
-        <h2>Create a new product</h2>
-        <div>Dashboard > Products > Create</div>
-        <div>
-          <CardCustom title="Basic details">
-            <div class="space-y-6">
-              <div>
-                <BaseInput />
-              </div>
-              <div>
-                <span>Description</span>
-                <BaseQuill />
-              </div>
+      <h2>Create a new product</h2>
+      <div>Dashboard > Products > Create</div>
+      <div>
+        <CardCustom title="Basic details">
+          <div class="space-y-6">
+            <div>
+              <BaseInput :placeholder="'Product Name'" />
             </div>
-          </CardCustom>
-        </div>
-        <BaseBtn label="Cancel" @click="toggleProductModal" />
-      </ClientOnly>
+            <div>
+              <span>Description</span>
+              <ClientOnly>
+                <Editor />
+              </ClientOnly>
+            </div>
+          </div>
+        </CardCustom>
+      </div>
+      <BaseBtn label="Cancel" @click="toggleProductModal" />
     </div>
   </div>
 </template>

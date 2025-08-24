@@ -1,19 +1,19 @@
-<script setup lang="ts">
-import type { HTMLAttributes } from "vue"
-import { cn } from "@/lib/utils"
+<script lang="ts" setup>
+  import type { HTMLAttributes } from 'vue'
+  import { cn } from '@/lib/utils'
 
-const props = defineProps<{
-  class?: HTMLAttributes["class"]
-}>()
+  const props = defineProps<{
+    class?: HTMLAttributes['class']
+    overrideClass?: boolean
+  }>()
 </script>
 
 <template>
   <div
     :class="
-      cn(
-        'rounded-xl border bg-card text-card-foreground shadow',
-        props.class,
-      )
+      overrideClass
+        ? props.class
+        : cn('text-card-foreground rounded-xl border bg-card shadow', props.class)
     "
   >
     <slot />

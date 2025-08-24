@@ -9,8 +9,11 @@
 </script>
 
 <template>
-  <Card class="rounded-xl border border-gray-200 bg-white shadow-sm">
-    <div class="flex w-full justify-between gap-16 px-6 py-8">
+  <Card
+    class="rounded-2xl bg-white px-6 py-8 shadow-[0_2px_8px_0_rgba(0,0,0,0.08),0_8px_20px_-4px_rgba(0,0,0,0.12)]"
+    overrideClass
+  >
+    <div class="flex w-full justify-between gap-16">
       <CardHeader class="w-56 shrink-0 p-0">
         <CardTitle class="text-gray-900 text-lg font-semibold">{{ props.title }}</CardTitle>
         <p v-if="$slots.description" class="mt-1 text-sm text-gray-500">

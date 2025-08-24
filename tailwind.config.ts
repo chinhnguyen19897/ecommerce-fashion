@@ -100,6 +100,9 @@ export default {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)'
+      },
+      boxShadow: {
+        card: '0px 5px 10px -3px rgba(0,0,0,0.1), 0px 0px 0px 0.3px rgba(0,0,0,0.03)'
       }
     }
   },

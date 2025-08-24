@@ -52,5 +52,5 @@ export default defineNuxtConfig({
   pinia: {
     storesDirs: ['./stores/**']
   },
-  plugins: ['@/plugins/gsap.client.ts']
+  plugins: ['@/plugins/gsap.client.ts', '~/plugins/vue-quill.client.ts']
 })
