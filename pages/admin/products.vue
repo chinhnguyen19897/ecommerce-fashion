@@ -99,6 +99,9 @@
             </div>
           </div>
         </CardCustom>
+        <CardCustom title="Product Images">
+          <UploadFiles />
+        </CardCustom>
       </div>
       <BaseBtn label="Cancel" @click="toggleProductModal" />
     </div>

@@ -1,7 +1,15 @@
-<script lang="ts" setup></script>
+<script setup>
+  defineProps({
+    iconClass: {
+      type: String,
+      default: 'size-6'
+    }
+  })
+</script>
 
 <template>
   <svg
+    :class="iconClass"
     class="size-6"
     fill="none"
     stroke="currentColor"
