@@ -174,7 +174,7 @@
         <div
           v-for="item in items"
           :key="item.id"
-          class="group relative col-span-2 overflow-hidden rounded-xl border bg-card"
+          class="group relative col-span-2 h-full min-h-36 overflow-hidden rounded-xl border bg-card"
         >
           <Progress
             v-if="item.progress > 0 && item.progress < 100"
@@ -189,8 +189,6 @@
             :loading="item.uploading ? 'lazy' : 'eager'"
             :src="item.uploading ? item.previewUrl : item.uploadedUrl"
             class="h-full w-full object-cover"
-            height="250"
-            width="250"
           />
           <div
             v-else-if="item.error"
