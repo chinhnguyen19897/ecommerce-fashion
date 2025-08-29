@@ -10,7 +10,7 @@
 
 <template>
   <Card
-    class="rounded-2xl bg-white px-6 py-8 shadow-[0_2px_8px_0_rgba(0,0,0,0.08),0_8px_20px_-4px_rgba(0,0,0,0.12)]"
+    class="my-10 rounded-2xl bg-white px-6 py-8 shadow-[0_2px_8px_0_rgba(0,0,0,0.08),0_8px_20px_-4px_rgba(0,0,0,0.12)]"
     overrideClass
   >
     <div class="flex w-full justify-between gap-16">

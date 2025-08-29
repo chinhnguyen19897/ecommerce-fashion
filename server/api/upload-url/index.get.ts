@@ -12,6 +12,7 @@ export default defineEventHandler(async (event) => {
   const query = getQuery(event)
   const fileName = query.name as string
   const fileType = query.type as string
+  const key = `uploads/${Date.now()}-${fileName}`
   if (!fileName || !fileType) {
     throw createError({
       statusCode: 400,
@@ -22,9 +23,8 @@ export default defineEventHandler(async (event) => {
   const bucket = process.env.AWS_S3_BUCKET!
   const command = new PutObjectCommand({
     Bucket: bucket,
-    Key: `${fileName}.${fileType}`,
-    Body: event.body,
-    ContentType: `image/${fileType}`
+    Key: key,
+    ContentType: fileType
   })
 
   const { getSignedUrl } = await import('@aws-sdk/s3-request-presigner')
@@ -32,6 +32,6 @@ export default defineEventHandler(async (event) => {
 
   return {
     uploadUrl: url,
-    fileUrl: `https://${bucket}.s3.${process.env.AWS_REGION}.amazonaws.com/products/${Date.now()}-${fileName}`
+    fileUrl: `https://${bucket}.s3.${process.env.AWS_REGION}.amazonaws.com/${key}`
   }
 })

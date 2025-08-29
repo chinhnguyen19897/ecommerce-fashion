@@ -28,7 +28,7 @@
   const dragging = ref(false)
   const inputRef = ref<HTMLInputElement | null>(null)
   const items = ref<LocalImage[]>([])
-
+  const previewImage = ref<string | null>(null)
   const selectFile = () => {
     inputRef.value?.click()
   }
@@ -52,18 +52,16 @@
 
   function onChoose(e: Event) {
     const target = e.target as HTMLInputElement
-    console.log(target)
     if (target.files?.length) handleFiles(target.files)
     target.value = ''
   }
 
   const handleFiles = (fileList: FileList) => {
     const files = Array.from(fileList)
-    console.log(files)
-    for (let file of files) {
+    for (const file of files) {
       const id = crypto.randomUUID()
       const typeOk = props.accept.includes(file.type)
-      const sizeOk = file.size <= props.maxSizeMB * 1024 * 1024
+      const sizeOk = file.size <= props.maxSize * 1024 * 1024
       const previewUrl = URL.createObjectURL(file)
       const base: LocalImage = {
         id,
@@ -78,8 +76,9 @@
       if (!sizeOk) {
         items.value.push({ ...base, error: `File too large (> ${props.maxSize}MB) ` })
       }
+      items.value.push(base)
+      uploadFile(id, file)
     }
-    items.value.push(base)
   }
 
   function removeItem(id: string) {
@@ -90,10 +89,10 @@
     }
   }
 
-  async function uploadAllFiles() {
+  /*async function uploadAllFiles() {
     const toUpload = items.value.filter((item) => !item.uploadedUrl && !item.error)
     const uploadedMeta: { id: string; url: string; name: string }[] = []
-    for (let item of toUpload) {
+    for (const item of toUpload) {
       try {
         item.uploading = true
         const url = await uploadFile(item.file)
@@ -107,16 +106,26 @@
       }
     }
     if (uploadedMeta.length) emit('uploaded', uploadedMeta)
-  }
+  }*/
 
-  function uploadFile(file: File): Promise<string> {
+  async function uploadFile(id: string, file: File): Promise<void> {
+    const item = items.value.find((x) => x.id === id)
+    if (!item) return
+    item.uploading = true
+    item.progress = 0
     try {
-      const url = await uploadToS3(file, (p) => {
-        onProgress?.(Math.round(p))
+      const url = await uploadToS3(file, (progress) => {
+        item.progress = progress
       })
-      return url
-    } catch (e) {
-      throw new Error((err as Error)?.message || 'Failed to upload file')
+
+      item.uploadedUrl = url
+      item.previewUrl = url
+
+      emit('uploaded', [{ id: item.id, url, name: item.file.name }])
+    } catch (err: any) {
+      throw new Error(err?.message || 'Failed to upload file')
+    } finally {
+      item.uploading = false
     }
   }
 
@@ -124,43 +133,38 @@
     const { uploadUrl, fileUrl } = await $fetch<{
       uploadUrl: string
       fileUrl: string
-    }>('api/upload-url', {
+    }>('/api/upload-url', {
       params: { name: file.name, type: file.type }
     })
 
-    await new Promise<void>((resolve, reject) => {
+    return new Promise<string>((resolve, reject) => {
       const xhr = new XMLHttpRequest()
-      xhr.open('PUT', uploadUrl, true)
+      xhr.open('PUT', uploadUrl)
       xhr.setRequestHeader('Content-Type', file.type)
+
       xhr.upload.onprogress = (e) => {
         if (e.lengthComputable) {
-          const progress = (e.loaded / e.total) * 100
-          onProgress(progress)
+          const percent = Math.round((e.loaded / e.total) * 100)
+          onProgress(percent)
         }
       }
+
       xhr.onload = () => {
-        if (xhr.status === 200) {
-          resolve()
-        } else {
-          reject(new Error('Failed to upload file to S3'))
-        }
+        xhr.status === 200
+          ? resolve(fileUrl)
+          : reject(new Error(`Upload failed: ${xhr.statusText}`))
       }
-      xhr.onerror = () => {
-        reject(new Error('Failed to upload file to S3'))
-      }
+
+      xhr.onerror = () => reject(new Error('Network error'))
       xhr.send(file)
     })
-    return fileUrl
   }
 
   const hasValid = computed(() => items.value.some((item) => !item.error && !item.uploadedUrl))
   const hasItems = computed(() => items.value.length > 0)
   onBeforeMount(() => {
-    for (let item of items.value) URL.revokeObjectURL(item.previewUrl)
+    for (const item of items.value) URL.revokeObjectURL(item.previewUrl)
   })
-  watchEffect(() => {
-    console.log(items.value)
-  }, [hasItems])
 </script>
 
 <template>
@@ -169,22 +173,36 @@
       <div class="grid grid-flow-col grid-cols-12">
         <div
           v-for="item in items"
-          :key="item.name"
-          class="group relative col-span-2 overflow-hidden rounded-xl border bg-card"
+          :key="item.id"
+          class="group relative col-span-2 h-full min-h-36 overflow-hidden rounded-xl border bg-card"
         >
-          <img
-            :alt="item.file.name"
-            :src="item.previewUrl"
-            class="h-44 w-full object-cover"
-            loading="lazy"
+          <Progress
+            v-if="item.progress > 0 && item.progress < 100"
+            :model-value="item.progress"
+            class="w-full"
           />
+          <NuxtImg
+            v-else-if="item.uploadedUrl"
+            :alt="item.file.name"
+            :data-src="item.previewUrl"
+            :decoding="item.uploading ? 'auto' : 'async'"
+            :loading="item.uploading ? 'lazy' : 'eager'"
+            :src="item.uploading ? item.previewUrl : item.uploadedUrl"
+            class="h-full w-full object-cover"
+          />
+          <div
+            v-else-if="item.error"
+            class="text-red-500 flex h-full w-full items-center justify-center"
+          >
+            {{ item.error }}
+          </div>
           <div
             class="absolute inset-0 flex items-center justify-center gap-3 bg-black/50 opacity-0 transition group-hover:opacity-100"
           >
             <button
               class="rounded-full bg-white p-2 shadow hover:bg-gray-100"
               type="button"
-              @click="previewImage = URL.createObjectURL(f)"
+              @click="previewImage = item.uploadedUrl || item.previewUrl"
             >
               <ViewIcon :iconClass="'text-gray-700 h-4 w-4'" />
             </button>
@@ -221,8 +239,8 @@
       />
       <div class="mx-auto max-w-md space-x-2">
         <p class="text-base font-medium">Drag & drop images here</p>
-        <p class="text-muted-foreground text-sm">or click to browse ({{ maxSizeMB }}MB max each)</p>
-        <div class="mt-4">
+        <p class="text-muted-foreground text-sm">or click to browse ({{ maxSize }}MB max each)</p>
+        <div class="mt-4 flex justify-center">
           <BaseBtn label="Choose files" type="button" @click.stop.prevent="selectFile" />
         </div>
       </div>
