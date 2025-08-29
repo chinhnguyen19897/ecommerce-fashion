@@ -8,25 +8,55 @@
   }
   type TabsContent = {
     id: string | number
+    name: string
     value: string
-    content: Component
+    component?: Component
+    props?: Record<string, any>
   }
   const props = defineProps<{
     tabsList: Array<TabsItem>
     tabsContent: Array<TabsContent>
-    orientation: {
-      type: string
-      default: 'horizontal'
-    }
+    typeTab?: string
     tabClass?: string
     triggerClass?: string
     contentClass?: string
     listClass?: string
+    selectedTab?: string
+    defaultValue: string
   }>()
+  const emit = defineEmits<{
+    (e: 'update:selectedTab', value: string): void
+  }>()
+
+  const selected = ref<string>(
+    props.selectedTab ?? props.defaultValue ?? props.tabsContent?.[0]?.value ?? ''
+  )
+
+  watch(
+    () => props.tabsContent,
+    (items) => {
+      if (!items.length) return
+      if (!items.some((i) => i.value === selected.value)) {
+        selected.value = items[0].value
+      }
+    },
+    { immediate: true }
+  )
+  watch(
+    () => props.selectedTab,
+    (v) => {
+      if (v != null && v !== selected.value) selected.value = v
+    }
+  )
+  watch(selected, (v) => emit('update:selectedTab', v))
 </script>
 
 <template>
-  <Tabs :class="cn('w-full', props.tabClass)" :orientation="props.orientation">
+  <Tabs
+    :class="cn('w-full', props.tabClass)"
+    :default-value="defaultValue"
+    orientation="typeTab ?? 'horizontal'"
+  >
     <TabsList :class="cn('', props.listClass)">
       <TabsTrigger
         v-for="item in props.tabsList"
@@ -42,7 +72,9 @@
       :class="cn('mt-4', props.contentClass)"
       :value="content.value"
     >
-      <component :is="content.content" />
+      <KeepAlive>
+        <component :is="content.component" v-if="content.component" v-bind="content.props" />
+      </KeepAlive>
     </TabsContent>
   </Tabs>
 </template>

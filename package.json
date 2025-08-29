@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "build": "yarn prisma:generate && nuxt build",
-    "dev": "dotenv -e .env.development -- concurrently -n PRISMA,NUXT -c cyan,green \"yarn prisma:generate\" \"yarn nuxt dev -p 3001\"",
+    "dev": "dotenv -e .env.development -- concurrently -n PRISMA,NUXT -c cyan,green \"yarn prisma:generate\" \"yarn nuxt dev\"",
     "prisma:generate": "prisma generate",
     "start": "nuxt start",
     "db:migrate": "prisma migrate dev",

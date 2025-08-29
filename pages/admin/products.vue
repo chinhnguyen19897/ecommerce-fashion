@@ -1,5 +1,8 @@
 <script setup>
   import CardCustom from '~/components/ui/shared/CardCustom.vue'
+  import TabsCustom from '~/components/ui/shared/TabsCustom/TabsCustom.vue'
+  import ProductPricing from '~/components/product/ProductPricing.vue'
+  import { useCategoryStore } from '~/stores/admin/category-store.js'
 
   const Editor = defineAsyncComponent(() => import('~/components/base/Editor.vue'))
 
@@ -18,6 +21,33 @@
     productId,
     showUploadImage
   } = storeToRefs(productStore)
+
+  const tabsTrigger = [
+    {
+      id: 1,
+      name: 'Pricing',
+      value: 'pricing'
+    },
+    {
+      id: 2,
+      name: 'Inventory',
+      value: 'inventory'
+    },
+    {
+      id: 3,
+      name: 'Shipping',
+      value: 'shipping'
+    }
+  ]
+
+  const tabContent = [
+    {
+      id: 1,
+      name: 'Pricing',
+      value: 'pricing',
+      component: ProductPricing
+    }
+  ]
 
   function toggleProductModal() {
     showModal.value = !showModal.value
@@ -101,6 +131,14 @@
         </CardCustom>
         <CardCustom title="Product Images">
           <UploadFiles />
+        </CardCustom>
+        <CardCustom title="Product categories">
+          <TabsCustom
+            :default-value="'pricing'"
+            :tabsContent="tabContent"
+            :tabsList="tabsTrigger"
+            :type-tab="'vertical'"
+          />
         </CardCustom>
       </div>
       <BaseBtn label="Cancel" @click="toggleProductModal" />
