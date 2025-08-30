@@ -3,6 +3,10 @@
   import TabsCustom from '~/components/ui/shared/TabsCustom/TabsCustom.vue'
   import ProductPricing from '~/components/product/ProductPricing.vue'
   import { useCategoryStore } from '~/stores/admin/category-store.js'
+  import ProductInventory from '~/components/product/ProductInventory.vue'
+  import ProductShipping from '~/components/product/ProductShipping.vue'
+  import { useForm } from 'vee-validate'
+  import FormCustomInput from '~/components/form/FormCustomInput.vue'
 
   const Editor = defineAsyncComponent(() => import('~/components/base/Editor.vue'))
 
@@ -46,8 +50,22 @@
       name: 'Pricing',
       value: 'pricing',
       component: ProductPricing
+    },
+    {
+      id: 2,
+      name: 'Inventory',
+      value: 'inventory',
+      component: ProductInventory
+    },
+    {
+      id: 3,
+      name: 'Shipping',
+      value: 'shipping',
+      component: ProductShipping
     }
   ]
+
+  const { handleSubmit, defineField } = useForm({})
 
   function toggleProductModal() {
     showModal.value = !showModal.value
@@ -82,6 +100,11 @@
     uploadProductImages.value = product?.images
     showUploadedImageModal.value = true
   }
+
+  const onSubmit = handleSubmit((values) => {
+    console.log(values)
+    console.log(JSON.stringify(values, null, 2))
+  })
 </script>
 
 <template>
@@ -108,40 +131,42 @@
         @uploadImage="uploadImage"
       >
         <template #btn>
-          <BaseBtn label="create" @click="toggleProductModal"></BaseBtn>
+          <BaseBtn label="create" @click="toggleProductModal" />
         </template>
       </ProductTable>
     </div>
     <div v-else>
       <h2>Create a new product</h2>
       <div>Dashboard > Products > Create</div>
-      <div>
-        <CardCustom title="Basic details">
-          <div class="space-y-6">
-            <div>
-              <BaseInput :placeholder="'Product Name'" />
-            </div>
-            <div>
-              <span>Description</span>
-              <ClientOnly>
+      <ClientOnly>
+        <form @submit.prevent="onSubmit">
+          <CardCustom title="Basic details">
+            <div class="space-y-6">
+              <div>
+                <FormCustomInput :name="'productName'" :placeholder="'Product Name'" />
+              </div>
+              <div>
+                <span>Description</span>
                 <Editor />
-              </ClientOnly>
+              </div>
             </div>
-          </div>
-        </CardCustom>
-        <CardCustom title="Product Images">
-          <UploadFiles />
-        </CardCustom>
-        <CardCustom title="Product categories">
-          <TabsCustom
-            :default-value="'pricing'"
-            :tabsContent="tabContent"
-            :tabsList="tabsTrigger"
-            :type-tab="'vertical'"
-          />
-        </CardCustom>
-      </div>
-      <BaseBtn label="Cancel" @click="toggleProductModal" />
+          </CardCustom>
+          <CardCustom title="Product Images">
+            <UploadFiles />
+          </CardCustom>
+          <CardCustom title="Product categories">
+            <TabsCustom
+              :default-value="'pricing'"
+              :tabsContent="tabContent"
+              :tabsList="tabsTrigger"
+              :type-tab="'vertical'"
+            />
+          </CardCustom>
+          <CardCustom title="Product Variants"></CardCustom>
+          <BaseBtn label="Cancel" @click="toggleProductModal" />
+          <BaseBtn label="Save" type="submit" />
+        </form>
+      </ClientOnly>
     </div>
   </div>
 </template>

@@ -6,18 +6,8 @@
 
 <template>
   <div class="flex gap-8">
-    <FormInput
-      :id="'regularPrice'"
-      :forLabel="'regularPrice'"
-      :label="'Regular Price'"
-      :placeholder="'VND'"
-    />
-    <FormInput
-      :id="'salePrice'"
-      :forLabel="'salePrice'"
-      :label="'Compare at price'"
-      :placeholder="'VND'"
-    />
+    <FormCustomInput :label="'Regular Price'" :name="'regularPrice'" :placeholder="'VND'" />
+    <FormCustomInput :label="'Compare at price'" :name="'salePrice'" :placeholder="'VND'" />
   </div>
 </template>
 
