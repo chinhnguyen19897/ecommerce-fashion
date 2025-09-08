@@ -140,29 +140,35 @@
       <div>Dashboard > Products > Create</div>
       <ClientOnly>
         <form @submit.prevent="onSubmit">
-          <CardCustom title="Basic details">
-            <div class="space-y-6">
-              <div>
-                <FormCustomInput :name="'productName'" :placeholder="'Product Name'" />
-              </div>
-              <div>
-                <span>Description</span>
-                <Editor />
-              </div>
+          <div class="grid grid-cols-12 gap-8">
+            <div class="col-span-8">
+              <CardCustom title="Product Details">
+                <div class="space-y-6">
+                  <div>
+                    <FormCustomInput :name="'productName'" :placeholder="'Product Name'" />
+                  </div>
+                  <div>
+                    <span>Description</span>
+                    <Editor />
+                  </div>
+                </div>
+              </CardCustom>
+              <CardCustom title="Product Images">
+                <UploadFiles />
+              </CardCustom>
+              <CardCustom title="Product categories">
+                <TabsCustom
+                  :default-value="'pricing'"
+                  :tabsContent="tabContent"
+                  :tabsList="tabsTrigger"
+                  :type-tab="'vertical'"
+                />
+              </CardCustom>
             </div>
-          </CardCustom>
-          <CardCustom title="Product Images">
-            <UploadFiles />
-          </CardCustom>
-          <CardCustom title="Product categories">
-            <TabsCustom
-              :default-value="'pricing'"
-              :tabsContent="tabContent"
-              :tabsList="tabsTrigger"
-              :type-tab="'vertical'"
-            />
-          </CardCustom>
-          <CardCustom title="Product Variants"></CardCustom>
+            <div class="col-span-4">
+              <CardCustom title="Product Variants"> </CardCustom>
+            </div>
+          </div>
           <BaseBtn label="Cancel" @click="toggleProductModal" />
           <BaseBtn label="Save" type="submit" />
         </form>

@@ -72,9 +72,9 @@
       :class="cn('mt-4', props.contentClass)"
       :value="content.value"
     >
-      <KeepAlive>
+      <keep-alive>
         <component :is="content.component" v-if="content.component" v-bind="content.props" />
-      </KeepAlive>
+      </keep-alive>
     </TabsContent>
   </Tabs>
 </template>
