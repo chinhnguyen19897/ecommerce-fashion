@@ -65,6 +65,10 @@
     }
   ]
 
+  const options = reactive(['color', 'size', 'material'])
+  const selectColor = ref('')
+  const selectSize = ref('')
+  const selectMaterial = ref('')
   const { handleSubmit, defineField } = useForm({})
 
   function toggleProductModal() {
@@ -99,6 +103,28 @@
   function showUploadedImages(product) {
     uploadProductImages.value = product?.images
     showUploadedImageModal.value = true
+  }
+
+  const addVariant = () => {
+    if (selectColor.value === '') {
+      selectColor.value = 'color'
+    } else if (selectSize.value === '') {
+      selectSize.value = 'size'
+    } else if (selectMaterial.value === '') {
+      selectMaterial.value = 'material'
+    }
+  }
+
+  const deleteOption = (option) => {
+    if (option === 'color') {
+      selectColor.value = ''
+    }
+    if (option === 'size') {
+      selectSize.value = ''
+    }
+    if (option === 'material') {
+      selectMaterial.value = ''
+    }
   }
 
   const onSubmit = handleSubmit((values) => {
@@ -166,7 +192,55 @@
               </CardCustom>
             </div>
             <div class="col-span-4">
-              <CardCustom title="Product Variants"> </CardCustom>
+              <CardCustom title="Product Variants">
+                <div v-if="selectColor === 'color'">
+                  <div>
+                    <label> Option name: </label>
+                    <FormCustomInput :name="'color'" :placeholder="'Color'" />
+                  </div>
+                  <div>
+                    <label>Option values</label>
+                    <FormCustomInput :name="'colorValue'" :placeholder="'Red'" />
+                  </div>
+                  <div class="mt-3 flex justify-between">
+                    <BaseBtn label="Delete" @click="deleteOption('color')" />
+                    <BaseBtn label="Done" />
+                  </div>
+                </div>
+                <div v-if="selectColor && selectSize === 'size'">
+                  <div>
+                    <label>Option name:</label>
+                    <FormCustomInput :name="'size'" :placeholder="'Size'" />
+                  </div>
+                  <div>
+                    <label>Option values</label>
+                    <FormCustomInput :name="'sizeValue'" :placeholder="'Medium'" />
+                  </div>
+                  <div class="mt-3 flex justify-center">
+                    <BaseBtn label="Delete" @click="deleteOption('size')" />
+                    <BaseBtn label="Done" />
+                  </div>
+                </div>
+                <div v-if="selectColor && selectSize && selectMaterial === 'material'">
+                  <div>
+                    <label>Option nameL:</label>
+                    <FormCustomInput :name="'material'" :placeholder="'Material'" />
+                  </div>
+                  <div>
+                    <label>Option values</label>
+                    <FormCustomInput :name="'materialValue'" :placeholder="'Rubber'" />
+                  </div>
+                  <div class="mt-3 flex justify-center">
+                    <BaseBtn label="Delete" @click="deleteOption('material')" />
+                    <BaseBtn label="Done" />
+                  </div>
+                </div>
+                <Button
+                  v-show="!selectColor || !selectSize || !selectMaterial"
+                  @click="addVariant(options)"
+                  >Add
+                </Button>
+              </CardCustom>
             </div>
           </div>
           <BaseBtn label="Cancel" @click="toggleProductModal" />
