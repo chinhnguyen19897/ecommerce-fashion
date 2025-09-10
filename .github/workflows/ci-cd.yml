@@ -1,0 +1,66 @@
+name: CI/CD Nuxt SSR
+
+on:
+  push:
+    branches:
+      - dev
+      - main
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - run: yarn install
+      - run: yarn lint
+      - run: yarn test
+
+      - name: Setup environment
+        run: |
+          if ["${GITHUB_REF##*/}" = "main" ]; then
+            echo "API_URL=${{ secrets.API_URL_PROD }}" >>.env.production
+          echo "API_KEY=${{ secrets.API_KEY }}" >> .env.production
+                      echo "DEBUG=false" >> .env.production
+                      export NODE_ENV=production
+                    else
+                      export NODE_ENV=development
+                    fi
+      - run: yarn build
+
+      - name: Upload artifacts
+      - uses: actions/upload-artifact@v3
+        with:
+          name: nuxt-build
+          path: .nuxt/
+
+  deploy:
+    needs: build-test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          name: nuxt-build
+          path: ./nuxt-artifact
+
+      - name: Deploy to EC2 via SSH
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_KEY }}
+          script: |
+            cd /var/www/ecommerce-fashion
+            # Copy artifact
+            rm -rf .nuxt/*
+            cp -r ./nuxt-artifact/. .nuxt/
+            npm install --production
+            # Restart app with PM2
+            pm2 restart nuxt-app || pm2 start npm --name "nuxt-app" -- run start
