@@ -12,23 +12,19 @@
           placeholder
         />
       </div>
-      <div class="flex flex-col w-full gap-2">
-        <h5 class="text-[#3E3E3E] font-light text-xl uppercase">
+      <div class="flex w-full flex-col gap-2">
+        <h5 class="text-xl font-light uppercase text-[#3E3E3E]">
           {{ product.product.name }}
         </h5>
-        <p class="text-[#757575] text-base font-light flex items-center">
-          {{
-            product?.quantity +
-            " X " +
-            formatCurrency(Number(product?.product?.price))
-          }}
+        <p class="flex items-center text-base font-light text-[#757575]">
+          {{ product?.quantity + ' X ' + formatCurrency(Number(product?.product?.price)) }}
         </p>
       </div>
     </div>
   </div>
-  <div class="table table-auto w-full">
+  <div class="table w-full table-auto">
     <div class="table-row-group">
-      <div class="table-row mb-3">
+      <div class="mb-3 table-row">
         <div class="table-cell pb-3 text-left">
           <span class="text-[#757575]">Subtotal</span>
         </div>
@@ -36,7 +32,7 @@
           <span class="text-[#757575]">{{ formatCurrency(totalPrice) }}</span>
         </div>
       </div>
-      <div class="table-row mb-3">
+      <div class="mb-3 table-row">
         <div class="table-cell pb-3 text-left">
           <span class="text-[#757575]">Voucher</span>
         </div>
@@ -44,7 +40,7 @@
           <span class="text-[#757575]"></span>
         </div>
       </div>
-      <div class="table-row mb-3">
+      <div class="mb-3 table-row">
         <div class="table-cell pb-3 text-left">
           <span class="text-[#757575]">Shipping</span>
         </div>
@@ -52,7 +48,7 @@
           <span class="text-[#757575]"></span>
         </div>
       </div>
-      <div class="table-row font-bold mt-3">
+      <div class="mt-3 table-row font-bold">
         <div class="table-cell pt-3 text-left">
           <span class="text-[#3E3E3E]">Total</span>
         </div>
@@ -65,15 +61,15 @@
 </template>
 
 <script setup>
-defineProps({
-  cartData: {
-    type: Array,
-    require: true,
-  },
-  totalPrice: {
-    type: Number,
-  },
-});
+  defineProps({
+    cartData: {
+      type: Array,
+      require: true
+    },
+    totalPrice: {
+      type: Number
+    }
+  })
 </script>
 
 <style lang="scss" scoped></style>

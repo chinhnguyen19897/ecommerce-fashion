@@ -74,7 +74,7 @@
           <BaseInput v-model="loginInput.password" :placeholder="'Password'" :type="'password'" />
         </FormError>
 
-        <BaseBtn :loading="loading" label="Sign In" @click="submitForm"> </BaseBtn>
+        <BaseBtn :loading="loading" label="Sign In" @click="submitForm" />
         <p class="text-gray-700 sm:text-stat text-center text-sm font-normal dark:text-gray-500">
           Don't have an account?
           <NuxtLink class="text-indigo-500 hover:text-brand-600 font-semibold" to="/auth/signup"

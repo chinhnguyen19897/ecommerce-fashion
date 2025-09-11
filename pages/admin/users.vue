@@ -1,21 +1,20 @@
 <script setup>
-definePageMeta({
-  layout: "admin",
-});
+  definePageMeta({
+    layout: 'admin'
+  })
 
-const userStore = useUserStore();
-const {userData, userError} = storeToRefs(userStore);
+  const userStore = useUserStore()
+  const { userData, userError } = storeToRefs(userStore)
 
-const {$isAuthenticated} = useNuxtApp();
+  const { $isAuthenticated } = useNuxtApp()
 
-await userStore.fetchUsers();
+  await userStore.fetchUsers()
 </script>
 
 <template>
   <div class="h-screen">
-    <div class="flex justify-end mb-4 pt-4">
-    </div>
+    <div class="mb-4 flex justify-end pt-4"></div>
     {{ $isAuthenticated(userError) }}
-    <UserTable :userData="userData"/>
+    <UserTable :user-data="userData" />
   </div>
 </template>

@@ -22,16 +22,16 @@
         <div class="flex justify-between">
           <BaseInputNumber
             v-model="product.quantity"
-            :iconClass="[cartPage ? 'size-6' : 'size-4']"
-            :iconClassMinus="[cartPage ? 'size-6' : 'size-4']"
-            :inputClass="[cartPage ? 'text-lg h-[56px]' : 'text-xs', 'h-[35px]']"
+            :icon-class="[cartPage ? 'size-6' : 'size-4']"
+            :icon-class-minus="[cartPage ? 'size-6' : 'size-4']"
+            :input-class="[cartPage ? 'text-lg h-[56px]' : 'text-xs', 'h-[35px]']"
             :max="10"
-            :maxWidth="[cartPage ? '150px' : '100px']"
+            :max-width="[cartPage ? '150px' : '100px']"
             :min="1"
             aria-label="Quantity"
           />
           <div class="flex cursor-pointer items-center gap-2 text-xs text-[#929292] underline">
-            <TrashIcon :iconClass="[cartPage ? 'size-6' : 'size-4']" />
+            <TrashIcon :icon-class="[cartPage ? 'size-6' : 'size-4']" />
             <span :class="[cartPage ? 'text-lg' : 'text-sm']">Delete</span>
           </div>
         </div>

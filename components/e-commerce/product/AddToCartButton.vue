@@ -1,14 +1,14 @@
 <script setup>
-const props = defineProps({
-  disabled: { type: Boolean, default: false },
-});
-const isLoading = ref(false);
+  const props = defineProps({
+    disabled: { type: Boolean, default: false }
+  })
+  const isLoading = ref(false)
 </script>
 
 <template>
   <button
     type="submit"
-    class="flex bg-[#8B4513] text-white text-center text-lg font-lato uppercase font-normal tracking-[2px] p-2.5 gap-4 items-center justify-center focus:outline-none"
+    class="flex items-center justify-center gap-4 bg-[#8B4513] p-2.5 text-center font-lato text-lg font-normal uppercase tracking-[2px] text-white focus:outline-none"
     :class="{ disabled: false }"
     :disabled="disabled"
   >
@@ -19,12 +19,12 @@ const isLoading = ref(false);
 </template>
 
 <style lang="postcss" scoped>
-button {
-  outline: none !important;
-  transition: all 150ms ease-in;
-}
+  button {
+    outline: none !important;
+    transition: all 150ms ease-in;
+  }
 
-button.disabled {
-  @apply cursor-not-allowed bg-gray-400;
-}
+  button.disabled {
+    @apply cursor-not-allowed bg-gray-400;
+  }
 </style>

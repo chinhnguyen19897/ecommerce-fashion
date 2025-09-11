@@ -7,19 +7,15 @@
     stroke="currentColor"
     :class="iconClass"
   >
-    <path
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      d="M6 18 18 6M6 6l12 12"
-    />
+    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
   </svg>
 </template>
 
 <script setup>
-defineProps({
-  iconClass: {
-    type: String,
-    default: "size-6",
-  },
-});
+  defineProps({
+    iconClass: {
+      type: String,
+      default: 'size-6'
+    }
+  })
 </script>

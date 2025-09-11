@@ -8,35 +8,35 @@
       default: () => []
     }
     open: {
-      type: Boolean
+      type: boolean
       default: false
     }
     router: {
-      type: Object
+      type: object
       required: true
     }
   }>()
 </script>
 
 <template>
-  <DrawerCustom v-model:modelValue="props.open" side="right" title="Cart" width="w-[400px]">
+  <DrawerCustom v-model:model-value="props.open" side="right" title="Cart" width="w-[400px]">
     <template #default>
       <div>
-        <CartCard :cartData="props?.cartData" />
+        <CartCard :cart-data="props?.cartData" />
       </div>
     </template>
-    <template v-slot:footer>
+    <template #footer>
       <div class="flex flex-col gap-4">
         <div>
           <BaseBtn
-            btnClass="bg-[#8B4513] rounded-0 w-full text-white text-center text-lg font-lato uppercase font-normal"
+            btn-class="bg-[#8B4513] rounded-0 w-full text-white text-center text-lg font-lato uppercase font-normal"
             label="View To Cart"
             @click="props.router.push('/cart')"
           />
         </div>
         <div>
           <BaseBtn
-            btnClass="bg-[#8B4513] rounded-0 w-full text-white text-center text-lg font-lato uppercase font-normal"
+            btn-class="bg-[#8B4513] rounded-0 w-full text-white text-center text-lg font-lato uppercase font-normal"
             label="Check Out"
             @click="props.router.push('/checkout')"
           />

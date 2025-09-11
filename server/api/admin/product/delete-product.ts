@@ -1,30 +1,25 @@
-import prisma from "~/lib/prisma";
-import {deleteProductSchema} from "./modules/validateProduct";
-import {withAuth} from "~/utils/withAuth";
+import prisma from '~/lib/prisma'
+import { deleteProductSchema } from './modules/validateProduct'
+import { withAuth } from '~/utils/withAuth'
 
 export default withAuth(async (event) => {
+  const { id } = await readBody(event)
 
-  const {id} = await readBody(event)
-
-  const result = deleteProductSchema.safeParse({id,})
+  const result = deleteProductSchema.safeParse({ id })
 
   if (!result.success) {
     throw createError({
       statusCode: 400,
       statusMessage: 'Validation Failed',
-      data: result.error.flatten(),
+      data: result.error.flatten()
     })
-
   }
-
 
   const product = await prisma.product.delete({
     where: {
       id: id
     }
-
   })
 
-
-  return {message: 'product deleted successfully'};
+  return { message: 'product deleted successfully' }
 })

@@ -1,10 +1,9 @@
-import prisma from "~/lib/prisma";
-import { categorySchema } from "./modules/validateCategory";
-import { withAuth } from "~/utils/withAuth";
+import prisma from '~/lib/prisma'
+import { categorySchema } from './modules/validateCategory'
+import { withAuth } from '~/utils/withAuth'
 
 export default withAuth(async (event) => {
-
-  const { name,id } = await readBody(event)
+  const { name, id } = await readBody(event)
 
   const result = categorySchema.safeParse({ name })
 
@@ -12,24 +11,18 @@ export default withAuth(async (event) => {
     throw createError({
       statusCode: 400,
       statusMessage: 'Validation Failed',
-      data: result.error.flatten(),
+      data: result.error.flatten()
     })
-
   }
 
-
-
   const category = await prisma.category.update({
-    where:{
-      id:id
+    where: {
+      id: id
     },
     data: {
-      name:name,
-
+      name: name
     }
   })
 
-
-
-  return { message: 'Category updated successfully', category };
+  return { message: 'Category updated successfully', category }
 })

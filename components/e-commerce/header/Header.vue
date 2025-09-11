@@ -9,7 +9,7 @@
     :class="[
       'mx-auto px-[42px] py-4',
       props.extraTopPadding
-        ? 'text-white absolute top-0 z-10 w-full bg-transparent'
+        ? 'absolute top-0 z-10 w-full bg-transparent text-white'
         : 'bg-white text-primary'
     ]"
   >

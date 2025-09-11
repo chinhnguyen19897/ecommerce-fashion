@@ -1,37 +1,26 @@
 <script lang="ts" setup>
-import StarRating from "~/components/e-commerce/product/StarRating.vue";
+  import StarRating from '~/components/e-commerce/product/StarRating.vue'
 
-const props = defineProps(["productData"]);
-const imgWidth = 315;
-const imgHeight = Math.round(imgWidth * 1.125);
-const config = useRuntimeConfig();
+  const props = defineProps(['productData'])
+  const imgWidth = 315
+  const imgHeight = Math.round(imgWidth * 1.125)
+  const config = useRuntimeConfig()
 
-const FALL_BACK_IMG_URL = config?.public?.FALL_BACK_IMG_URL;
+  const FALL_BACK_IMG_URL = config?.public?.FALL_BACK_IMG_URL
 </script>
 
 <template>
-  <div
-    v-for="product in productData?.products"
-    :key="product?.id"
-    class="relative group"
-  >
-    <NuxtLink
-      :title="product?.name"
-      :to="`/product/${product?.slug}`"
-    >
+  <div v-for="product in productData?.products" :key="product?.id" class="group relative">
+    <NuxtLink :title="product?.name" :to="`/product/${product?.slug}`">
       <NuxtImg
         :alt="product?.name"
         :height="imgHeight"
         :loading="'lazy'"
         :sizes="`sm:${imgWidth / 2}px md:${imgWidth}px`"
-        :src="
-          product?.images?.length > 0
-            ? product?.images[0]?.url
-            : FALL_BACK_IMG_URL
-        "
+        :src="product?.images?.length > 0 ? product?.images[0]?.url : FALL_BACK_IMG_URL"
         :title="product?.name"
         :width="imgWidth"
-        class="rounded-lg object-top object-cover w-full aspect-9/8"
+        class="aspect-9/8 w-full rounded-lg object-cover object-top"
         placeholder-class="blur-xl"
       />
     </NuxtLink>

@@ -1,11 +1,5 @@
 <script lang="ts" setup>
   import { useCartStore } from '~/stores/e-commerce/cart-store'
-
-  const props = defineProps<{
-    title?: string
-    description?: string
-    products?: any[]
-  }>()
   import { useNuxtApp } from '#app'
   import CartIcon from '@/components/icons/CartIcon.vue'
   import CartDrawer from '~/components/e-commerce/cart/CartDrawer.vue'
@@ -13,6 +7,12 @@
   import WishlistIcon from '~/components/icons/WishlistIcon.vue'
   import ViewIcon from '~/components/icons/ViewIcon.vue'
   import a from 'ansis'
+
+  const props = defineProps<{
+    title?: string
+    description?: string
+    products?: any[]
+  }>()
   const router = useRouter()
   const { $gsap } = useNuxtApp()
   const products = [
@@ -142,11 +142,11 @@
             </div>
             <div class="absolute inset-0 flex items-center justify-center">
               <BaseBtn
-                :iconBtn="CartIcon"
-                :iconProps="{ color: '#FFFFFF', size: 24 }"
+                :icon-btn="CartIcon"
+                :icon-props="{ color: '#FFFFFF', size: 24 }"
                 :label="!showCartBtn ? 'Add To Cart' : 'View Cart'"
                 :loading="loading"
-                btnClass="flex items-center justify-center gap-8 bg-[#8B4513] rounded-none tracking-[2px] w-full !p-4 text-white text-center text-lg font-lato uppercase font-normal"
+                btn-class="flex items-center justify-center gap-8 bg-[#8B4513] rounded-none tracking-[2px] w-full !p-4 text-white text-center text-lg font-lato uppercase font-normal"
                 class="w-full max-w-[90%] translate-y-56 transform opacity-0 transition-all duration-300 group-hover:translate-y-48 group-hover:opacity-100"
                 @click="!showCartBtn ? addToCart(product.id) : navigateCart()"
               />
@@ -155,7 +155,7 @@
         </div>
         <div>
           <BaseBtn
-            btnClass="!p-3 bg-[#8B4513] max-w-[150px] w-full uppercase text-[#fff] font-regular text-base rounded-none flex items-center justify-center !gap-5"
+            btn-class="!p-3 bg-[#8B4513] max-w-[150px] w-full uppercase text-[#fff] font-regular text-base rounded-none flex items-center justify-center !gap-5"
             label="SEE MORE"
           />
         </div>

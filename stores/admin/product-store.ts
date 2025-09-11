@@ -1,10 +1,10 @@
-import {defineStore} from "pinia";
+import { defineStore } from 'pinia'
 
 export const useProductStore = defineStore('product-store', () => {
   const productInput = ref({
     id: null,
-    name: "",
-    color: "",
+    name: '',
+    color: '',
     categoryId: null,
     price: 0
   })
@@ -12,7 +12,7 @@ export const useProductStore = defineStore('product-store', () => {
   const productColors = ref(['red', 'black', 'white', 'green', 'blue', 'yellow', 'orange', 'gray'])
 
   const edit = ref(false)
-  const search = ref("")
+  const search = ref('')
   const productData = ref<any>(null)
   const page = ref(1)
   const limit = ref(10)
@@ -23,7 +23,7 @@ export const useProductStore = defineStore('product-store', () => {
   const headers = useHeaders()
 
   async function fetchProducts() {
-    const {data, refresh} = await useFetch("/api/admin/product/get-products", {
+    const { data, refresh } = await useFetch('/api/admin/product/get-products', {
       headers: {
         ...headers
       },
@@ -39,13 +39,13 @@ export const useProductStore = defineStore('product-store', () => {
   }
 
   async function deleteProduct(id: number) {
-    const res = await $fetch<{ message: string }>("api/admin/product/delete-product", {
+    const res = await $fetch<{ message: string }>('api/admin/product/delete-product', {
       headers: {
         ...headers
       },
       method: 'DELETE',
-      body: JSON.stringify({id: id})
-    });
+      body: JSON.stringify({ id: id })
+    })
     successMsg(res?.message)
   }
 
@@ -57,23 +57,20 @@ export const useProductStore = defineStore('product-store', () => {
   function uploadImagePayload(productId: number, file: string) {
     return new Promise((resolve, reject) => {
       try {
-        const formData = new FormData();
+        const formData = new FormData()
 
         // formData.append("Authorization", headers?.Authorization);
-        formData.append("file", file);
-        formData.append("productId", productId.toString());
-
+        formData.append('file', file)
+        formData.append('productId', productId.toString())
 
         const requestOptions = {
           headers: {
             ...headers
           },
-          method: "POST",
-          body: formData,
-        };
+          method: 'POST',
+          body: formData
+        }
         resolve(requestOptions)
-
-
       } catch (error) {
         reject(error)
       }

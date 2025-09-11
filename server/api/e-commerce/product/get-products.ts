@@ -1,5 +1,5 @@
-import prisma from "~/lib/prisma";
-import {isArray} from "lodash-es"
+import prisma from '~/lib/prisma'
+import { isArray } from 'lodash-es'
 
 export default defineEventHandler(async (event) => {
   const query = getQuery(event)
@@ -9,26 +9,37 @@ export default defineEventHandler(async (event) => {
 
   const filters = []
 
-  const categories = isArray(query?.categories) ? query?.categories : (query?.categories as string || '').split(',').map(Number).filter(i => i > 0)
-  const colors = isArray(query?.colors) ? query?.colors : (query?.colors as string || '').split(',').filter(i => i !== '')
-  const prices = isArray(query?.prices) ? query?.prices : (query?.prices as string || '').split(',').map(Number).filter(i => i > 0)
+  const categories = isArray(query?.categories)
+    ? query?.categories
+    : ((query?.categories as string) || '')
+        .split(',')
+        .map(Number)
+        .filter((i) => i > 0)
+  const colors = isArray(query?.colors)
+    ? query?.colors
+    : ((query?.colors as string) || '').split(',').filter((i) => i !== '')
+  const prices = isArray(query?.prices)
+    ? query?.prices
+    : ((query?.prices as string) || '')
+        .split(',')
+        .map(Number)
+        .filter((i) => i > 0)
 
   if (categories.length > 0) {
-    filters.push({categoryId: {in: categories}})
+    filters.push({ categoryId: { in: categories } })
   }
 
   if (colors.length > 0) {
-    filters.push({color: {in: colors}})
+    filters.push({ color: { in: colors } })
   }
 
   if (prices.length === 2) {
-    filters.push({price: {gte: prices[0], lte: prices[1]}})
+    filters.push({ price: { gte: prices[0], lte: prices[1] } })
   }
 
   const [products, total] = await Promise.all([
     prisma.product.findMany({
-      where: filters.length > 0 ?
-        {AND: filters} : {},
+      where: filters.length > 0 ? { AND: filters } : {},
       orderBy: {
         createdAt: 'desc'
       },
@@ -47,29 +58,32 @@ export default defineEventHandler(async (event) => {
     }),
 
     prisma.product.count({
-      where: search ? {
-        name: {
-          contains: search,
-          mode: 'insensitive'
-        }
-      } : {}
+      where: search
+        ? {
+            name: {
+              contains: search,
+              mode: 'insensitive'
+            }
+          }
+        : {}
     })
   ])
 
-  const starRatingFilter = query?.starRating ?
-    parseInt(query.starRating.toString()) : NaN
-  const newProductArray = !Number.isNaN(starRatingFilter) ? products.filter(item => {
-    if (isArray(item.stars)) {
-      if (item.stars.length > 0) {
-        if (item.stars[0].receivedStars === (starRatingFilter * item._count.reviews)) {
-          return item
+  const starRatingFilter = query?.starRating ? parseInt(query.starRating.toString()) : NaN
+  const newProductArray = !Number.isNaN(starRatingFilter)
+    ? products.filter((item) => {
+        if (isArray(item.stars)) {
+          if (item.stars.length > 0) {
+            if (item.stars[0].receivedStars === starRatingFilter * item._count.reviews) {
+              return item
+            }
+            if (item.stars[0].receivedStars === starRatingFilter * item._count.reviews + 1) {
+              return item
+            }
+          }
         }
-        if (item.stars[0].receivedStars === ((starRatingFilter * item._count.reviews) + 1)) {
-          return item
-        }
-      }
-    }
-  }) : products
+      })
+    : products
   return {
     products: newProductArray,
     metadata: {

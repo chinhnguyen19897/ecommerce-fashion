@@ -1,14 +1,32 @@
 import prisma from '@/lib/prisma'
-import {orderSchema} from './modules/validateOrder';
+import { orderSchema } from './modules/validateOrder'
 export default defineEventHandler(async (event) => {
-  const { userId, fullName, phoneNumber, email, address, province, wards, totalPrice, items, paymentMethod } =
-    await readBody(event)
-  const result = orderSchema.safeParse({userId, fullName, phoneNumber, email, address,  totalPrice, items})
+  const {
+    userId,
+    fullName,
+    phoneNumber,
+    email,
+    address,
+    province,
+    wards,
+    totalPrice,
+    items,
+    paymentMethod
+  } = await readBody(event)
+  const result = orderSchema.safeParse({
+    userId,
+    fullName,
+    phoneNumber,
+    email,
+    address,
+    totalPrice,
+    items
+  })
   if (!result.success) {
     throw createError({
       statusCode: 400,
       message: 'Missing required fields',
-      data: result.error,
+      data: result.error
     })
   }
 
@@ -34,8 +52,8 @@ export default defineEventHandler(async (event) => {
       items: true
     }
   })
-    const orderNumber = `ORD-${String(order.id).padStart(6, '0')}`
-const updatedOrder = await prisma.order.update({
+  const orderNumber = `ORD-${String(order.id).padStart(6, '0')}`
+  const updatedOrder = await prisma.order.update({
     where: { id: order.id },
     data: { orderNumber }
   })

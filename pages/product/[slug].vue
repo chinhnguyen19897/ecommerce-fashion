@@ -19,7 +19,7 @@
         </div>
         <div class="flex gap-10">
           <ProductPrice
-            :isSingleProductPage="true"
+            :is-single-product-page="true"
             :regular-price="formatCurrency(Number(singleProductData?.products?.price))"
             :sale-price="formatCurrency(Number(singleProductData?.products?.price))"
             class="text-sm"
@@ -44,7 +44,7 @@
             v-for="size in sizes"
             :key="size"
             :class="[
-              'text-white w-full max-w-[64px] cursor-pointer p-3 text-center text-xl',
+              'w-full max-w-[64px] cursor-pointer p-3 text-center text-xl text-white',
               sizeSelected === size ? 'bg-[#8B4513]' : 'bg-[#C7B8B0]'
             ]"
             @click="() => selectSize(size)"
@@ -61,8 +61,8 @@
               :min="1"
               aria-label="Quantity"
               class="mr-6"
-              inputClass="h-[50px]"
-              maxWidth="135px"
+              input-class="h-[50px]"
+              max-width="135px"
             />
             <AddToCartButton
               :class="{ loading: loading.value }"
@@ -76,24 +76,24 @@
     </div>
   </div>
 
-  <DrawerCustom v-model:modelValue="open" side="right" title="Cart" width="w-[400px]">
+  <DrawerCustom v-model:model-value="open" side="right" title="Cart" width="w-[400px]">
     <template #default>
       <div>
-        <CartCard :cartData="cartData" />
+        <CartCard :cart-data="cartData" />
       </div>
     </template>
-    <template v-slot:footer>
+    <template #footer>
       <div class="flex flex-col gap-4">
         <div>
           <BaseBtn
-            btnClass="bg-[#8B4513] rounded-0 w-full text-white text-center text-lg font-lato uppercase font-normal"
+            btn-class="bg-[#8B4513] rounded-0 w-full text-white text-center text-lg font-lato uppercase font-normal"
             label="View To Cart"
             @click="router.push('/cart')"
           />
         </div>
         <div>
           <BaseBtn
-            btnClass="bg-[#8B4513] rounded-0 w-full text-white text-center text-lg font-lato uppercase font-normal"
+            btn-class="bg-[#8B4513] rounded-0 w-full text-white text-center text-lg font-lato uppercase font-normal"
             label="Check Out"
             @click="router.push('/checkout')"
           />

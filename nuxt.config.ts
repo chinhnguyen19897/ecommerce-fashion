@@ -49,7 +49,8 @@ export default defineNuxtConfig({
     'nuxt-nodemailer',
     '@nuxt/image',
     '@nuxt/icon',
-    'nuxt-swiper'
+    'nuxt-swiper',
+    '@nuxt/eslint'
   ],
   css: ['@/assets/css/main.css'],
   shadcn: {

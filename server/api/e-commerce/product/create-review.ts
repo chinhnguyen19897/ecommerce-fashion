@@ -1,12 +1,11 @@
-import prisma from "~/lib/prisma";
-import createProduct from "~/server/api/admin/product/create-product";
-import {reviewSchema} from "~/server/api/e-commerce/product/modules/validateReview";
+import prisma from '~/lib/prisma'
+import createProduct from '~/server/api/admin/product/create-product'
+import { reviewSchema } from '~/server/api/e-commerce/product/modules/validateReview'
 
 export default defineEventHandler(async (event) => {
+  const { userId, starNumber, productId, comment } = await readBody(event)
 
-  const {userId, starNumber, productId, comment} = await readBody(event)
-
-  const result = reviewSchema.safeParse({comment})
+  const result = reviewSchema.safeParse({ comment })
 
   if (!result.success) {
     throw createError({
@@ -66,7 +65,6 @@ export default defineEventHandler(async (event) => {
   return {
     message: 'Review saved successfully'
   }
-
 })
 
 async function createProductStarPercent(productId: number, starNumber: number) {

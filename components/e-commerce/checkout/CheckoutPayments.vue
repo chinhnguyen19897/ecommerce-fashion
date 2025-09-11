@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+  import { RadioGroup } from '~/components/ui/radio-group'
   const props = defineProps<{
     stepIndex: number
     formData: any
@@ -6,7 +7,6 @@
     cartData: any
     paymentMethod: string
   }>()
-  import { RadioGroup } from '~/components/ui/radio-group'
 
   const emit = defineEmits<{
     (e: 'update:paymentMethod', value: string): void

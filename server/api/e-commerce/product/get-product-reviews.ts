@@ -1,4 +1,4 @@
-import prisma from "~/lib/prisma";
+import prisma from '~/lib/prisma'
 
 export default defineEventHandler(async (event) => {
   const query = getQuery(event)
@@ -7,8 +7,8 @@ export default defineEventHandler(async (event) => {
   if (typeof productId === 'undefined') {
     throw createError({
       statusCode: 400,
-      statusMessage: "Validation Error",
-      data: [{message: "ProductId should be a number"}]
+      statusMessage: 'Validation Error',
+      data: [{ message: 'ProductId should be a number' }]
     })
   }
 

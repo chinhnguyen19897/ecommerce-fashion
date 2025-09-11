@@ -1,4 +1,4 @@
-import {gsap} from 'gsap'
+import type {gsap} from 'gsap'
 
 declare module '#app' {
     interface NuxtApp {
