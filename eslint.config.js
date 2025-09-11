@@ -6,6 +6,11 @@ import prettier from 'eslint-plugin-prettier'
 import nuxt from 'eslint-plugin-nuxt'
 
 export default [
+  js.configs.recommended,
+  ...vue.configs['vue3-recommended'],
+  ...ts.configs.recommended,
+  prettier.configs.recommended,
+  nuxt.configs.recommended,
   {
     ignores: ['node_modules', 'dist', '.nuxt'] // bỏ qua thư mục build
   },
@@ -28,12 +33,6 @@ export default [
       nuxt
     },
     rules: {
-      ...js.configs.recommended.rules,
-      ...vue.configs['vue3-recommended'].rules,
-      ...ts.configs.recommended.rules,
-      ...prettier.configs.recommended.rules,
-      ...nuxt.configs.recommended.rules,
-
       // Vue rules
       'vue/multi-word-component-names': 'off',
       'vue/no-v-html': 'off',
