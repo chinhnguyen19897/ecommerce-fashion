@@ -1,37 +1,33 @@
 <script setup>
-import CategoryModal from "~/components/categories/CategoryModal.vue";
+  import CategoryModal from '~/components/categories/CategoryModal.vue'
 
-definePageMeta({
-  layout: "admin",
-});
-const showModal = ref(false);
+  definePageMeta({
+    layout: 'admin'
+  })
+  const showModal = ref(false)
 
-function toggleCategoryModal() {
-  showModal.value = !showModal.value;
-}
+  function toggleCategoryModal() {
+    showModal.value = !showModal.value
+  }
 
-const categoryStore = useCategoryStore()
-const { edit } = storeToRefs(categoryStore)
+  const categoryStore = useCategoryStore()
 
-
-const {data,getCategories}= await categoryStore.fetchCategories()
-
+  const { data, getCategories } = await categoryStore.fetchCategories()
 </script>
 
 <template>
   <div class="h-screen">
-    <div class="flex justify-end mb-4 pt-4">
+    <div class="mb-4 flex justify-end pt-4">
       <BaseBtn label="create" @click="toggleCategoryModal" />
       <ClientOnly>
         <CategoryModal
           :show="showModal"
-          @toggleCategoryModal="toggleCategoryModal"
-          @getCategories="getCategories"
-        ></CategoryModal>
+          @toggle-category-modal="toggleCategoryModal"
+          @get-categories="getCategories"
+        />
       </ClientOnly>
     </div>
 
-    <CategoryTable @editCategory="editCategory" :categories="data?.categories">
-    </CategoryTable>
+    <CategoryTable :categories="data?.categories" @edit-category="editCategory" />
   </div>
 </template>

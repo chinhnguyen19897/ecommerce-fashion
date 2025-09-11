@@ -1,48 +1,42 @@
 <script setup>
-const props = defineProps(["show"]);
-const emit = defineEmits(["getProducts"]);
-const loading = ref(false);
-const image = ref(null);
+  const props = defineProps(['show'])
+  const emit = defineEmits(['getProducts'])
+  const loading = ref(false)
+  const image = ref(null)
 
-const productStore = useProductStore();
-const { productId, showUploadImage } = storeToRefs(productStore);
+  const productStore = useProductStore()
+  const { productId, showUploadImage } = storeToRefs(productStore)
 
-function selectImage(event) {
-  const selectedImage = event.target.files[0];
-  const output = document.querySelector("#outputImage");
-  output.src = URL.createObjectURL(selectedImage);
-  output.onload = function () {
-    URL.revokeObjectURL(selectedImage);
-  };
-  image.value = selectedImage;
-}
-
-async function uploadImage() {
-  try {
-    if (image.value !== null) {
-      loading.value = true;
-      const requestOptions = await productStore.uploadImagePayload(
-        productId.value,
-        image.value,
-      );
-      const res = await $fetch(
-        "/api/admin/product/upload-image",
-        requestOptions,
-      );
-      successMsg(res?.message);
-      document.querySelector("#outputImage").src = "";
-      document.querySelector("#imageInput").value = "";
-      emit("getProducts");
-      showUploadImage.value = false;
-      loading.value = false;
-    } else {
-      showError("Select the Image");
+  function selectImage(event) {
+    const selectedImage = event.target.files[0]
+    const output = document.querySelector('#outputImage')
+    output.src = URL.createObjectURL(selectedImage)
+    output.onload = function () {
+      URL.revokeObjectURL(selectedImage)
     }
-  } catch (error) {
-    showError(error?.message);
-    loading.value = false;
+    image.value = selectedImage
   }
-}
+
+  async function uploadImage() {
+    try {
+      if (image.value !== null) {
+        loading.value = true
+        const requestOptions = await productStore.uploadImagePayload(productId.value, image.value)
+        const res = await $fetch('/api/admin/product/upload-image', requestOptions)
+        successMsg(res?.message)
+        document.querySelector('#outputImage').src = ''
+        document.querySelector('#imageInput').value = ''
+        emit('getProducts')
+        showUploadImage.value = false
+        loading.value = false
+      } else {
+        showError('Select the Image')
+      }
+    } catch (error) {
+      showError(error?.message)
+      loading.value = false
+    }
+  }
 </script>
 <template>
   <BaseModal :show="showUploadImage">
@@ -58,18 +52,9 @@ async function uploadImage() {
     </template>
 
     <template #footer>
-      <BaseBtn
-        class="bg-slate-400"
-        label="Close"
-        @click="showUploadImage = false"
-      ></BaseBtn>
+      <BaseBtn class="bg-slate-400" label="Close" @click="showUploadImage = false" />
 
-      <BaseBtn
-        :label="'Upload Image'"
-        :loading="loading"
-        @click="uploadImage"
-      ></BaseBtn>
+      <BaseBtn :label="'Upload Image'" :loading="loading" @click="uploadImage" />
     </template>
   </BaseModal>
 </template>
-

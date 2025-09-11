@@ -7,7 +7,7 @@
 <template>
   <footer
     :class="[
-      'text-white relative z-0 bg-[#8B4513]',
+      'relative z-0 bg-[#8B4513] text-white',
       props.extraTopPadding ? '-mt-16 pb-12 pt-28 md:-mt-60 md:pt-60' : 'py-12'
     ]"
   >

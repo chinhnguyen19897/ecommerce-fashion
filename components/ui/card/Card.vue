@@ -16,6 +16,6 @@
         : cn('text-card-foreground rounded-xl border bg-card shadow', props.class)
     "
   >
-    <slot />
+    <slot></slot>
   </div>
 </template>

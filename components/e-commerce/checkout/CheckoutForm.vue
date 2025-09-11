@@ -1,28 +1,28 @@
 <template>
   <ClientOnly>
     <StepperForm
-      v-model:stepIndex="stepIndex"
-      :buttonLabel="buttonLabel"
-      :formData="formData"
+      v-model:step-index="stepIndex"
+      :button-label="buttonLabel"
+      :form-data="formData"
       :steps="steps"
-      :validValue="$v"
-      @nextStepForm="nextStepForm"
+      :valid-value="$v"
+      @next-step-form="nextStepForm"
       @submit="submitForm"
     >
       <template #step-content="{ stepIndex, formData, validValue }">
         <div v-if="stepIndex === 1">
-          <ContactPersonForm :formData="formData" :validValue="validValue" />
+          <ContactPersonForm :form-data="formData" :valid-value="validValue" />
         </div>
         <div v-if="stepIndex === 2">
           <CheckoutPayments
-            v-model:paymentMethod="formData.paymentMethod"
-            :cartData="cartData"
-            :formData="formData"
-            :totalPrice="totalPrice"
+            v-model:payment-method="formData.paymentMethod"
+            :cart-data="cartData"
+            :form-data="formData"
+            :total-price="totalPrice"
           />
         </div>
         <div v-if="stepIndex === 3 && paymentData">
-          <ConfirmPayment :orderData="orderData" :paymentData="paymentData" />
+          <ConfirmPayment :order-data="orderData" :payment-data="paymentData" />
         </div>
       </template>
     </StepperForm>

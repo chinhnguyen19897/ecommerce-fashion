@@ -1,4 +1,4 @@
-import {getCookie} from 'h3'
+import { getCookie } from 'h3'
 import prisma from '~/lib/prisma'
 
 export default defineEventHandler(async (event) => {
@@ -7,31 +7,31 @@ export default defineEventHandler(async (event) => {
   if (!cartToken) {
     throw createError({
       statusCode: 400,
-      message: 'Missing cart token',
+      message: 'Missing cart token'
     })
   }
 
   const cart = await prisma.cart.findUnique({
     where: {
-      cartToken: cartToken,
+      cartToken: cartToken
     },
     include: {
       items: {
         include: {
           product: {
             include: {
-              images: true,
+              images: true
             }
           }
-        },
-      },
-    },
+        }
+      }
+    }
   })
 
   if (!cart) {
     return {
       items: [],
-      totalAmount: 0,
+      totalAmount: 0
     }
   }
 
@@ -41,6 +41,6 @@ export default defineEventHandler(async (event) => {
 
   return {
     ...cart,
-    totalAmount,
+    totalAmount
   }
 })

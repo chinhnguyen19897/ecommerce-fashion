@@ -1,23 +1,20 @@
-import type {H3Event} from "h3";
-import {verifyToken} from "@/utils/jwtToken";
+import type { H3Event } from 'h3'
+import { verifyToken } from '@/utils/jwtToken'
 
 export async function authGuard(event: H3Event) {
-  const authHeader = getHeader(event, 'authorization');
+  const authHeader = getHeader(event, 'authorization')
 
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
-
-    throw createError({statusCode: 401, statusMessage: 'Invalid token'});
+    throw createError({ statusCode: 401, statusMessage: 'Invalid token' })
   }
 
-  const token = authHeader.split(' ')[1];
+  const token = authHeader.split(' ')[1]
 
-
-  const verifyTokenData = await verifyToken(token);
+  const verifyTokenData = await verifyToken(token)
 
   if (verifyTokenData?.message === 'invalid_token') {
-
-    throw createError({statusCode: 401, statusMessage: 'Unauthorized'});
+    throw createError({ statusCode: 401, statusMessage: 'Unauthorized' })
   } else {
-    (event.context as any).user = verifyTokenData;
+    ;(event.context as any).user = verifyTokenData
   }
 }

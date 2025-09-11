@@ -6,31 +6,25 @@
           <Logo />
         </div>
         <div class="mb-10">
-          <h1 class="font-normal text-[76px] font-playfair uppercase">
-            Checkout form
-          </h1>
+          <h1 class="font-playfair text-[76px] font-normal uppercase">Checkout form</h1>
         </div>
         <div>
-          <CheckoutForm :cartData="cartData" :totalPrice="totalPrice" />
+          <CheckoutForm :cart-data="cartData" :total-price="totalPrice" />
         </div>
       </div>
       <div class="col-span-4 col-start-9">
         <div class="flex flex-col">
-          <h5 class="mb-10 text-[32px] font-semibold uppercase text-[#3E3E3E]">
-            Order Summary
-          </h5>
+          <h5 class="mb-10 text-[32px] font-semibold uppercase text-[#3E3E3E]">Order Summary</h5>
           <div class="mb-8">
-            <div class="bg-[#EDE5E1] px-4 py-3 flex justify-between">
+            <div class="flex justify-between bg-[#EDE5E1] px-4 py-3">
               <p class="text-base font-normal">
                 Hooray! You have promo code!
-                <a href="#" class="text-[#8B4513] text-base font-normal"
-                  >Use promo code</a
-                >
+                <a href="#" class="text-base font-normal text-[#8B4513]">Use promo code</a>
               </p>
-              <CloseIcon iconClass="size-4" />
+              <CloseIcon icon-class="size-4" />
             </div>
           </div>
-          <CartOrderInfo :cartData="cartData" :totalPrice="totalPrice" />
+          <CartOrderInfo :cart-data="cartData" :total-price="totalPrice" />
         </div>
       </div>
     </div>
@@ -38,14 +32,14 @@
 </template>
 
 <script setup>
-definePageMeta({
-  layout: "checkout",
-});
+  definePageMeta({
+    layout: 'checkout'
+  })
 
-const cartStore = useCartStore();
-const { cartData, totalPrice } = storeToRefs(cartStore);
+  const cartStore = useCartStore()
+  const { cartData, totalPrice } = storeToRefs(cartStore)
 
-await cartStore.fetchCartData();
+  await cartStore.fetchCartData()
 </script>
 
 <style lang="scss" scoped></style>

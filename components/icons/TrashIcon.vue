@@ -16,10 +16,10 @@
 </template>
 
 <script setup>
-defineProps({
-  iconClass: {
-    type: String,
-    default: "size-6",
-  },
-});
+  defineProps({
+    iconClass: {
+      type: String,
+      default: 'size-6'
+    }
+  })
 </script>

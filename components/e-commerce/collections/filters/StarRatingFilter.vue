@@ -1,23 +1,23 @@
 <script setup>
-const productEcomStore = useProductEcommerceStore();
-const { selectedStar } = storeToRefs(productEcomStore);
+  const productEcomStore = useProductEcommerceStore()
+  const { selectedStar } = storeToRefs(productEcomStore)
 
-const isOpen = ref(true);
+  const isOpen = ref(true)
 
-const emit = defineEmits(["fetchProducts"]);
+  const emit = defineEmits(['fetchProducts'])
 
-const radioClicked = (rating) => {
-  selectedStar.value = parseInt(rating);
-  emit("fetchProducts", parseInt(rating));
-};
+  const radioClicked = (rating) => {
+    selectedStar.value = parseInt(rating)
+    emit('fetchProducts', parseInt(rating))
+  }
 </script>
 
 <template>
   <div>
     <div
       :class="[
-        'cursor-pointer flex font-semibold py-4 px-3 hover:bg-[#E8E1D3] transition duration-300 ease-in-out leading-none justify-between items-center',
-        isOpen ? 'bg-[#E8E1D3]' : '',
+        'flex cursor-pointer items-center justify-between px-3 py-4 font-semibold leading-none transition duration-300 ease-in-out hover:bg-[#E8E1D3]',
+        isOpen ? 'bg-[#E8E1D3]' : ''
       ]"
       @click="isOpen = !isOpen"
     >
@@ -28,8 +28,8 @@ const radioClicked = (rating) => {
         name="ion:chevron-down-outline"
       />
     </div>
-    <div v-if="isOpen" class="mt-3 mb-3 text-sm grid text-gray-500 gap-3">
-      <div class="cursor-pointer flex gap-2 items-center">
+    <div v-if="isOpen" class="mb-3 mt-3 grid gap-3 text-sm text-gray-500">
+      <div class="flex cursor-pointer items-center gap-2">
         <input
           id="star-five"
           v-model="selectedStar"
@@ -42,7 +42,7 @@ const radioClicked = (rating) => {
           <StarRating :rating="5" :size="16" />
         </label>
       </div>
-      <div class="cursor-pointer flex gap-2 items-center">
+      <div class="flex cursor-pointer items-center gap-2">
         <input
           id="star-four"
           v-model="selectedStar"
@@ -56,7 +56,7 @@ const radioClicked = (rating) => {
           <span class="ml-1 text-xs">& Up</span>
         </label>
       </div>
-      <div class="cursor-pointer flex gap-2 items-center">
+      <div class="flex cursor-pointer items-center gap-2">
         <input
           id="star-three"
           v-model="selectedStar"
@@ -70,7 +70,7 @@ const radioClicked = (rating) => {
           <span class="ml-1 text-xs">& Up</span>
         </label>
       </div>
-      <div class="cursor-pointer flex gap-2 items-center">
+      <div class="flex cursor-pointer items-center gap-2">
         <input
           id="star-two"
           v-model="selectedStar"
@@ -84,7 +84,7 @@ const radioClicked = (rating) => {
           <span class="ml-1 text-xs">& Up</span>
         </label>
       </div>
-      <div class="cursor-pointer flex gap-2 items-center">
+      <div class="flex cursor-pointer items-center gap-2">
         <input
           id="star-one"
           v-model="selectedStar"

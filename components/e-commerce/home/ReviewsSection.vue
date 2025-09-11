@@ -75,12 +75,12 @@
           <article class="h-full bg-white p-6">
             <header class="flex items-center justify-between">
               <div class="flex items-center">
-                <div class="mr-4 h-12 w-12 rounded-full bg-red-900" />
+                <div class="mr-4 h-12 w-12 rounded-full bg-red-900"></div>
                 <div>
-                  <h3 class="text-gray-800 text-sm font-semibold">
+                  <h3 class="text-sm font-semibold text-gray-800">
                     {{ review.name }}
                   </h3>
-                  <p class="text-gray-500 text-xs">
+                  <p class="text-xs text-gray-500">
                     {{ review.date }}
                   </p>
                 </div>
@@ -94,7 +94,7 @@
                 />
               </div>
             </header>
-            <p class="text-gray-600 mt-4 text-sm">
+            <p class="mt-4 text-sm text-gray-600">
               {{ review.text }}
             </p>
           </article>

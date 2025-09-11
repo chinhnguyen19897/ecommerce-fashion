@@ -4,7 +4,7 @@
       <Logo />
     </div>
     <main class="container mx-auto flex flex-1 items-center px-[42px]" role="main" tabindex="-1">
-      <slot />
+      <slot></slot>
     </main>
   </div>
 </template>

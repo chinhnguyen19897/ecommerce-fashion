@@ -1,12 +1,12 @@
 <script setup>
-definePageMeta({
-  layout: "admin",
-});
+  definePageMeta({
+    layout: 'admin'
+  })
 </script>
 
 <template>
   <div class="h-screen">
-    <h1 class="text-2xl mb-4">Dashboard</h1>
-    <slot />
+    <h1 class="mb-4 text-2xl">Dashboard</h1>
+    <slot></slot>
   </div>
 </template>

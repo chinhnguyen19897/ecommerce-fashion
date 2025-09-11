@@ -1,7 +1,6 @@
 <script setup>
-const productStore = useProductStore();
-const { showUploadedImageModal, uploadProductImages } =
-  storeToRefs(productStore);
+  const productStore = useProductStore()
+  const { showUploadedImageModal, uploadProductImages } = storeToRefs(productStore)
 </script>
 <template>
   <BaseModal :show="showUploadedImageModal">
@@ -22,12 +21,7 @@ const { showUploadedImageModal, uploadProductImages } =
     </template>
 
     <template #footer>
-      <BaseBtn
-        class="bg-slate-400"
-        label="Close"
-        @click="showUploadedImageModal = false"
-      ></BaseBtn>
+      <BaseBtn class="bg-slate-400" label="Close" @click="showUploadedImageModal = false" />
     </template>
   </BaseModal>
 </template>
-

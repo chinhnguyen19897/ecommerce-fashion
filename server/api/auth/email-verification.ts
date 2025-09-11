@@ -1,33 +1,33 @@
-import prisma from "@/lib/prisma";
-import { USER_EMAIL_TYPE } from "~/constants/auth/user.constant";
+import prisma from '@/lib/prisma'
+import { USER_EMAIL_TYPE } from '~/constants/auth/user.constant'
 export default defineEventHandler(async (event) => {
-  const { email, otpCode } = await readBody(event);
+  const { email, otpCode } = await readBody(event)
 
   const userExist = await prisma.user.findUnique({
     where: {
-      email: email,
-    },
-  });
+      email: email
+    }
+  })
 
   if (userExist) {
-    const existingOtpCode = userExist?.otpCode;
+    const existingOtpCode = userExist?.otpCode
 
     if (parseInt(existingOtpCode) === parseInt(otpCode)) {
       const updatedUser = await prisma.user.update({
         where: {
-          email: email,
+          email: email
         },
         data: {
-          isValidEmail: USER_EMAIL_TYPE.VALID_EMAIL,
-        },
-      });
+          isValidEmail: USER_EMAIL_TYPE.VALID_EMAIL
+        }
+      })
 
       return {
-        message: "Your email has been verified successfully",
-        redirect: true,
-      };
+        message: 'Your email has been verified successfully',
+        redirect: true
+      }
     }
   } else {
-    throw createError({ statusCode: 400, message: "Invalid E-mail adress" });
+    throw createError({ statusCode: 400, message: 'Invalid E-mail adress' })
   }
-});
+})

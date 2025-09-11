@@ -1,4 +1,9 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import dotenv from 'dotenv'
+
+dotenv.config({
+  path: `.env.${process.env.NODE_ENV || 'development'}`
+})
 export default defineNuxtConfig({
   compatibilityDate: '2025-05-15',
   ssr: true,
@@ -44,7 +49,8 @@ export default defineNuxtConfig({
     'nuxt-nodemailer',
     '@nuxt/image',
     '@nuxt/icon',
-    'nuxt-swiper'
+    'nuxt-swiper',
+    '@nuxt/eslint'
   ],
   css: ['@/assets/css/main.css'],
   shadcn: {

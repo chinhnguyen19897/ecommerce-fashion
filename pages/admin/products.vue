@@ -69,14 +69,14 @@
   const selectColor = ref('')
   const selectSize = ref('')
   const selectMaterial = ref('')
-  const { handleSubmit, defineField } = useForm({})
+  const { handleSubmit } = useForm({})
 
   function toggleProductModal() {
     showModal.value = !showModal.value
   }
 
-  const categoryStore = useCategoryStore()
-  const { data, getCategories } = await categoryStore.fetchCategories()
+  // const categoryStore = useCategoryStore()
+  // const { data, getCategories } = await categoryStore.fetchCategories()
 
   await productStore.fetchProducts()
 
@@ -150,11 +150,11 @@
         </div>-->
     <div v-if="!showModal">
       <ProductTable
-        :productData="productData"
-        @deleteProduct="deleteProduct"
-        @editProduct="editProduct"
-        @showUploadedImages="showUploadedImages"
-        @uploadImage="uploadImage"
+        :product-data="productData"
+        @delete-product="deleteProduct"
+        @edit-product="editProduct"
+        @show-uploaded-images="showUploadedImages"
+        @upload-image="uploadImage"
       >
         <template #btn>
           <BaseBtn label="create" @click="toggleProductModal" />
@@ -185,8 +185,8 @@
               <CardCustom title="Product categories">
                 <TabsCustom
                   :default-value="'pricing'"
-                  :tabsContent="tabContent"
-                  :tabsList="tabsTrigger"
+                  :tabs-content="tabContent"
+                  :tabs-list="tabsTrigger"
                   :type-tab="'vertical'"
                 />
               </CardCustom>

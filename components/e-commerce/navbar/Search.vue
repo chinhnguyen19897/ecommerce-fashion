@@ -1,22 +1,22 @@
 <script setup>
-const inputValue = ref("");
-function handleChangeInput(e) {
-  inputValue.value = e.target.value;
-}
+  const inputValue = ref('')
+  function handleChangeInput(e) {
+    inputValue.value = e.target.value
+  }
 </script>
 
 <template>
   <div class="relative w-[214px]">
-    <div class="bg-[#FAFAFA absolute z-10 left-2 top-1/2 -translate-y-1/2">
+    <div class="bg-[#FAFAFA absolute left-2 top-1/2 z-10 -translate-y-1/2">
       <SearchIcon />
     </div>
     <input
-      class="pl-8 bg-[#FAFAFA] py-1 w-full placeholder:text-[#B6B6B6] placeholder:text-sm focus:outline-none text-gray-800"
-      name="search"
       id="input-search"
+      class="w-full bg-[#FAFAFA] py-1 pl-8 text-gray-800 placeholder:text-sm placeholder:text-[#B6B6B6] focus:outline-none"
+      name="search"
       :value="inputValue"
-      @change="handleChangeInput"
       placeholder="Search"
+      @change="handleChangeInput"
     />
   </div>
 </template>

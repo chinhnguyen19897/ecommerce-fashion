@@ -14,10 +14,10 @@
 </template>
 
 <script setup>
-defineProps({
-  iconClassMinus: {
-    type: String,
-    default: "size-6",
-  },
-});
+  defineProps({
+    iconClassMinus: {
+      type: String,
+      default: 'size-6'
+    }
+  })
 </script>

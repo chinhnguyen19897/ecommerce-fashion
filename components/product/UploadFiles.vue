@@ -204,7 +204,7 @@
               type="button"
               @click="previewImage = item.uploadedUrl || item.previewUrl"
             >
-              <ViewIcon :iconClass="'text-gray-700 h-4 w-4'" />
+              <ViewIcon :icon-class="'text-gray-700 h-4 w-4'" />
             </button>
             <button
               class="flex items-center justify-center rounded-full bg-red-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-red-700 focus:outline-none"

@@ -14,7 +14,7 @@
       <QuillEditor
         v-model:content="editorData"
         :options="options"
-        contentType="html"
+        content-type="html"
         toolbar="full"
       />
     </div>
