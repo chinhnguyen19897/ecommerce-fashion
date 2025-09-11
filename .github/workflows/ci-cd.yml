@@ -18,7 +18,7 @@ jobs:
           node-version: '20'
 
       - run: yarn install
-      - run: yarn tests
+      - run: yarn test
 
       - name: Setup environment
         run: |
