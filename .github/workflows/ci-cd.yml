@@ -23,18 +23,19 @@ jobs:
 
       - name: Setup environment
         run: |
-          if ["${GITHUB_REF##*/}" = "main" ]; then
-            echo "API_URL=${{ secrets.API_URL_PROD }}" >>.env.production
-          echo "API_KEY=${{ secrets.API_KEY }}" >> .env.production
-                      echo "DEBUG=false" >> .env.production
-                      export NODE_ENV=production
-                    else
-                      export NODE_ENV=development
-                    fi
+          if [ "${GITHUB_REF##*/}" = "main" ]; then
+            echo "API_URL=${{ secrets.API_URL_PROD }}" >> .env.production
+            echo "API_KEY=${{ secrets.API_KEY }}" >> .env.production
+            echo "DEBUG=false" >> .env.production
+            export NODE_ENV=production
+          else
+            export NODE_ENV=development
+          fi
+      
       - run: yarn build
 
       - name: Upload artifacts
-      - uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v3
         with:
           name: nuxt-build
           path: .nuxt/

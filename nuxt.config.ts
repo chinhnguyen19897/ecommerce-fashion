@@ -1,4 +1,9 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import dotenv from 'dotenv'
+
+dotenv.config({
+  path: `.env.${process.env.NODE_ENV || 'development'}`
+})
 export default defineNuxtConfig({
   compatibilityDate: '2025-05-15',
   ssr: true,
