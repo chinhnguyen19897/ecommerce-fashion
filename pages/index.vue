@@ -10,6 +10,9 @@
   </section>
 </template>
 <script lang="ts" setup>
+  import HeroSectionSlide from '~/components/e-commerce/home/HeroSectionSlide.vue'
+  import GalleryCollections from '~/components/e-commerce/home/GalleryCollections.vue'
+  import ProductList from '~/components/e-commerce/home/ProductList.vue'
   import ServiceFeatures from '~/components/e-commerce/home/ServiceFeatures.vue'
   import VideoPromoSection from '~/components/e-commerce/home/VideoPromoSection.vue'
   import ReviewsSection from '~/components/e-commerce/home/ReviewsSection.vue'

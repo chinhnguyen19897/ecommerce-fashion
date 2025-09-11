@@ -115,11 +115,9 @@
   const productEcomStore = useProductEcommerceStore()
   const { singleProductData } = storeToRefs(productEcomStore)
   const productReviewStore = useProductReviewStore()
-  const { productReviews } = storeToRefs(productReviewStore)
   const shoppingCartStore = useCartStore()
-  const { cartData, showCart } = storeToRefs(shoppingCartStore)
+  const { cartData } = storeToRefs(shoppingCartStore)
   productEcomStore.fetchSingleProductData(slug).then(async () => {
-    const categoryId = singleProductData?.value?.products?.categoryId
     const productId = singleProductData?.value?.products?.id
 
     await productReviewStore.fetchProductReviews(productId)

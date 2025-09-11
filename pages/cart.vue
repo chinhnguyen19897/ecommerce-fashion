@@ -5,7 +5,7 @@
     </div>
     <div class="grid grid-cols-12">
       <div class="col-span-8 mx-[4.1667%]">
-        <CartCard :cart-data="cartData" cart-page="true" width-img="140" height-img="187" />
+        <CartCard :cart-data="cartData" cart-page="true" height-img="187" width-img="140" />
         <div class="mt-4">
           <p
             :class="[
@@ -18,8 +18,8 @@
           </p>
           <Textarea
             v-if="showNote"
-            placeholder="Eg: Please double check before packing."
             class="mt-2 h-12 !min-h-8 w-full pt-3"
+            placeholder="Eg: Please double check before packing."
           />
         </div>
       </div>
@@ -29,7 +29,7 @@
           <div class="flex justify-between bg-[#EDE5E1] px-4 py-3">
             <p class="text-base font-normal">
               Hooray! You have promo code!
-              <a href="#" class="text-base font-normal text-[#8B4513]">Use promo code</a>
+              <a class="text-base font-normal text-[#8B4513]" href="#">Use promo code</a>
             </p>
             <CloseIcon icon-class="size-4" />
           </div>
@@ -56,8 +56,6 @@
 </template>
 
 <script setup>
-  const router = useRouter()
-
   const shoppingCartStore = useCartStore()
   const { cartData, totalPrice } = storeToRefs(shoppingCartStore)
   const showNote = ref(false)

@@ -11,7 +11,6 @@
   }
 
   const categoryStore = useCategoryStore()
-  const { edit } = storeToRefs(categoryStore)
 
   const { data, getCategories } = await categoryStore.fetchCategories()
 </script>

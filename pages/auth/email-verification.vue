@@ -1,11 +1,11 @@
-<script setup lang="ts">
+<script lang="ts" setup>
   import VOtpInput from 'vue3-otp-input'
+
   definePageMeta({
     layout: 'auth'
   })
 
   const otpInput = ref<InstanceType<typeof VOtpInput> | null>(null)
-  const bindModal = ref('')
 
   const signUpStore = useSignUpStore()
   const { registerInput } = storeToRefs(signUpStore)
@@ -16,15 +16,7 @@
 
   const handleOnChange = (value: string) => {}
 
-  const clearInput = () => {
-    otpInput.value?.clearInput()
-  }
-
-  const fillInput = (value: string) => {
-    otpInput.value?.fillInput(value)
-  }
   const loading = ref(false)
-  const router = useRouter()
 
   async function verifyEmail() {
     try {
@@ -52,21 +44,20 @@
         <h1 class="mb-3 text-2xl">Email Verification</h1>
         <v-otp-input
           ref="otpInput"
-          v-model:value="bindValue"
-          input-classes="opt-input"
           :conditional-class="['one', 'two', 'three', 'four']"
-          separator=""
-          input-type="letter-numeric"
           :num-inputs="6"
+          :placeholder="['*', '*', '*', '*']"
           :should-auto-focus="true"
           :should-focus-order="true"
-          :placeholder="['*', '*', '*', '*']"
+          input-classes="opt-input"
+          input-type="letter-numeric"
+          separator=""
           @on-change="handleOnChange"
           @on-complete="handleOnComplete"
         />
         <BaseBtn
-          class="w-[100%]"
           :loading="loading"
+          class="w-[100%]"
           label="Verify your Email Address"
           @click="verifyEmail"
         />
@@ -87,14 +78,17 @@
     border: 1px solid rgba(0, 0, 0, 0.3);
     text-align: center;
   }
+
   .otp-input.is-complete {
     background-color: #e4e4e4;
   }
+
   .otp-input::-webkit-inner-spin-button,
   .otp-input::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
   }
+
   input::placeholder {
     font-size: 15px;
     text-align: center;

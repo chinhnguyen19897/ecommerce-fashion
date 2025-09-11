@@ -69,14 +69,14 @@
   const selectColor = ref('')
   const selectSize = ref('')
   const selectMaterial = ref('')
-  const { handleSubmit, defineField } = useForm({})
+  const { handleSubmit } = useForm({})
 
   function toggleProductModal() {
     showModal.value = !showModal.value
   }
 
-  const categoryStore = useCategoryStore()
-  const { data, getCategories } = await categoryStore.fetchCategories()
+  // const categoryStore = useCategoryStore()
+  // const { data, getCategories } = await categoryStore.fetchCategories()
 
   await productStore.fetchProducts()
 
