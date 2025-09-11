@@ -1,4 +1,5 @@
-import defineConfig from '@nuxtjs/tailwindcss/config'
+import { defineConfig } from 'eslint/config'
+import js from '@eslint/js'
 
 export default defineConfig([
   {
@@ -48,6 +49,7 @@ export default defineConfig([
     },
     plugins: ['vue', '@typescript-eslint', 'prettier', 'nuxt'],
     extends: [
+      'js.configs.recommended',
       'eslint:recommended',
       'plugin:vue/vue3-recommended',
       'plugin:@typescript-eslint/recommended',
