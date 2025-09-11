@@ -7,8 +7,8 @@ import nuxt from 'eslint-plugin-nuxt'
 
 export default [
   js.configs.recommended,
-  ...vue.configs['vue3-recommended'],
-  ...ts.configs.recommended,
+  vue.configs['vue3-recommended'],
+  ts.configs.recommended,
   prettier.configs.recommended,
   nuxt.configs.recommended,
   {
